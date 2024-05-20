@@ -1,6 +1,7 @@
 package com.project.reservation.entity;
 
 import com.project.reservation.entity.baseentity.BaseEntity;
+import com.project.reservation.model.input.SignForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,6 +50,21 @@ public class User extends BaseEntity implements UserDetails {
     // 파트너기능
     @OneToMany(mappedBy = "owner")
     List<Store> storeList = new ArrayList<>();
+
+
+    // signUpForm 으로부터 User 객체 생성 (비밀번호 암호화 위해 passwordEncoder 넘겨줌)
+    public static User register(SignForm.SignUp form, PasswordEncoder encoder) {
+        return User.builder()
+                .email(form.getEmail())
+                .password(encoder.encode(form.getPassword()))
+                .username(form.getUsername())
+                .phone(form.getPhone())
+                .userType(UserType.CUSTOMER)
+                .registeredDt(LocalDateTime.now())
+                .build();
+    }
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
