@@ -21,9 +21,10 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("**/signup", "**/signin")
-                        .permitAll()
-                        .anyRequest().authenticated()
+//                        .requestMatchers("**/signup", "**/signin")
+//                        .permitAll()
+//                        .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 );
 
         return http.build();
