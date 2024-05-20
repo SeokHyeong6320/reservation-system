@@ -6,7 +6,7 @@ import lombok.Getter;
 public class SignForm {
 
     @Getter
-    public static class SignUp {
+    public static class SignUpForm {
 
         @Email
         @NotBlank
@@ -26,7 +26,7 @@ public class SignForm {
     }
 
     @Getter
-    public static class SignIn {
+    public static class SignInForm {
 
         @Email
         @NotBlank

@@ -1,5 +1,6 @@
 package com.project.reservation.entity;
 
+import com.project.reservation.model.input.StoreForm;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Address {
 
     @Column(name = "store_address")
-    private String address;
+    private String detailAddress;
 
     @Column(name = "store_zipcode")
     private String zipcode;
@@ -27,4 +28,18 @@ public class Address {
 
     @Column(name = "store_lon")
     private Double longitude;
+
+
+
+    public static Address fromForm(StoreForm.AddStoreForm form) {
+
+        StoreForm.Address address = form.getAddress();
+
+        return Address.builder()
+                .detailAddress(address.getDetailAddress())
+                .zipcode(address.getZipcode())
+                .latitude(address.getLatitude())
+                .longitude(address.getLongitude())
+                .build();
+    }
 }

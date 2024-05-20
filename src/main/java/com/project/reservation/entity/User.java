@@ -2,6 +2,7 @@ package com.project.reservation.entity;
 
 import com.project.reservation.entity.baseentity.BaseEntity;
 import com.project.reservation.model.input.SignForm;
+import com.project.reservation.model.input.StoreForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,7 +54,7 @@ public class User extends BaseEntity implements UserDetails {
 
 
     // signUpForm 으로부터 User 객체 생성 (비밀번호 암호화 위해 passwordEncoder 넘겨줌)
-    public static User register(SignForm.SignUp form, PasswordEncoder encoder) {
+    public static User register(SignForm.SignUpForm form, PasswordEncoder encoder) {
         return User.builder()
                 .email(form.getEmail())
                 .password(encoder.encode(form.getPassword()))
@@ -67,6 +68,7 @@ public class User extends BaseEntity implements UserDetails {
     public void enrollPartner() {
         this.userType = UserType.PARTNER;
     }
+
 
 
 
