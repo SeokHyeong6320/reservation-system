@@ -31,7 +31,10 @@ public class StoreDto {
 
     private List<Review> reviews = new ArrayList<>();
 
-    private Address address;
+    private String detailAddress;
+    private String zipcode;
+    private Double latitude;
+    private Double longitude;
 
     private Boolean isAvail;
 
@@ -47,7 +50,10 @@ public class StoreDto {
                 .description(store.getDescription())
                 .star(store.getStar())
                 .reviews(store.getReviews())
-                .address(store.getAddress())
+                .detailAddress(store.getAddress().getDetailAddress())
+                .zipcode(store.getAddress().getZipcode())
+                .latitude(store.getAddress().getLatitude())
+                .longitude(store.getAddress().getLongitude())
                 .isAvail(store.getIsAvail())
                 .build();
     }

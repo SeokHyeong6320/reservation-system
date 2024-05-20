@@ -1,6 +1,8 @@
 package com.project.reservation.entity;
 
 import com.project.reservation.entity.baseentity.BaseEntity;
+import com.project.reservation.model.input.SignForm;
+import com.project.reservation.model.input.StoreForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,5 +49,15 @@ public class Store extends BaseEntity {
     private Boolean isAvail;
 
 
+    public static Store fromForm(StoreForm.AddStoreForm form, User user) {
+        return Store.builder()
+                .owner(user)
+                .name(form.getName())
+                .description(form.getDescription())
+                .star(0)
+                .address(Address.fromForm(form))
+                .isAvail(true)
+                .build();
+    }
 
 }

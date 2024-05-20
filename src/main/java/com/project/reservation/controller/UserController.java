@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.project.reservation.model.input.SignForm.*;
+
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -21,10 +23,14 @@ public class UserController {
     private final UserService userService;
 
 
-    // 회원가입 엔드포인트
+    /**
+     * 회원가입 엔드포인트
+     * @param form : 회원가입 폼
+     * @return : 유저 정보 반환
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> userSignUp(
-            @RequestBody @Validated SignForm.SignUp form
+            @RequestBody @Validated SignUpForm form
     ) {
 
         UserDto userDto = userService.register(form);
