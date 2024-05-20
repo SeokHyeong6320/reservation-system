@@ -64,6 +64,10 @@ public class User extends BaseEntity implements UserDetails {
                 .build();
     }
 
+    public void enrollPartner() {
+        this.userType = UserType.PARTNER;
+    }
+
 
 
     @Override
