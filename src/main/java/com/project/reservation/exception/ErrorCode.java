@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public enum ErrorCode {
-    ;
+    EMAIL_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "already exist email");
 
 
     private final HttpStatus status;
