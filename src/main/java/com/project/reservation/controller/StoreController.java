@@ -13,28 +13,10 @@ import static com.project.reservation.model.input.StoreForm.*;
 import static com.project.reservation.model.response.StoreResponse.*;
 
 @RestController
-@RequestMapping("/partner/{id}/store")
+@RequestMapping("/store")
 @RequiredArgsConstructor
 public class StoreController {
 
-    private final StoreService storeService;
 
-    /**
-     * 상점 추가하는 엔드포인트
-     * @param id : 파트너 아이디
-     * @param form : 상점 등록 폼
-     * @return : 등록한 상점 정보 반환
-     */
-    @PostMapping
-    public ResponseEntity<?> addStore(
-            @PathVariable Long id, @RequestBody AddStoreForm form
-    ) {
-
-        StoreDto storeDto = storeService.addStore(id, form);
-
-        return ResponseEntity.ok(
-                SuccessResponse.of(AddStoreResponse.fromDto(storeDto))
-        );
-    }
 
 }
