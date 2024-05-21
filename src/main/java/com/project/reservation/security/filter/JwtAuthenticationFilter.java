@@ -1,6 +1,6 @@
 package com.project.reservation.security.filter;
 
-import com.project.reservation.security.TokenProvider;
+import com.project.reservation.security.util.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
