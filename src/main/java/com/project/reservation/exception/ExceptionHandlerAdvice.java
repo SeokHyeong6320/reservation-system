@@ -1,6 +1,7 @@
 package com.project.reservation.exception;
 
 import com.project.reservation.model.response.ErrorResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -14,6 +15,13 @@ public class ExceptionHandlerAdvice {
     public ResponseEntity<?> handleCustomException(CustomException e) {
         return ResponseEntity
                 .status(e.getErrorCode().getStatus())
+                .body(ErrorResponse.of(e));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleException(Exception e) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ErrorResponse.of(e));
     }
 

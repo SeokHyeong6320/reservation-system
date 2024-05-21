@@ -37,7 +37,7 @@ public class Store extends BaseEntity {
     private String description;
 
     @Column(name = "store_star")
-    private Integer star;
+    private Double star;
 
     @OneToMany(mappedBy = "store")
     private List<Review> reviews = new ArrayList<>();   // 별점 계산 위한 필드
@@ -54,7 +54,7 @@ public class Store extends BaseEntity {
                 .owner(user)
                 .name(form.getName())
                 .description(form.getDescription())
-                .star(0)
+                .star(0.0)
                 .address(Address.fromForm(form))
                 .isAvail(true)
                 .build();

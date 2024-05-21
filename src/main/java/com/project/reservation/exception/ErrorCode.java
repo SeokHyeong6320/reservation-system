@@ -9,7 +9,9 @@ public enum ErrorCode {
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "couldn't find user"),
 
     PARTNER_ALREADY_ENROLLED(HttpStatus.BAD_REQUEST, "this account already partner"),
-    PARTNER_NOT_ENROLLED(HttpStatus.BAD_REQUEST, "this account is not a partner");
+    PARTNER_NOT_ENROLLED(HttpStatus.BAD_REQUEST, "this account is not a partner"),
+
+    GPS_COORDINATE_INVALID(HttpStatus.BAD_REQUEST, "this is invalid gps coordinate");
 
 
     private final HttpStatus status;

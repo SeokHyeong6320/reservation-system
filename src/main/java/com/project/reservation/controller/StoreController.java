@@ -2,39 +2,77 @@ package com.project.reservation.controller;
 
 import com.project.reservation.dto.StoreDto;
 import com.project.reservation.model.input.StoreForm;
+import com.project.reservation.model.response.PageResponse;
 import com.project.reservation.model.response.StoreResponse;
 import com.project.reservation.model.response.SuccessResponse;
 import com.project.reservation.service.StoreService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.project.reservation.model.input.StoreForm.*;
 import static com.project.reservation.model.response.StoreResponse.*;
 
 @RestController
-@RequestMapping("/partner/{id}/store")
+@RequestMapping("/store")
 @RequiredArgsConstructor
 public class StoreController {
 
     private final StoreService storeService;
 
     /**
-     * 상점 추가하는 엔드포인트
-     * @param id : 파트너 아이디
-     * @param form : 상점 등록 폼
-     * @return : 등록한 상점 정보 반환
+     * 이름 순 상점 리스트 조회
+     * @param pageable
+     * @return PageResponse 형태로 반환
      */
-    @PostMapping
-    public ResponseEntity<?> addStore(
-            @PathVariable Long id, @RequestBody AddStoreForm form
-    ) {
+    @GetMapping(params = "sort=name")
+    public ResponseEntity<?> searchStoreSortByName(Pageable pageable) {
 
-        StoreDto storeDto = storeService.addStore(id, form);
+        Page<StoreInfoResponse> list =   // 순환참조 방지 위해 PageResponse 형태로 반환
+                storeService.sortByName(pageable).map(StoreInfoResponse::fromDto);
 
         return ResponseEntity.ok(
-                SuccessResponse.of(AddStoreResponse.fromDto(storeDto))
+                SuccessResponse.of(PageResponse.of(list))
         );
     }
+
+    /**
+     * 별점 순 상점 리스트 조회
+     * @param pageable
+     * @return PageResponse 형태로 반환
+     */
+    @GetMapping(params = "sort=star")
+    public ResponseEntity<?> searchStoreSortByStar(Pageable pageable) {
+
+        Page<StoreInfoResponse> list = storeService.sortByStar(pageable).map(StoreInfoResponse::fromDto);
+
+        return ResponseEntity.ok(
+                SuccessResponse.of(PageResponse.of(list))
+        );
+    }
+
+    /**
+     *
+     * @param lat,lon  위도,경도
+     * @param pageable
+     * @return PageResponse 형태로 반환
+     */
+    @GetMapping(params = "sort=dist")
+    public ResponseEntity<?> searchStoreSortByDistance(
+            @RequestParam Double lat, @RequestParam Double lon,
+            Pageable pageable) {
+
+        Page<StoreInfoResponse> list = storeService.sortByDistance(lat, lon, pageable).map(StoreInfoResponse::fromDto);
+
+        return ResponseEntity.ok(
+                SuccessResponse.of(PageResponse.of(list))
+        );
+    }
+
 
 }

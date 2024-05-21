@@ -6,10 +6,16 @@ import com.project.reservation.entity.User;
 import com.project.reservation.entity.UserType;
 import com.project.reservation.exception.CustomException;
 import com.project.reservation.model.input.StoreForm;
+import com.project.reservation.repository.StoreQueryRepository;
 import com.project.reservation.repository.StoreRepository;
 import com.project.reservation.repository.UserRepository;
 import com.project.reservation.service.StoreService;
+import com.project.reservation.util.GeoUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +29,7 @@ public class StoreServiceImpl implements StoreService {
     private final StoreRepository storeRepository;
     private final UserRepository userRepository;
 
+    // 상점 추가 기능
     @Override
     public StoreDto addStore(Long id, StoreForm.AddStoreForm form) {
 
@@ -35,6 +42,11 @@ public class StoreServiceImpl implements StoreService {
             throw new CustomException(PARTNER_NOT_ENROLLED);
         }
 
+        // 위도, 경도 값 정상값인지 확인 (정상 값 아닐 경우 에러 발생)
+        GeoUtil.isValidLocation(
+                form.getAddress().getLatitude(), form.getAddress().getLongitude()
+        );
+
         Store newStore = Store.fromForm(form, findUser);
         Store savedStore = storeRepository.save(newStore);
 
@@ -44,4 +56,55 @@ public class StoreServiceImpl implements StoreService {
         // dto로 변환해서 반환
         return StoreDto.fromEntity(savedStore);
     }
+
+    // 이름 순 정렬
+    @Override
+    public Page<StoreDto> sortByName(Pageable pageable) {
+
+        PageRequest pageRequest =
+                PageRequest.of(
+                        pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        Sort.by("name")
+                );
+
+        return toStoreDtoList(pageRequest);
+    }
+
+    // 별점 순 정렬
+    @Override
+    public Page<StoreDto> sortByStar(Pageable pageable) {
+
+        // 별점 높은 순서 대로 정렬
+        PageRequest pageRequest = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "star")
+        );
+
+        return toStoreDtoList(pageRequest);
+    }
+
+    // 거리 순 정렬
+    @Override
+    public Page<StoreDto> sortByDistance(Double lat, Double lon, Pageable pageable) {
+
+        // 위도, 경도 값 정상값인지 확인 (정상 값 아닐 경우 에러 발생)
+        GeoUtil.isValidLocation(lat, lon);
+
+        // QueryDsl을 사용한 custom repository 구현
+        return storeRepository.findSortByDistance(pageable, lat, lon)
+                .map(StoreDto::fromEntity);
+    }
+
+
+    // StoreDto로 변환해 반환하는 코드 중복 제거
+    private Page<StoreDto> toStoreDtoList(PageRequest pageRequest) {
+        return storeRepository.findAll(pageRequest)
+                .map(StoreDto::fromEntity);
+    }
 }
+
+
+
+

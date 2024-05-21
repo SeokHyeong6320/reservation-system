@@ -26,21 +26,46 @@ public class StoreResponse {
         }
     }
 
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class StoreInfoResponse {
+
+        private final String storeName;
+        private final String description;
+
+        private final Double star;
+        private final Boolean isAvail;
+
+        private final Address address;
+
+
+        public static StoreInfoResponse fromDto(StoreDto storeDto) {
+            return StoreInfoResponse.builder()
+                    .storeName(storeDto.getName())
+                    .description(storeDto.getDescription())
+                    .star(storeDto.getStar())
+                    .isAvail(storeDto.getIsAvail())
+                    .address(Address.fromDto(storeDto))
+                    .build();
+        }
+
+    }
+
+
+
+
     @Data
     @AllArgsConstructor
     @Builder
     public static class Address {
         private final String detailAddress;
         private final String zipcode;
-        private final Double latitude;
-        private Double longitude;
 
         public static Address fromDto(StoreDto storeDto) {
             return Address.builder()
                     .detailAddress(storeDto.getDetailAddress())
                     .zipcode(storeDto.getZipcode())
-                    .latitude(storeDto.getLatitude())
-                    .longitude(storeDto.getLongitude())
                     .build();
         }
     }
