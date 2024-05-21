@@ -30,4 +30,21 @@ public class SignResponse {
                     .build();
         }
     }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class SignIn {
+        private final String email;
+        private final String userType;
+        private final String jwt;
+
+        public static SignResponse.SignIn fromDto(UserDto userDto, String jwt) {
+            return SignIn.builder()
+                    .email(userDto.getEmail())
+                    .userType(userDto.getUserType().name())
+                    .jwt(jwt)
+                    .build();
+        }
+    }
 }

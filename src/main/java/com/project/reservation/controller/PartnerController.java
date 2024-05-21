@@ -10,6 +10,7 @@ import com.project.reservation.service.PartnerService;
 import com.project.reservation.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import static com.project.reservation.model.response.PartnerResponse.*;
@@ -28,6 +29,7 @@ public class PartnerController {
      * @param id : 유저 아이디
      * @return : 유저 이메일과 유저타입 반환
      */
+    @PreAuthorize("hasAuthority('CUSTOMER')")
     @PostMapping("/{id}/enroll")
     public ResponseEntity<?> enrollPartner(@PathVariable Long id) {
 
@@ -44,6 +46,7 @@ public class PartnerController {
      * @param form : 상점 등록 폼
      * @return : 등록한 상점 정보 반환
      */
+    @PreAuthorize("hasAuthority('PARTNER')")
     @PostMapping("/{id}/store")
     public ResponseEntity<?> addStore(
             @PathVariable Long id, @RequestBody StoreForm.AddStoreForm form
