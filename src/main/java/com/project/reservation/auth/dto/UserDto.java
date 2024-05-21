@@ -1,8 +1,8 @@
 package com.project.reservation.auth.dto;
 
-import com.project.reservation.store.entity.Store;
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.auth.entity.UserType;
+import com.project.reservation.store.entity.Store;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

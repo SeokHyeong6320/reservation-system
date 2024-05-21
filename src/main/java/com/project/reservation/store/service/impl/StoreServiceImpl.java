@@ -1,14 +1,14 @@
 package com.project.reservation.store.service.impl;
 
-import com.project.reservation.store.dto.StoreDto;
-import com.project.reservation.store.entity.Store;
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.auth.entity.UserType;
+import com.project.reservation.auth.repository.UserRepository;
+import com.project.reservation.common.exception.CustomException;
+import com.project.reservation.common.util.impl.GeoUtil;
+import com.project.reservation.store.dto.StoreDto;
+import com.project.reservation.store.entity.Store;
 import com.project.reservation.store.model.StoreForm;
 import com.project.reservation.store.repository.StoreRepository;
-import com.project.reservation.auth.repository.UserRepository;
-import com.project.reservation.common.util.GeoUtil;
-import com.project.reservation.common.exception.CustomException;
 import com.project.reservation.store.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.project.reservation.common.exception.ErrorCode.*;
+import static com.project.reservation.common.exception.ErrorCode.PARTNER_NOT_ENROLLED;
+import static com.project.reservation.common.exception.ErrorCode.USER_NOT_FOUND;
 
 @Service
 @Transactional

@@ -1,11 +1,11 @@
 package com.project.reservation.auth.controller;
 
+import com.project.reservation.auth.dto.UserDto;
 import com.project.reservation.auth.model.SignForm;
 import com.project.reservation.auth.model.SignResponse;
-import com.project.reservation.auth.dto.UserDto;
+import com.project.reservation.auth.service.SignService;
 import com.project.reservation.common.model.SuccessResponse;
 import com.project.reservation.security.util.TokenProvider;
-import com.project.reservation.auth.service.SignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -57,6 +57,7 @@ public class SignController {
 
         // JWT 반환
         String jwt = tokenProvider.generateToken(
+                userDto.getId(),
                 userDto.getEmail(),
                 // JWT 발행을 위해 userType을 List<String>으로 변환
                 new ArrayList<>(List.of(userDto.getUserType().name()))
