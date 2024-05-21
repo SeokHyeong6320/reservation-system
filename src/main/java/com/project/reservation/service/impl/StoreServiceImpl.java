@@ -10,8 +10,16 @@ import com.project.reservation.repository.StoreRepository;
 import com.project.reservation.repository.UserRepository;
 import com.project.reservation.service.StoreService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static com.project.reservation.exception.ErrorCode.*;
 
@@ -23,6 +31,7 @@ public class StoreServiceImpl implements StoreService {
     private final StoreRepository storeRepository;
     private final UserRepository userRepository;
 
+    // 상점 추가 기능
     @Override
     public StoreDto addStore(Long id, StoreForm.AddStoreForm form) {
 
@@ -44,4 +53,18 @@ public class StoreServiceImpl implements StoreService {
         // dto로 변환해서 반환
         return StoreDto.fromEntity(savedStore);
     }
+
+    // 이름 순 정렬
+    @Override
+    public Page<StoreDto> sortByName(Pageable pageable) {
+
+        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name"));
+
+        return storeRepository.findAll(pageRequest)
+                .map(StoreDto::fromEntity);
+    }
 }
+
+
+
+
