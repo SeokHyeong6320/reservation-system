@@ -58,8 +58,34 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public Page<StoreDto> sortByName(Pageable pageable) {
 
-        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name"));
+        PageRequest pageRequest =
+                PageRequest.of(
+                        pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        Sort.by("name")
+                );
 
+        return toStoreDtoList(pageRequest);
+    }
+
+    // 별점 순 정렬
+    @Override
+    public Page<StoreDto> sortByStar(Pageable pageable) {
+
+        // 별점 높은 순서 대로 정렬
+        PageRequest pageRequest = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "star")
+        );
+
+
+        return toStoreDtoList(pageRequest);
+    }
+
+
+    // StoreDto로 변환해 반환하는 코드 중복 제거
+    private Page<StoreDto> toStoreDtoList(PageRequest pageRequest) {
         return storeRepository.findAll(pageRequest)
                 .map(StoreDto::fromEntity);
     }

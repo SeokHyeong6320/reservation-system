@@ -41,5 +41,20 @@ public class StoreController {
         );
     }
 
+    /**
+     * 별점 순 상점 리스트 조회
+     * @param pageable
+     * @return PageResponse 형태로 반환
+     */
+    @GetMapping(params = "sort=star")
+    public ResponseEntity<?> searchStoreSortByStar(Pageable pageable) {
+
+        Page<StoreInfoResponse> list = storeService.sortByStar(pageable).map(StoreInfoResponse::fromDto);
+
+        return ResponseEntity.ok(
+                SuccessResponse.of(PageResponse.of(list))
+        );
+    }
+
 
 }

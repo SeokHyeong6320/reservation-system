@@ -34,7 +34,7 @@ public class StoreResponse {
         private final String storeName;
         private final String description;
 
-        private final Integer star;
+        private final Double star;
         private final Boolean isAvail;
 
         private final Address address;

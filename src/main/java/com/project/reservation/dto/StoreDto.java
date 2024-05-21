@@ -27,7 +27,7 @@ public class StoreDto {
 
     private String description;
 
-    private Integer star;
+    private Double star;
 
     private List<Review> reviews = new ArrayList<>();
 

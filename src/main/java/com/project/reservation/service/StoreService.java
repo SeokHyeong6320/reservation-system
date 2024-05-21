@@ -12,4 +12,5 @@ public interface StoreService {
     StoreDto addStore(Long id, StoreForm.AddStoreForm form);
 
     Page<StoreDto> sortByName(Pageable pageable);
+    Page<StoreDto> sortByStar(Pageable pageable);
 }
