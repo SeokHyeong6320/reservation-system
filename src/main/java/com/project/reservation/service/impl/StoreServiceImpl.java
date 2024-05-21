@@ -6,9 +6,11 @@ import com.project.reservation.entity.User;
 import com.project.reservation.entity.UserType;
 import com.project.reservation.exception.CustomException;
 import com.project.reservation.model.input.StoreForm;
+import com.project.reservation.repository.StoreQueryRepository;
 import com.project.reservation.repository.StoreRepository;
 import com.project.reservation.repository.UserRepository;
 import com.project.reservation.service.StoreService;
+import com.project.reservation.util.GeoUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,10 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import static com.project.reservation.exception.ErrorCode.*;
 
@@ -43,6 +41,11 @@ public class StoreServiceImpl implements StoreService {
         if (findUser.getUserType() != UserType.PARTNER) {
             throw new CustomException(PARTNER_NOT_ENROLLED);
         }
+
+        // 위도, 경도 값 정상값인지 확인 (정상 값 아닐 경우 에러 발생)
+        GeoUtil.isValidLocation(
+                form.getAddress().getLatitude(), form.getAddress().getLongitude()
+        );
 
         Store newStore = Store.fromForm(form, findUser);
         Store savedStore = storeRepository.save(newStore);
@@ -79,8 +82,19 @@ public class StoreServiceImpl implements StoreService {
                 Sort.by(Sort.Direction.DESC, "star")
         );
 
-
         return toStoreDtoList(pageRequest);
+    }
+
+    // 거리 순 정렬
+    @Override
+    public Page<StoreDto> sortByDistance(Double lat, Double lon, Pageable pageable) {
+
+        // 위도, 경도 값 정상값인지 확인 (정상 값 아닐 경우 에러 발생)
+        GeoUtil.isValidLocation(lat, lon);
+
+        // QueryDsl을 사용한 custom repository 구현
+        return storeRepository.findSortByDistance(pageable, lat, lon)
+                .map(StoreDto::fromEntity);
     }
 
 

@@ -18,12 +18,8 @@ public class SuccessResponse<T> {
         this.message = "Request processed successfully";
     }
 
-
     public static <T> SuccessResponse<T> of(T data) {
         return new SuccessResponse<>(data);
     }
-
-
-
 
 }

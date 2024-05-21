@@ -56,5 +56,23 @@ public class StoreController {
         );
     }
 
+    /**
+     *
+     * @param lat,lon  위도,경도
+     * @param pageable
+     * @return PageResponse 형태로 반환
+     */
+    @GetMapping(params = "sort=dist")
+    public ResponseEntity<?> searchStoreSortByDistance(
+            @RequestParam Double lat, @RequestParam Double lon,
+            Pageable pageable) {
+
+        Page<StoreInfoResponse> list = storeService.sortByDistance(lat, lon, pageable).map(StoreInfoResponse::fromDto);
+
+        return ResponseEntity.ok(
+                SuccessResponse.of(PageResponse.of(list))
+        );
+    }
+
 
 }
