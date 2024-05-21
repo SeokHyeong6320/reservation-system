@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class User extends BaseEntity implements UserDetails {
     List<Store> storeList = new ArrayList<>();
 
 
+
     // signUpForm 으로부터 User 객체 생성 (비밀번호 암호화 위해 passwordEncoder 넘겨줌)
     public static User register(SignForm.SignUpForm form, PasswordEncoder encoder) {
         return User.builder()
@@ -68,8 +70,6 @@ public class User extends BaseEntity implements UserDetails {
     public void enrollPartner() {
         this.userType = UserType.PARTNER;
     }
-
-
 
 
     @Override

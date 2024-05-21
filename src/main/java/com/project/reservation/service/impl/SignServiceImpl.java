@@ -5,8 +5,10 @@ import com.project.reservation.entity.User;
 import com.project.reservation.exception.CustomException;
 import com.project.reservation.model.input.SignForm;
 import com.project.reservation.repository.UserRepository;
+import com.project.reservation.security.TokenProvider;
 import com.project.reservation.service.SignService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,5 +36,26 @@ public class SignServiceImpl implements SignService {
         return UserDto.fromEntity(
                 userRepository.save(User.register(form, passwordEncoder))
         );
+    }
+
+    @Override
+    public UserDto logIn(SignForm.SignInForm form) {
+
+        User findUser = userRepository
+                .findByEmail(form.getEmail())
+                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+
+        // passwordEncoder 통해서 password 검증
+        if(!passwordEncoder.matches(form.getPassword(), findUser.getPassword())) {
+            throw new CustomException(PASSWORD_NOT_MATCH);
+        }
+
+        return UserDto.fromEntity(findUser);
+    }
+
+    @Override
+    public UserDetails loadByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
     }
 }
