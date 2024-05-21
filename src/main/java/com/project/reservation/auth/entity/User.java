@@ -1,8 +1,8 @@
 package com.project.reservation.auth.entity;
 
-import com.project.reservation.store.entity.Store;
-import com.project.reservation.common.entity.BaseEntity;
 import com.project.reservation.auth.model.SignForm;
+import com.project.reservation.common.entity.BaseEntity;
+import com.project.reservation.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,10 @@
 package com.project.reservation.store.model;
 
 import com.project.reservation.store.dto.StoreDto;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
 
 public class StoreResponse {
 

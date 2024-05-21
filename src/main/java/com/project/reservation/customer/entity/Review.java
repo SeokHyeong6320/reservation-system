@@ -1,8 +1,8 @@
 package com.project.reservation.customer.entity;
 
-import com.project.reservation.store.entity.Store;
-import com.project.reservation.common.entity.BaseEntity;
 import com.project.reservation.auth.entity.User;
+import com.project.reservation.common.entity.BaseEntity;
+import com.project.reservation.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

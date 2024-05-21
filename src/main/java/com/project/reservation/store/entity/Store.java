@@ -1,10 +1,10 @@
 package com.project.reservation.store.entity;
 
-import com.project.reservation.common.entity.BaseEntity;
-import com.project.reservation.store.model.StoreForm;
 import com.project.reservation.auth.entity.User;
+import com.project.reservation.common.entity.BaseEntity;
 import com.project.reservation.customer.entity.Reservation;
 import com.project.reservation.customer.entity.Review;
+import com.project.reservation.store.model.StoreForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

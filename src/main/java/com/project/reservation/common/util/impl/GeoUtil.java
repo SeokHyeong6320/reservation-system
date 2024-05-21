@@ -1,4 +1,4 @@
-package com.project.reservation.common.util;
+package com.project.reservation.common.util.impl;
 
 import com.project.reservation.common.exception.CustomException;
 import com.project.reservation.common.exception.ErrorCode;

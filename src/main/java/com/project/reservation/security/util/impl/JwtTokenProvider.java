@@ -1,6 +1,7 @@
 package com.project.reservation.security.util.impl;
 
 import com.project.reservation.auth.service.SignService;
+import com.project.reservation.common.util.EncryptComponent;
 import com.project.reservation.security.util.TokenProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -25,21 +26,23 @@ public class JwtTokenProvider implements TokenProvider {
     @Value("${jwt.token.expired_time}")
     private Long tokenExpireTime;
 
-    // SecretKey는 JwtConfig에 Bean으로 등록
-    private final SecretKey secretKey;
+
+    private final SecretKey secretKey;          // SecretKey는 JwtConfig에 Bean으로 등록
     private final SignService signService;
+    private final EncryptComponent encryptComponent;
 
 
     /**
      * Jwt 생성 로직
      */
     @Override
-    public String generateToken(String email, List<String> roles) {
+    public String generateToken(Long id, String email, List<String> roles) {
 
         Date now = new Date();
         Date expiredDate = new Date(now.getTime() + tokenExpireTime);
 
         return Jwts.builder()
+                .id(encryptComponent.encryptString(id.toString()))
                 .subject(email)
                 .claim(keyRoles, roles)
                 .signWith(secretKey)
@@ -66,6 +69,11 @@ public class JwtTokenProvider implements TokenProvider {
 
         return new UsernamePasswordAuthenticationToken
                 (userDetails, "", userDetails.getAuthorities());
+    }
+
+    @Override
+    public String getPrimaryKey(String token) {
+        return encryptComponent.decryptString(parseClaims(token).getId());
     }
 
 

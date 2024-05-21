@@ -1,8 +1,8 @@
 package com.project.reservation.store.repository.impl;
 
-import com.project.reservation.store.repository.StoreQueryRepository;
-import com.project.reservation.entity.QStore;
+import com.project.reservation.store.entity.QStore;
 import com.project.reservation.store.entity.Store;
+import com.project.reservation.store.repository.StoreQueryRepository;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.Expressions;
@@ -34,6 +34,7 @@ public class StoreQueryRepositoryImpl implements StoreQueryRepository {
                 new OrderSpecifier<>(Order.ASC,
                 Expressions.numberTemplate(
                         Double.class,
+                        // 두 좌표 간 거리 구하는 공식
                         "6371 * acos(cos(radians({0})) * cos(radians({1})) * cos(radians({2}) - radians({3})) + sin(radians({0})) * sin(radians({1})))",
                         lat, store.address.latitude, lon, store.address.longitude));
 

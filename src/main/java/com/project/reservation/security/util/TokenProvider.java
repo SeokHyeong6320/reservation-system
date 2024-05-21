@@ -6,10 +6,12 @@ import java.util.List;
 
 public interface TokenProvider {
 
-    String generateToken(String username, List<String> roles);
+    String generateToken(Long pK, String username, List<String> roles);
 
     boolean validateToken(String token);
 
     Authentication getAuthentication(String token);
+
+    String getPrimaryKey(String token);
 
 }
