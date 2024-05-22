@@ -48,18 +48,26 @@ public class Store extends BaseEntity {
     private Address address;        // 주소값은 임베디드 타입으로 정의
 
     @Column(name = "store_avail")
-    private Boolean isAvail;
+    @Enumerated(value = EnumType.STRING)
+    private StoreStatus status;
 
 
-    public static Store fromForm(StoreForm.AddStoreForm form, User user) {
+    public static Store fromForm(StoreForm form, User user) {
         return Store.builder()
                 .owner(user)
                 .name(form.getName())
                 .description(form.getDescription())
                 .star(0.0)
                 .address(Address.fromForm(form))
-                .isAvail(true)
+                .status(form.getStatus())
                 .build();
+    }
+
+    public void updateStore(StoreForm form) {
+        this.name = form.getName();
+        this.description = form.getDescription();
+        this.status = form.getStatus();
+        this.address.updateAddress(form.getAddress());
     }
 
 }

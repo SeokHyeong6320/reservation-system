@@ -20,7 +20,7 @@ public class PageResponse <T>{
     private final List<T> content;
     private final int pageNumber;
     private final int pageSize;
-    private final int totalElement;
+    private final long totalElement;
     private final int totalPage;
     private final boolean last;
 
@@ -28,7 +28,7 @@ public class PageResponse <T>{
         this.content = page.getContent();
         this.pageNumber = page.getNumber();
         this.pageSize = page.getSize();
-        this.totalElement = page.getNumberOfElements();
+        this.totalElement = page.getTotalElements();
         this.totalPage = page.getTotalPages();
         this.last = page.isLast();
     }

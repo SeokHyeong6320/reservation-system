@@ -18,11 +18,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.project.reservation.common.exception.ErrorCode.PARTNER_NOT_ENROLLED;
-import static com.project.reservation.common.exception.ErrorCode.USER_NOT_FOUND;
+import java.util.Objects;
+
+import static com.project.reservation.common.exception.ErrorCode.*;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class StoreServiceImpl implements StoreService {
 
@@ -31,7 +31,8 @@ public class StoreServiceImpl implements StoreService {
 
     // 상점 추가 기능
     @Override
-    public StoreDto addStore(Long id, StoreForm.AddStoreForm form) {
+    @Transactional
+    public StoreDto addStore(Long id, StoreForm form) {
 
         // 해당 유저가 없으면 에러 발생
         User findUser = userRepository.findById(id)
@@ -59,6 +60,7 @@ public class StoreServiceImpl implements StoreService {
 
     // 이름 순 정렬
     @Override
+    @Transactional(readOnly = true)
     public Page<StoreDto> sortByName(Pageable pageable) {
 
         PageRequest pageRequest =
@@ -73,6 +75,7 @@ public class StoreServiceImpl implements StoreService {
 
     // 별점 순 정렬
     @Override
+    @Transactional(readOnly = true)
     public Page<StoreDto> sortByStar(Pageable pageable) {
 
         // 별점 높은 순서 대로 정렬
@@ -87,6 +90,7 @@ public class StoreServiceImpl implements StoreService {
 
     // 거리 순 정렬
     @Override
+    @Transactional(readOnly = true)
     public Page<StoreDto> sortByDistance(Double lat, Double lon, Pageable pageable) {
 
         // 위도, 경도 값 정상값인지 확인 (정상 값 아닐 경우 에러 발생)
@@ -97,6 +101,30 @@ public class StoreServiceImpl implements StoreService {
                 .map(StoreDto::fromEntity);
     }
 
+    // 올바른 소유자의 상점인지 확인
+    @Override
+    @Transactional(readOnly = true)
+    public void validateStoreOwner(Long ownerId, Long storeId) {
+        Store findStore = storeRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
+        if (!Objects.equals(ownerId, findStore.getOwner().getId())) {
+            throw new CustomException(STORE_OWNER_NOT_MATCH);
+        }
+    }
+
+    // 상점 정보 수정
+    @Override
+    @Transactional
+    public StoreDto updateStore(Long storeId, StoreForm form) {
+
+        Store findStore = storeRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
+        findStore.updateStore(form);
+
+        return StoreDto.fromEntity(findStore);
+    }
 
     // StoreDto로 변환해 반환하는 코드 중복 제거
     private Page<StoreDto> toStoreDtoList(PageRequest pageRequest) {

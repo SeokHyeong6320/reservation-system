@@ -16,6 +16,10 @@ public enum ErrorCode {
     AUTHENTICATION_NOT_MATCH(BAD_REQUEST, "this is wrong user access"),
     TOKEN_INVALID(BAD_REQUEST, "this is invalid token"),
 
+    STORE_NOT_FOUND(BAD_REQUEST, "couldn't find store"),
+    STORE_STATUS_INVALID(BAD_REQUEST, "this is invalid store status type"),
+    STORE_OWNER_NOT_MATCH(BAD_REQUEST, "this store is not owned by current user"),
+
     PARTNER_ALREADY_ENROLLED(BAD_REQUEST, "this account already partner"),
     PARTNER_NOT_ENROLLED(BAD_REQUEST, "this account is not a partner"),
 
