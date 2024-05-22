@@ -53,4 +53,8 @@ public class Reservation extends BaseEntity {
     public void approve() {
         this.approveStatus = ReservationApproveStatus.APPROVE;
     }
+
+    public void decline() {
+        this.approveStatus = ReservationApproveStatus.DECLINE;
+    }
 }

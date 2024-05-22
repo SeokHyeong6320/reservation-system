@@ -29,6 +29,7 @@ public enum ErrorCode {
     RESERVATION_TIME_INVALID(BAD_REQUEST, "this is invalid reservation time"),
     RESERVATION_OWNER_NOT_MATCH(BAD_REQUEST, "this reservation's store is not owned by current user"),
     RESERVATION_ALREADY_APPROVED(BAD_REQUEST, "this reservation is already approved"),
+    RESERVATION_ALREADY_DECLINED(BAD_REQUEST, "this reservation is already declined"),
     RESERVATION_ALREADY_EXPIRED(BAD_REQUEST, "this reservation is already expired"),
 
 
