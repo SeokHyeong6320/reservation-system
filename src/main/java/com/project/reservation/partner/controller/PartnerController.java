@@ -148,4 +148,26 @@ public class PartnerController {
     }
 
 
+    /**
+     * 예약 거절하는 엔드포인트
+     */
+    @PreAuthorize("hasAuthority('PARTNER')")
+    @PostMapping("/reservation/{reservationId}/decline")
+    public ResponseEntity<?> declineReservation(
+            @PathVariable Long id,
+            @PathVariable Long reservationId,
+            @RequestHeader(TOKEN_HEADER) String header
+    ) {
+
+        tokenValidator.validateUser(id, header);
+
+        ReservationDto reservationDto =
+                partnerService.declineReservation(id, reservationId);
+
+        return ResponseEntity.ok(
+                SuccessResponse.of(ReservationResponse.fromDto(reservationDto))
+        );
+    }
+
+
 }

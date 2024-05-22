@@ -70,7 +70,8 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     public ReservationDto confirmReservation(Long id, Long reservationId) {
 
-        Reservation findReservation = reservationRepository.findById(reservationId)
+        Reservation findReservation =
+                reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new CustomException(RESERVATION_NOT_FOUND));
 
         // 예약한 식당의 소유자가 일치하는지 확인
@@ -91,6 +92,34 @@ public class PartnerServiceImpl implements PartnerService {
 
         // 예약 상태를 승인으로 변경
         findReservation.approve();
+
+        return ReservationDto.fromEntity(findReservation);
+    }
+
+    @Override
+    public ReservationDto declineReservation(Long id, Long reservationId) {
+        Reservation findReservation =
+                reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new CustomException(RESERVATION_NOT_FOUND));
+
+        // 예약한 식당의 소유자가 일치하는지 확인
+        Long storeOwnerId = reservationRepository.findStoreOwnerId(reservationId);
+        if (!id.equals(storeOwnerId)) {
+            throw new CustomException(RESERVATION_OWNER_NOT_MATCH);
+        }
+
+        // 예약이 이미 거절된 경우 검증
+        if (findReservation.getApproveStatus() == APPROVE) {
+            throw new CustomException(RESERVATION_ALREADY_DECLINED);
+        }
+
+        // 입장 가능 시간이 지나서 예약이 만료된 경우 검증
+        if(!findReservation.checkTime()) {
+            throw new CustomException(RESERVATION_ALREADY_EXPIRED);
+        }
+
+        // 예약 상태를 거절으로 변경
+        findReservation.decline();
 
         return ReservationDto.fromEntity(findReservation);
     }
