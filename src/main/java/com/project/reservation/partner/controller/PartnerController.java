@@ -12,6 +12,7 @@ import com.project.reservation.store.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import static com.project.reservation.partner.model.PartnerResponse.PartnerEnrollResponse;
@@ -76,7 +77,7 @@ public class PartnerController {
     public ResponseEntity<?> updateStore(
             @PathVariable Long id, @PathVariable Long storeId,
             @RequestHeader(name = TOKEN_HEADER) String header,
-            @RequestBody StoreForm form
+            @RequestBody @Validated StoreForm form
             ) {
 
         tokenValidator.validateUser(id, header);

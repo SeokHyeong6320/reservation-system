@@ -22,6 +22,8 @@ public class ReservationDto {
 
     private Store store;
 
+    private String contactNumber;
+
     private LocalDateTime reserveDt;
 
     private Boolean isApprove;
@@ -37,6 +39,7 @@ public class ReservationDto {
                 .id(reservation.getId())
                 .customer(reservation.getCustomer())
                 .store(reservation.getStore())
+                .contactNumber(reservation.getContactNumber())
                 .reserveDt(reservation.getReserveDt())
                 .isApprove(reservation.getIsApprove())
                 .isVisit(reservation.getIsVisit())
