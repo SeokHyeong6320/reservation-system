@@ -1,8 +1,7 @@
-package com.project.reservation.customer.entity;
+package com.project.reservation.reservation.entity;
 
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.common.entity.BaseEntity;
-import com.project.reservation.customer.model.ReservationForm;
 import com.project.reservation.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,13 +37,14 @@ public class Reservation extends BaseEntity {
     private LocalDateTime reserveDt;
 
     @Column(name = "reserv_approv")
-    private Boolean isApprove;
+    @Enumerated(value = EnumType.STRING)
+    private ReservationApproveStatus approveStatus;
 
-    @Column(name = "reserv_visit")
-    private Boolean isVisit;
+    @Column(name = "reserv_visit_yn")
+    private Boolean visitYn;
 
-    @Column(name = "reserv_visit_dt")
-    private LocalDateTime visitDt;
+    @Column(name = "reserv_visit_avail_dt")
+    private LocalDateTime visitAvailDt;
 
 
 }

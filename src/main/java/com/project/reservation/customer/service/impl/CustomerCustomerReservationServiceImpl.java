@@ -3,12 +3,12 @@ package com.project.reservation.customer.service.impl;
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.auth.repository.UserRepository;
 import com.project.reservation.common.exception.CustomException;
-import com.project.reservation.common.exception.ErrorCode;
-import com.project.reservation.customer.dto.ReservationDto;
-import com.project.reservation.customer.entity.Reservation;
-import com.project.reservation.customer.model.ReservationForm;
-import com.project.reservation.customer.repository.ReservationRepository;
-import com.project.reservation.customer.service.ReservationService;
+import com.project.reservation.reservation.dto.ReservationDto;
+import com.project.reservation.reservation.entity.Reservation;
+import com.project.reservation.reservation.entity.ReservationApproveStatus;
+import com.project.reservation.reservation.model.ReservationForm;
+import com.project.reservation.reservation.repository.ReservationRepository;
+import com.project.reservation.customer.service.CustomerReservationService;
 import com.project.reservation.store.entity.Store;
 import com.project.reservation.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 import static com.project.reservation.common.exception.ErrorCode.*;
+import static com.project.reservation.reservation.entity.ReservationApproveStatus.*;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ReservationServiceImpl implements ReservationService {
+public class CustomerCustomerReservationServiceImpl implements CustomerReservationService {
 
     private final ReservationRepository reservationRepository;
     private final UserRepository userRepository;
@@ -67,9 +68,9 @@ public class ReservationServiceImpl implements ReservationService {
                 .store(store)
                 .contactNumber(form.getContact())
                 .reserveDt(form.getReserveDt())
-                .visitDt(form.getReserveDt().minusMinutes(10))
-                .isApprove(false)
-                .isVisit(false)
+                .visitAvailDt(form.getReserveDt().minusMinutes(10))
+                .approveStatus(PENDING)
+                .visitYn(false)
                 .build();
     }
 }

@@ -1,11 +1,10 @@
 package com.project.reservation.customer.controller;
 
 import com.project.reservation.common.model.SuccessResponse;
-import com.project.reservation.customer.dto.ReservationDto;
-import com.project.reservation.customer.model.ReservationForm;
-import com.project.reservation.customer.model.ReservationResponse;
-import com.project.reservation.customer.service.ReservationService;
-import com.project.reservation.security.constant.SecurityConst;
+import com.project.reservation.reservation.dto.ReservationDto;
+import com.project.reservation.reservation.model.ReservationForm;
+import com.project.reservation.reservation.model.ReservationResponse;
+import com.project.reservation.customer.service.CustomerReservationService;
 import com.project.reservation.security.util.TokenValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +16,9 @@ import static com.project.reservation.security.constant.SecurityConst.*;
 
 @RestController
 @RequiredArgsConstructor
-public class ReservationController {
+public class CustomerReservationController {
 
-    private final ReservationService reservationService;
+    private final CustomerReservationService customerReservationService;
     private final TokenValidator tokenValidator;
 
 
@@ -33,7 +32,7 @@ public class ReservationController {
 
         tokenValidator.validateUser(id, header);
 
-        ReservationDto reservationDto = reservationService.reservation(id, form);
+        ReservationDto reservationDto = customerReservationService.reservation(id, form);
 
         return ResponseEntity.ok(
                 SuccessResponse.of(ReservationResponse.fromDto(reservationDto))

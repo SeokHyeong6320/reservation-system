@@ -1,7 +1,8 @@
-package com.project.reservation.customer.dto;
+package com.project.reservation.reservation.dto;
 
 import com.project.reservation.auth.entity.User;
-import com.project.reservation.customer.entity.Reservation;
+import com.project.reservation.reservation.entity.Reservation;
+import com.project.reservation.reservation.entity.ReservationApproveStatus;
 import com.project.reservation.store.entity.Store;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,11 +27,11 @@ public class ReservationDto {
 
     private LocalDateTime reserveDt;
 
-    private Boolean isApprove;
+    private ReservationApproveStatus approveStatus;
 
-    private Boolean isVisit;
+    private Boolean visitYn;
 
-    private LocalDateTime visitDt;
+    private LocalDateTime visitAvailDt;
 
 
 
@@ -41,9 +42,9 @@ public class ReservationDto {
                 .store(reservation.getStore())
                 .contactNumber(reservation.getContactNumber())
                 .reserveDt(reservation.getReserveDt())
-                .isApprove(reservation.getIsApprove())
-                .isVisit(reservation.getIsVisit())
-                .visitDt(reservation.getVisitDt())
+                .approveStatus(reservation.getApproveStatus())
+                .visitYn(reservation.getVisitYn())
+                .visitAvailDt(reservation.getVisitAvailDt())
                 .build();
     }
 }

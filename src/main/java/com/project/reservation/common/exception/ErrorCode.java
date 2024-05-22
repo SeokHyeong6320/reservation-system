@@ -24,7 +24,8 @@ public enum ErrorCode {
     PARTNER_ALREADY_ENROLLED(BAD_REQUEST, "this account already partner"),
     PARTNER_NOT_ENROLLED(BAD_REQUEST, "this account is not a partner"),
 
-    RESERVATION_DATE_INVALID(BAD_REQUEST, "this is invalid reservation time"),
+    RESERVATION_DATE_INVALID(BAD_REQUEST, "this is invalid reservation date"),
+    RESERVATION_TIME_INVALID(BAD_REQUEST, "this is invalid reservation time"),
 
     GPS_COORDINATE_INVALID(BAD_REQUEST, "this is invalid gps coordinate"),
 
