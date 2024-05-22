@@ -5,7 +5,6 @@ import com.project.reservation.auth.repository.UserRepository;
 import com.project.reservation.common.exception.CustomException;
 import com.project.reservation.reservation.dto.ReservationDto;
 import com.project.reservation.reservation.entity.Reservation;
-import com.project.reservation.reservation.entity.ReservationApproveStatus;
 import com.project.reservation.reservation.model.ReservationForm;
 import com.project.reservation.reservation.repository.ReservationRepository;
 import com.project.reservation.customer.service.CustomerReservationService;
@@ -23,7 +22,7 @@ import static com.project.reservation.reservation.entity.ReservationApproveStatu
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CustomerCustomerReservationServiceImpl implements CustomerReservationService {
+public class CustomerReservationServiceImpl implements CustomerReservationService {
 
     private final ReservationRepository reservationRepository;
     private final UserRepository userRepository;

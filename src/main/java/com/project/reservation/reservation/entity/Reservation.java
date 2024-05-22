@@ -46,5 +46,11 @@ public class Reservation extends BaseEntity {
     @Column(name = "reserv_visit_avail_dt")
     private LocalDateTime visitAvailDt;
 
+    public boolean checkTime() {
+        return !visitAvailDt.isBefore(LocalDateTime.now());
+    }
 
+    public void approve() {
+        this.approveStatus = ReservationApproveStatus.APPROVE;
+    }
 }

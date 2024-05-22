@@ -16,10 +16,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
 
     @Query("select r from Reservation r " +
-//            "join fetch r.store s " +
-//            "join fetch s.owner " +
+            "join r.store s " +
+            "join s.owner o" +
             " where " +
-            "r.store.owner = :owner and " +
+            "o = :owner and " +
             "function('YEAR', r.reserveDt) = :year and " +
             "function('MONTH', r.reserveDt) = :month and " +
             "function('DAY', r.reserveDt) = :day")
@@ -30,6 +30,15 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             @Param("month") int month,
             @Param("day") int day
     );
+
+
+    @Query("select o.id " +
+            " from Reservation r  " +
+            " join r.store s " +
+            " join s.owner o" +
+            " where r.id = :reservationId")
+    @EntityGraph(attributePaths = {"store", "store.owner"})
+    Long findStoreOwnerId(@Param("reservationId") Long reservationId);
 
 }
 

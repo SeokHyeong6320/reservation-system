@@ -7,6 +7,8 @@ import com.project.reservation.auth.repository.UserRepository;
 import com.project.reservation.common.exception.CustomException;
 import com.project.reservation.partner.service.PartnerService;
 import com.project.reservation.reservation.dto.ReservationDto;
+import com.project.reservation.reservation.entity.Reservation;
+import com.project.reservation.reservation.entity.ReservationApproveStatus;
 import com.project.reservation.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.project.reservation.common.exception.ErrorCode.PARTNER_ALREADY_ENROLLED;
-import static com.project.reservation.common.exception.ErrorCode.USER_NOT_FOUND;
+import static com.project.reservation.common.exception.ErrorCode.*;
+import static com.project.reservation.reservation.entity.ReservationApproveStatus.*;
 
 @Service
 @Transactional
@@ -47,6 +49,7 @@ public class PartnerServiceImpl implements PartnerService {
         return UserDto.fromEntity(findUser);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<ReservationDto> getReservationTimeTable(Long id, LocalDate date) {
 
@@ -62,5 +65,33 @@ public class PartnerServiceImpl implements PartnerService {
                 .stream()
                 .map(ReservationDto::fromEntity)
                 .toList();
+    }
+
+    @Override
+    public ReservationDto confirmReservation(Long id, Long reservationId) {
+
+        Reservation findReservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new CustomException(RESERVATION_NOT_FOUND));
+
+        // 예약한 식당의 소유자가 일치하는지 확인
+        Long storeOwnerId = reservationRepository.findStoreOwnerId(reservationId);
+        if (!id.equals(storeOwnerId)) {
+            throw new CustomException(RESERVATION_OWNER_NOT_MATCH);
+        }
+
+        // 예약이 이미 승인된 경우 검증
+        if (findReservation.getApproveStatus() == APPROVE) {
+            throw new CustomException(RESERVATION_ALREADY_APPROVED);
+        }
+
+        // 입장 가능 시간이 지나서 예약이 만료된 경우 검증
+        if(!findReservation.checkTime()) {
+            throw new CustomException(RESERVATION_ALREADY_EXPIRED);
+        }
+
+        // 예약 상태를 승인으로 변경
+        findReservation.approve();
+
+        return ReservationDto.fromEntity(findReservation);
     }
 }
