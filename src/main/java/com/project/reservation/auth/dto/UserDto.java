@@ -45,7 +45,6 @@ public class UserDto {
                 .phone(user.getPhone())
                 .userType(user.getUserType())
                 .registeredDt(user.getRegisteredDt())
-                .storeList(user.getStoreList())
                 .build();
     }
 

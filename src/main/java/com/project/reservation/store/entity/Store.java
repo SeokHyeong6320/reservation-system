@@ -70,4 +70,9 @@ public class Store extends BaseEntity {
         this.address.updateAddress(form.getAddress());
     }
 
+    // 현재 예약 가능한 상태인지 확인
+    public boolean isAvail() {
+        return status == StoreStatus.AVAILABLE;
+    }
+
 }

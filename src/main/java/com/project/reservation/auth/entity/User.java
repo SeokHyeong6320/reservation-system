@@ -2,6 +2,7 @@ package com.project.reservation.auth.entity;
 
 import com.project.reservation.auth.model.SignForm;
 import com.project.reservation.common.entity.BaseEntity;
+import com.project.reservation.customer.entity.Reservation;
 import com.project.reservation.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -48,9 +49,14 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "user_reg_dt")
     private LocalDateTime registeredDt;
 
+    // 예약 리스트
+    @OneToMany(mappedBy = "customer")
+    private List<Reservation> reservationList = new ArrayList<>();
+
+
     // 파트너기능
     @OneToMany(mappedBy = "owner")
-    List<Store> storeList = new ArrayList<>();
+    private List<Store> storeList = new ArrayList<>();
 
 
 

@@ -2,6 +2,7 @@ package com.project.reservation.customer.entity;
 
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.common.entity.BaseEntity;
+import com.project.reservation.customer.model.ReservationForm;
 import com.project.reservation.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,9 @@ public class Reservation extends BaseEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
+    @Column(name = "reserv_contact")
+    private String contactNumber;
+
     @Column(name = "reserv_dt")
     private LocalDateTime reserveDt;
 
@@ -41,4 +45,6 @@ public class Reservation extends BaseEntity {
 
     @Column(name = "reserv_visit_dt")
     private LocalDateTime visitDt;
+
+
 }
