@@ -28,9 +28,13 @@ public enum ErrorCode {
     RESERVATION_DATE_INVALID(BAD_REQUEST, "this is invalid reservation date"),
     RESERVATION_TIME_INVALID(BAD_REQUEST, "this is invalid reservation time"),
     RESERVATION_OWNER_NOT_MATCH(BAD_REQUEST, "this reservation's store is not owned by current user"),
+    RESERVATION_CUSTOMER_NOT_MATCH(BAD_REQUEST, "this reservation is not owned by current user"),
     RESERVATION_ALREADY_APPROVED(BAD_REQUEST, "this reservation is already approved"),
     RESERVATION_ALREADY_DECLINED(BAD_REQUEST, "this reservation is already declined"),
     RESERVATION_ALREADY_EXPIRED(BAD_REQUEST, "this reservation is already expired"),
+    RESERVATION_ALREADY_VISIT(BAD_REQUEST, "this reservation is already visit"),
+    RESERVATION_NOT_APPROVE(BAD_REQUEST, "this reservation is not approved"),
+    RESERVATION_CODE_NOT_MATCH(BAD_REQUEST, "this is wrong code"),
 
 
     GPS_COORDINATE_INVALID(BAD_REQUEST, "this is invalid gps coordinate"),

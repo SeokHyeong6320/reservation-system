@@ -21,6 +21,7 @@ public class SignForm {
         private String username;
 
         // 휴대폰 번호는 정규식으로 검증
+        @NotBlank
         @Pattern(regexp = "^01[0-9]-?\\d{3,4}-?\\d{4}$")
         private String phone;
     }

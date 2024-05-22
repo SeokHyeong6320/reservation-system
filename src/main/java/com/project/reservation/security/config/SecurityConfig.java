@@ -30,7 +30,10 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("**/signup", "**/signin")
+                                .requestMatchers("/signup", "/signin")
+                                .permitAll()
+
+                                .requestMatchers("/kiosk/**")
                                 .permitAll()
 
                                 .requestMatchers(HttpMethod.GET, "/store")

@@ -8,14 +8,12 @@ import com.project.reservation.common.exception.CustomException;
 import com.project.reservation.partner.service.PartnerService;
 import com.project.reservation.reservation.dto.ReservationDto;
 import com.project.reservation.reservation.entity.Reservation;
-import com.project.reservation.reservation.entity.ReservationApproveStatus;
 import com.project.reservation.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.project.reservation.common.exception.ErrorCode.*;
@@ -86,7 +84,7 @@ public class PartnerServiceImpl implements PartnerService {
         }
 
         // 입장 가능 시간이 지나서 예약이 만료된 경우 검증
-        if(!findReservation.checkTime()) {
+        if(!findReservation.availVisit()) {
             throw new CustomException(RESERVATION_ALREADY_EXPIRED);
         }
 
@@ -114,7 +112,7 @@ public class PartnerServiceImpl implements PartnerService {
         }
 
         // 입장 가능 시간이 지나서 예약이 만료된 경우 검증
-        if(!findReservation.checkTime()) {
+        if(!findReservation.availVisit()) {
             throw new CustomException(RESERVATION_ALREADY_EXPIRED);
         }
 
