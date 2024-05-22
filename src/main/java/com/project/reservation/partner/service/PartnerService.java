@@ -11,4 +11,6 @@ public interface PartnerService {
     UserDto enrollPartner(Long id);
 
     List<ReservationDto> getReservationTimeTable(Long id, LocalDate date);
+
+    ReservationDto confirmReservation(Long id, Long reservationId);
 }

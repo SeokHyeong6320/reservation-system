@@ -5,6 +5,7 @@ import com.project.reservation.common.model.SuccessResponse;
 import com.project.reservation.partner.model.ReservationTimeTable;
 import com.project.reservation.partner.service.PartnerService;
 import com.project.reservation.reservation.dto.ReservationDto;
+import com.project.reservation.reservation.model.ReservationResponse;
 import com.project.reservation.security.constant.SecurityConst;
 import com.project.reservation.security.util.TokenValidator;
 import com.project.reservation.store.dto.StoreDto;
@@ -80,6 +81,9 @@ public class PartnerController {
         );
     }
 
+    /**
+     * 상점 정보 업데이트하는 엔드포인트
+     */
     @PreAuthorize("hasAuthority('PARTNER')")
     @PatchMapping("/store/{storeId}")
     public ResponseEntity<?> updateStore(
@@ -100,6 +104,9 @@ public class PartnerController {
     }
 
 
+    /**
+     * 예약 시간별 타임테이블 조회하는 엔드포인트
+     */
     @PreAuthorize("hasAuthority('PARTNER')")
     @GetMapping("/reservation")
     public ResponseEntity<?> getReservationTimeTable(
@@ -116,6 +123,27 @@ public class PartnerController {
 
         return ResponseEntity.ok(
                 SuccessResponse.of(ReservationTimeTable.Response.fromDto(date, list))
+        );
+    }
+
+    /**
+     * 예약 승인하는 엔드포인트
+     */
+    @PreAuthorize("hasAuthority('PARTNER')")
+    @PostMapping("/reservation/{reservationId}/confirm")
+    public ResponseEntity<?> confirmReservation(
+            @PathVariable Long id,
+            @PathVariable Long reservationId,
+            @RequestHeader(TOKEN_HEADER) String header
+    ) {
+
+        tokenValidator.validateUser(id, header);
+
+        ReservationDto reservationDto =
+                partnerService.confirmReservation(id, reservationId);
+
+        return ResponseEntity.ok(
+                SuccessResponse.of(ReservationResponse.fromDto(reservationDto))
         );
     }
 
