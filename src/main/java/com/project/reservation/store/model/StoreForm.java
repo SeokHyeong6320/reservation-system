@@ -1,21 +1,20 @@
 package com.project.reservation.store.model;
 
 
+import com.project.reservation.store.entity.StoreStatus;
 import lombok.*;
 
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class StoreForm {
 
-    @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Builder
-    public static class AddStoreForm {
+    private String name;
+    private String description;
+    private Address address;
+    private StoreStatus status;
 
-        private String name;
-        private String description;
-        private Address address;
-
-    }
 
     @Data
     @AllArgsConstructor

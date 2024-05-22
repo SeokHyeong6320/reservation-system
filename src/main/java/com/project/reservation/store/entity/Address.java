@@ -31,7 +31,7 @@ public class Address {
 
 
 
-    public static Address fromForm(StoreForm.AddStoreForm form) {
+    public static Address fromForm(StoreForm form) {
 
         StoreForm.Address address = form.getAddress();
 
@@ -41,5 +41,12 @@ public class Address {
                 .latitude(address.getLatitude())
                 .longitude(address.getLongitude())
                 .build();
+    }
+
+    public void updateAddress(StoreForm.Address address) {
+        this.detailAddress = address.getDetailAddress();
+        this.zipcode = address.getZipcode();
+        this.latitude = address.getLatitude();
+        this.longitude = address.getLongitude();
     }
 }

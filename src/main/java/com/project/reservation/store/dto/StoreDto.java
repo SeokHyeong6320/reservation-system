@@ -4,6 +4,7 @@ import com.project.reservation.auth.entity.User;
 import com.project.reservation.customer.entity.Reservation;
 import com.project.reservation.customer.entity.Review;
 import com.project.reservation.store.entity.Store;
+import com.project.reservation.store.entity.StoreStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,7 +38,7 @@ public class StoreDto {
     private Double latitude;
     private Double longitude;
 
-    private Boolean isAvail;
+    private StoreStatus status;
 
 
 
@@ -55,7 +56,7 @@ public class StoreDto {
                 .zipcode(store.getAddress().getZipcode())
                 .latitude(store.getAddress().getLatitude())
                 .longitude(store.getAddress().getLongitude())
-                .isAvail(store.getIsAvail())
+                .status(store.getStatus())
                 .build();
     }
 

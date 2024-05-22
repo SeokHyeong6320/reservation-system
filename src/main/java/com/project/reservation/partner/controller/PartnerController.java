@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.project.reservation.partner.model.PartnerResponse.PartnerEnrollResponse;
 import static com.project.reservation.security.constant.SecurityConst.*;
+import static com.project.reservation.store.model.StoreResponse.*;
 
 @RestController
-@RequestMapping("/partner")
+@RequestMapping("/partner/{id}")
 @RequiredArgsConstructor
 public class PartnerController {
 
@@ -33,7 +34,7 @@ public class PartnerController {
      * @return : 유저 이메일과 유저타입 반환
      */
     @PreAuthorize("hasAuthority('CUSTOMER')")
-    @PostMapping("/{id}/enroll")
+    @PostMapping("/enroll")
     public ResponseEntity<?> enrollPartner(
             @PathVariable Long id,
             @RequestHeader(name = TOKEN_HEADER) String header
@@ -55,10 +56,10 @@ public class PartnerController {
      * @return : 등록한 상점 정보 반환
      */
     @PreAuthorize("hasAuthority('PARTNER')")
-    @PostMapping("/{id}/store")
+    @PostMapping("/store")
     public ResponseEntity<?> addStore(
-            @PathVariable Long id, @RequestBody StoreForm.AddStoreForm form,
-            @RequestHeader(name = TOKEN_PREFIX) String header
+            @PathVariable Long id, @RequestBody StoreForm form,
+            @RequestHeader(name = TOKEN_HEADER) String header
     ) {
 
         tokenValidator.validateUser(id, header);
@@ -66,8 +67,27 @@ public class PartnerController {
         StoreDto storeDto = storeService.addStore(id, form);
 
         return ResponseEntity.ok(
-                SuccessResponse.of(StoreResponse.AddStoreResponse.fromDto(storeDto))
+                SuccessResponse.of(AddStoreResponse.fromDto(storeDto))
         );
+    }
+
+    @PreAuthorize("hasAuthority('PARTNER')")
+    @PatchMapping("/store/{storeId}")
+    public ResponseEntity<?> updateStore(
+            @PathVariable Long id, @PathVariable Long storeId,
+            @RequestHeader(name = TOKEN_HEADER) String header,
+            @RequestBody StoreForm form
+            ) {
+
+        tokenValidator.validateUser(id, header);
+
+        storeService.validateStoreOwner(id, storeId);
+        StoreDto storeDto = storeService.updateStore(storeId, form);
+
+        return ResponseEntity.ok(
+                SuccessResponse.of(StoreInfoResponse.fromDto(storeDto))
+        );
+
     }
 
 }

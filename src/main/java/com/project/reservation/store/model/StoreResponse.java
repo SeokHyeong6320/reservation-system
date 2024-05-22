@@ -1,6 +1,7 @@
 package com.project.reservation.store.model;
 
 import com.project.reservation.store.dto.StoreDto;
+import com.project.reservation.store.entity.StoreStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,8 @@ public class StoreResponse {
         private final String storeName;
         private final String description;
 
+        private final StoreStatus status;
+
         private final Address address;
 
         public static AddStoreResponse fromDto(StoreDto storeDto) {
@@ -24,6 +27,7 @@ public class StoreResponse {
                     .ownerId(storeDto.getOwner().getId())
                     .storeName(storeDto.getName())
                     .description(storeDto.getDescription())
+                    .status(storeDto.getStatus())
                     .address(Address.fromDto(storeDto))
                     .build();
         }
@@ -38,7 +42,7 @@ public class StoreResponse {
         private final String description;
 
         private final Double star;
-        private final Boolean isAvail;
+        private final StoreStatus status;
 
         private final Address address;
 
@@ -48,7 +52,7 @@ public class StoreResponse {
                     .storeName(storeDto.getName())
                     .description(storeDto.getDescription())
                     .star(storeDto.getStar())
-                    .isAvail(storeDto.getIsAvail())
+                    .status(storeDto.getStatus())
                     .address(Address.fromDto(storeDto))
                     .build();
         }
