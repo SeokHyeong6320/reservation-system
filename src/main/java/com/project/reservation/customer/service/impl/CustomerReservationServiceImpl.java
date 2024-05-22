@@ -11,10 +11,12 @@ import com.project.reservation.customer.service.CustomerReservationService;
 import com.project.reservation.store.entity.Store;
 import com.project.reservation.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 import static com.project.reservation.common.exception.ErrorCode.*;
 import static com.project.reservation.reservation.entity.ReservationApproveStatus.*;
@@ -62,12 +64,15 @@ public class CustomerReservationServiceImpl implements CustomerReservationServic
     private Reservation makeReservation
             (User customer, Store store, ReservationForm form) {
 
+        String randomCode = RandomStringUtils.random(8, true, true).toUpperCase(Locale.ROOT);
+
         return Reservation.builder()
                 .customer(customer)
                 .store(store)
                 .contactNumber(form.getContact())
                 .reserveDt(form.getReserveDt())
                 .visitAvailDt(form.getReserveDt().minusMinutes(10))
+                .code(randomCode)
                 .approveStatus(PENDING)
                 .visitYn(false)
                 .build();

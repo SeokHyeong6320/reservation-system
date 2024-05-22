@@ -33,6 +33,8 @@ public class ReservationDto {
 
     private LocalDateTime visitAvailDt;
 
+    private String code;
+
 
 
     public static ReservationDto fromEntity(Reservation reservation) {
@@ -45,6 +47,7 @@ public class ReservationDto {
                 .approveStatus(reservation.getApproveStatus())
                 .visitYn(reservation.getVisitYn())
                 .visitAvailDt(reservation.getVisitAvailDt())
+                .code(reservation.getCode())
                 .build();
     }
 }

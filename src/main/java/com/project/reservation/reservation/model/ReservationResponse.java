@@ -21,6 +21,8 @@ public class ReservationResponse {
     private final LocalDateTime reserveDt;
     private final LocalDateTime visitAvailDt;
 
+    private final String code;
+
     private ReservationApproveStatus approveStatus;
 
     public static ReservationResponse fromDto(ReservationDto reservationDto) {
@@ -29,6 +31,7 @@ public class ReservationResponse {
                 .address(reservationDto.getStore().getAddress().getDetailAddress())
                 .customerContact(reservationDto.getContactNumber())
                 .reserveDt(reservationDto.getReserveDt())
+                .code(reservationDto.getCode())
                 .visitAvailDt(reservationDto.getVisitAvailDt())
                 .approveStatus(reservationDto.getApproveStatus())
                 .build();
