@@ -2,7 +2,9 @@ package com.project.reservation.partner.controller;
 
 import com.project.reservation.auth.dto.UserDto;
 import com.project.reservation.common.model.SuccessResponse;
+import com.project.reservation.partner.model.ReservationTimeTable;
 import com.project.reservation.partner.service.PartnerService;
+import com.project.reservation.reservation.dto.ReservationDto;
 import com.project.reservation.security.constant.SecurityConst;
 import com.project.reservation.security.util.TokenValidator;
 import com.project.reservation.store.dto.StoreDto;
@@ -10,14 +12,20 @@ import com.project.reservation.store.model.StoreForm;
 import com.project.reservation.store.model.StoreResponse;
 import com.project.reservation.store.service.StoreService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import static com.project.reservation.partner.model.PartnerResponse.PartnerEnrollResponse;
 import static com.project.reservation.security.constant.SecurityConst.*;
 import static com.project.reservation.store.model.StoreResponse.*;
+import static org.springframework.format.annotation.DateTimeFormat.*;
 
 @RestController
 @RequestMapping("/partner/{id}")
@@ -90,5 +98,26 @@ public class PartnerController {
         );
 
     }
+
+
+    @PreAuthorize("hasAuthority('PARTNER')")
+    @GetMapping("/reservation")
+    public ResponseEntity<?> getReservationTimeTable(
+            @PathVariable Long id,
+            @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate date,
+            @RequestHeader(name = TOKEN_HEADER) String header
+    ) {
+
+        tokenValidator.validateUser(id, header);
+
+        List<ReservationDto> list =
+                partnerService.getReservationTimeTable(id, date);
+
+
+        return ResponseEntity.ok(
+                SuccessResponse.of(ReservationTimeTable.Response.fromDto(date, list))
+        );
+    }
+
 
 }

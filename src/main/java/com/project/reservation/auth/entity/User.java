@@ -2,7 +2,7 @@ package com.project.reservation.auth.entity;
 
 import com.project.reservation.auth.model.SignForm;
 import com.project.reservation.common.entity.BaseEntity;
-import com.project.reservation.customer.entity.Reservation;
+import com.project.reservation.reservation.entity.Reservation;
 import com.project.reservation.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

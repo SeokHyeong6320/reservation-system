@@ -6,9 +6,15 @@ import com.project.reservation.auth.entity.UserType;
 import com.project.reservation.auth.repository.UserRepository;
 import com.project.reservation.common.exception.CustomException;
 import com.project.reservation.partner.service.PartnerService;
+import com.project.reservation.reservation.dto.ReservationDto;
+import com.project.reservation.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.project.reservation.common.exception.ErrorCode.PARTNER_ALREADY_ENROLLED;
 import static com.project.reservation.common.exception.ErrorCode.USER_NOT_FOUND;
@@ -19,6 +25,7 @@ import static com.project.reservation.common.exception.ErrorCode.USER_NOT_FOUND;
 public class PartnerServiceImpl implements PartnerService {
 
     private final UserRepository userRepository;
+    private final ReservationRepository reservationRepository;
 
 
     // 파트너 가입 서비스
@@ -38,5 +45,22 @@ public class PartnerServiceImpl implements PartnerService {
 
         // dto로 변환해서 반환
         return UserDto.fromEntity(findUser);
+    }
+
+    @Override
+    public List<ReservationDto> getReservationTimeTable(Long id, LocalDate date) {
+
+        User findUser = userRepository
+                .findById(id)
+                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+
+        int year = date.getYear();
+        int month = date.getMonthValue();
+        int day = date.getDayOfMonth();
+
+        return reservationRepository.findAllByTime(findUser, year, month, day)
+                .stream()
+                .map(ReservationDto::fromEntity)
+                .toList();
     }
 }
