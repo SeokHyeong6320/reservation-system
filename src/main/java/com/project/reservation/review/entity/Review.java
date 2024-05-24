@@ -34,7 +34,7 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reserv_id")
     private Reservation reservation;
 
@@ -56,6 +56,7 @@ public class Review extends BaseEntity {
     public static Review fromCreateForm(CreateReviewForm form, Reservation reservation) {
         return Review.builder()
                 .customer(reservation.getCustomer())
+                .store(reservation.getStore())
                 .reservation(reservation)
                 .title(form.getTitle())
                 .content(form.getContent())

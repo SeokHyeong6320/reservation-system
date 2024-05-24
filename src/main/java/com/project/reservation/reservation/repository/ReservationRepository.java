@@ -2,7 +2,7 @@ package com.project.reservation.reservation.repository;
 
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.reservation.entity.Reservation;
-import com.project.reservation.store.repository.StoreQueryRepositoryCustom;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,7 +22,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long>{
             "function('YEAR', r.reserveDt) = :year and " +
             "function('MONTH', r.reserveDt) = :month and " +
             "function('DAY', r.reserveDt) = :day")
-//    @EntityGraph(attributePaths = {"store", "store.owner"})
+    @EntityGraph(attributePaths = {"customer", "store", "store.owner"})
     List<Reservation> findAllByTime(
             User owner,
             @Param("year") int year,

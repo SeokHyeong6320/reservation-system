@@ -37,23 +37,32 @@ public class CustomerReviewServiceImpl implements CustomerReviewService {
 
 
         // 해당 예약이 유저의 것인지 확인
-
         if(!Objects.equals(id, findReservation.getCustomer().getId())) {
             throw new CustomException(RESERVATION_CUSTOMER_NOT_MATCH);
         }
 
-        // 방문했던 예약인지 확인
-        if (!findReservation.getVisitYn()) {
+        // 방문완료한 예약인지 확인
+        if (!findReservation.isVisitYn()) {
             throw new CustomException(RESERVATION_NOT_VISIT);
+        }
+
+        // 리뷰 이미 작성한 예약인지
+        if (findReservation.isReviewYn()) {
+            throw new CustomException(REVIEW_ALREADY_WRITTEN);
         }
 
         Review newReview = Review.fromCreateForm(form, findReservation);
 
+        // 상점 별점 업데이트
+        updateStar(newReview.getStore(), newReview.getStar());
+
         Review savedReview = reviewRepository.save(newReview);
 
+        // 해당 예약건 리뷰 작성 표시
+        findReservation.writeReview();
 
 
-        return null;
+        return ReviewDto.fromEntity(savedReview);
     }
 
     private void updateStar(Store store, int star) {

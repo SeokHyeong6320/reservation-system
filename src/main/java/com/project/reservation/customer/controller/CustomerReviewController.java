@@ -1,10 +1,12 @@
 package com.project.reservation.customer.controller;
 
 import com.project.reservation.auth.entity.QUser;
+import com.project.reservation.common.model.SuccessResponse;
 import com.project.reservation.customer.service.CustomerReviewService;
 import com.project.reservation.reservation.entity.QReservation;
 import com.project.reservation.review.dto.ReviewDto;
 import com.project.reservation.review.model.ReviewForm;
+import com.project.reservation.review.model.ReviewResponse;
 import com.project.reservation.security.util.TokenValidator;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,7 @@ public class CustomerReviewController {
 
     private final CustomerReviewService reviewService;
     private final TokenValidator tokenValidator;
-    private final JPAQueryFactory queryFactory;
+
 
     @PostMapping
     public ResponseEntity<?> postReview(
@@ -37,7 +39,9 @@ public class CustomerReviewController {
 
         ReviewDto reviewDto = reviewService.createReview(id, form);
 
-        return null;
+        return ResponseEntity.ok(
+                SuccessResponse.of(ReviewResponse.fromDto(reviewDto))
+        );
 
     }
 

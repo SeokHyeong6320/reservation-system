@@ -2,7 +2,7 @@ package com.project.reservation.store.repository.impl;
 
 import com.project.reservation.store.entity.QStore;
 import com.project.reservation.store.entity.Store;
-import com.project.reservation.store.repository.StoreQueryRepositoryCustom;
+import com.project.reservation.store.repository.StoreQueryRepository;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.Expressions;
@@ -10,7 +10,6 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class StoreQueryRepositoryImpl implements StoreQueryRepositoryCustom {
+public class StoreQueryRepositoryImpl implements StoreQueryRepository {
 
     // JPAQueryFactory는 QueryConfig에 Bean으로 등록
     private final JPAQueryFactory queryFactory;

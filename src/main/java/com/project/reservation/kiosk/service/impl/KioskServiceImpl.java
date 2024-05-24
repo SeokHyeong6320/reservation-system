@@ -60,7 +60,7 @@ public class KioskServiceImpl implements KioskService {
             throw new CustomException(RESERVATION_ALREADY_EXPIRED);
         }
         // 이미 체크인한 예약인지 확인
-        if (reservation.getVisitYn()) {
+        if (reservation.isVisitYn()) {
             throw new CustomException(RESERVATION_ALREADY_VISIT);
         }
 
