@@ -94,14 +94,35 @@ public class PartnerController {
 
         tokenValidator.validateUser(id, header);
 
-        storeService.validateStoreOwner(id, storeId);
-        StoreDto storeDto = storeService.updateStore(storeId, form);
+//        storeService.validateStoreOwner(id, storeId);
+        StoreDto storeDto = storeService.updateStore(id, storeId, form);
 
         return ResponseEntity.ok(
                 SuccessResponse.of(StoreInfoResponse.fromDto(storeDto))
         );
 
     }
+
+    /**
+     * 상점 삭제 엔드포인트
+     */
+    @PreAuthorize("hasAuthority('PARTNER')")
+    @DeleteMapping("/store/{storeId}")
+    public ResponseEntity<?> deleteStore(
+            @PathVariable Long id, @PathVariable Long storeId,
+            @RequestHeader(TOKEN_HEADER) String header
+    ) {
+
+        tokenValidator.validateUser(id, header);
+
+        storeService.deleteStore(id, storeId);
+
+        return ResponseEntity.ok(
+                SuccessResponse.of("delete complete")
+        );
+    }
+
+
 
 
     /**

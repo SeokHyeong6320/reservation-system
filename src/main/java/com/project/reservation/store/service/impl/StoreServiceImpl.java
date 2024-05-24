@@ -5,6 +5,10 @@ import com.project.reservation.auth.entity.UserType;
 import com.project.reservation.auth.repository.UserRepository;
 import com.project.reservation.common.exception.CustomException;
 import com.project.reservation.common.util.impl.GeoUtil;
+import com.project.reservation.reservation.entity.Reservation;
+import com.project.reservation.reservation.repository.ReservationRepository;
+import com.project.reservation.review.entity.Review;
+import com.project.reservation.review.repository.ReviewRepository;
 import com.project.reservation.store.dto.StoreDto;
 import com.project.reservation.store.entity.Store;
 import com.project.reservation.store.model.StoreForm;
@@ -19,6 +23,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.project.reservation.common.exception.ErrorCode.*;
@@ -28,6 +33,8 @@ import static com.project.reservation.common.exception.ErrorCode.*;
 public class StoreServiceImpl implements StoreService {
 
     private final StoreRepository storeRepository;
+    private final ReservationRepository reservationRepository;
+    private final ReviewRepository reviewRepository;
     private final StoreQueryRepository storeQueryRepository;
     private final UserRepository userRepository;
 
@@ -41,9 +48,7 @@ public class StoreServiceImpl implements StoreService {
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         // 파트너가 아닌 경우 에러 발생
-        if (findUser.getUserType() != UserType.PARTNER) {
-            throw new CustomException(PARTNER_NOT_ENROLLED);
-        }
+        validateIsPartner(findUser);
 
         // 위도, 경도 값 정상값인지 확인 (정상 값 아닐 경우 에러 발생)
         GeoUtil.isValidLocation(
@@ -60,7 +65,48 @@ public class StoreServiceImpl implements StoreService {
         return StoreDto.fromEntity(savedStore);
     }
 
+    // 상점 정보 수정
+
+    @Override
+    @Transactional
+    public StoreDto updateStore(Long id, Long storeId, StoreForm form) {
+
+        Store findStore = storeRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
+        // 올바른 소유자의 상점인지 확인
+        validateStoreOwner(id, findStore);
+
+        findStore.updateStore(form);
+
+        return StoreDto.fromEntity(findStore);
+    }
+
+
+    // 상점 삭제
+
+    @Override
+    public void deleteStore(Long id, Long storeId) {
+
+        Store findStore = storeRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
+        // 올바른 소유자의 상점인지 확인
+        validateStoreOwner(id, findStore);
+
+        // 관련된 예약 모두 삭제
+        List<Reservation> reservations = findStore.getReservations();
+        reservationRepository.deleteAll(reservations);
+
+        // 관련된 리뷰 모두 삭제
+        List<Review> reviews = reviewRepository.findByStore(findStore);
+        reviewRepository.deleteAll(reviews);
+
+        storeRepository.delete(findStore);
+    }
+
     // 이름 순 정렬
+
     @Override
     @Transactional(readOnly = true)
     public Page<StoreDto> sortByName(Pageable pageable) {
@@ -74,7 +120,6 @@ public class StoreServiceImpl implements StoreService {
 
         return toStoreDtoList(pageRequest);
     }
-
     // 별점 순 정렬
     @Override
     @Transactional(readOnly = true)
@@ -103,30 +148,22 @@ public class StoreServiceImpl implements StoreService {
                 .map(StoreDto::fromEntity);
     }
 
-    // 올바른 소유자의 상점인지 확인
-    @Override
-    @Transactional(readOnly = true)
-    public void validateStoreOwner(Long ownerId, Long storeId) {
-        Store findStore = storeRepository.findById(storeId)
-                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
 
-        if (!Objects.equals(ownerId, findStore.getOwner().getId())) {
+    // 상점 주인 아니면 에러 발생
+
+    private void validateStoreOwner(Long ownerId, Store store) {
+        if (!Objects.equals(ownerId, store.getOwner().getId())) {
             throw new CustomException(STORE_OWNER_NOT_MATCH);
         }
     }
 
-    // 상점 정보 수정
-    @Override
-    @Transactional
-    public StoreDto updateStore(Long storeId, StoreForm form) {
 
-        Store findStore = storeRepository.findById(storeId)
-                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
-
-        findStore.updateStore(form);
-
-        return StoreDto.fromEntity(findStore);
+    private void validateIsPartner(User findUser) {
+        if (findUser.getUserType() != UserType.PARTNER) {
+            throw new CustomException(PARTNER_NOT_ENROLLED);
+        }
     }
+
 
     // StoreDto로 변환해 반환하는 코드 중복 제거
     private Page<StoreDto> toStoreDtoList(PageRequest pageRequest) {
