@@ -15,7 +15,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static com.project.reservation.security.constant.SecurityConst.*;
+import static com.project.reservation.security.constant.SecurityConst.TOKEN_HEADER;
+import static com.project.reservation.security.constant.SecurityConst.TOKEN_PREFIX;
 
 @Component
 @RequiredArgsConstructor

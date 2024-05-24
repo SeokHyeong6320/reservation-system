@@ -1,16 +1,15 @@
 package com.project.reservation.security.util.impl;
 
 import com.project.reservation.common.exception.CustomException;
-import com.project.reservation.common.exception.ErrorCode;
-import com.project.reservation.security.constant.SecurityConst;
 import com.project.reservation.security.util.TokenProvider;
 import com.project.reservation.security.util.TokenValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import static com.project.reservation.common.exception.ErrorCode.*;
-import static com.project.reservation.security.constant.SecurityConst.*;
+import static com.project.reservation.common.exception.ErrorCode.AUTHENTICATION_NOT_MATCH;
+import static com.project.reservation.common.exception.ErrorCode.TOKEN_INVALID;
+import static com.project.reservation.security.constant.SecurityConst.TOKEN_PREFIX;
 
 @Component
 @RequiredArgsConstructor

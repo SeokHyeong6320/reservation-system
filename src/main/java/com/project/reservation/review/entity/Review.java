@@ -3,7 +3,6 @@ package com.project.reservation.review.entity;
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.common.entity.BaseEntity;
 import com.project.reservation.reservation.entity.Reservation;
-import com.project.reservation.review.model.ReviewForm;
 import com.project.reservation.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +12,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import static com.project.reservation.review.model.ReviewForm.*;
+import static com.project.reservation.review.model.ReviewForm.CreateReviewForm;
+import static com.project.reservation.review.model.ReviewForm.UpdateReviewForm;
 
 @Entity
 @Getter

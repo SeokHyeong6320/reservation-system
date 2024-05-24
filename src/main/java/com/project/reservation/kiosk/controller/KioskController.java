@@ -4,7 +4,6 @@ import com.project.reservation.common.model.SuccessResponse;
 import com.project.reservation.kiosk.model.VisitForm;
 import com.project.reservation.kiosk.model.VisitResponse;
 import com.project.reservation.kiosk.service.KioskService;
-import com.project.reservation.reservation.dto.ReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

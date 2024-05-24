@@ -1,6 +1,5 @@
 package com.project.reservation.store.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.reservation.store.dto.StoreDto;
 import com.project.reservation.store.entity.StoreStatus;
 import lombok.AllArgsConstructor;

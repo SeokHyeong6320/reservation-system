@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.project.reservation.common.exception.ErrorCode.*;
-import static com.project.reservation.reservation.entity.ReservationApproveStatus.*;
+import static com.project.reservation.reservation.entity.ReservationApproveStatus.APPROVE;
 
 @Service
 @Transactional

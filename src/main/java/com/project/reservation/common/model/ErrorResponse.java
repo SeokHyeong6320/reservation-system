@@ -4,7 +4,6 @@ import com.project.reservation.common.exception.CustomException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 @Getter
 @AllArgsConstructor

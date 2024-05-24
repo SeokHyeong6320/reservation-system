@@ -3,11 +3,11 @@ package com.project.reservation.customer.service.impl;
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.auth.repository.UserRepository;
 import com.project.reservation.common.exception.CustomException;
+import com.project.reservation.customer.service.CustomerReservationService;
 import com.project.reservation.reservation.dto.ReservationDto;
 import com.project.reservation.reservation.entity.Reservation;
 import com.project.reservation.reservation.model.ReservationForm;
 import com.project.reservation.reservation.repository.ReservationRepository;
-import com.project.reservation.customer.service.CustomerReservationService;
 import com.project.reservation.store.entity.Store;
 import com.project.reservation.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 
 import static com.project.reservation.common.exception.ErrorCode.*;
-import static com.project.reservation.reservation.entity.ReservationApproveStatus.*;
+import static com.project.reservation.reservation.entity.ReservationApproveStatus.PENDING;
 
 @Service
 @Transactional

@@ -1,13 +1,12 @@
 package com.project.reservation.customer.service.impl;
 
-import com.project.reservation.auth.entity.User;
 import com.project.reservation.common.exception.CustomException;
+import com.project.reservation.customer.service.CustomerReviewService;
 import com.project.reservation.reservation.entity.Reservation;
 import com.project.reservation.reservation.repository.ReservationRepository;
 import com.project.reservation.review.dto.ReviewDto;
 import com.project.reservation.review.entity.Review;
 import com.project.reservation.review.repository.ReviewRepository;
-import com.project.reservation.customer.service.CustomerReviewService;
 import com.project.reservation.store.entity.Store;
 import com.project.reservation.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Objects;
 
 import static com.project.reservation.common.exception.ErrorCode.*;
-import static com.project.reservation.review.model.ReviewForm.*;
+import static com.project.reservation.review.model.ReviewForm.CreateReviewForm;
+import static com.project.reservation.review.model.ReviewForm.UpdateReviewForm;
 
 @Service
 @Transactional

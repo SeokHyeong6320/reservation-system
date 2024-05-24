@@ -2,8 +2,8 @@ package com.project.reservation.store.model;
 
 
 import com.project.reservation.store.entity.StoreStatus;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -18,9 +18,9 @@ public class StoreForm {
     private String name;
     @Size(max = 100)
     private String description;
-    @NotBlank
+
     private Address address;
-    @NotBlank
+    @NotNull
     private StoreStatus status;
 
 

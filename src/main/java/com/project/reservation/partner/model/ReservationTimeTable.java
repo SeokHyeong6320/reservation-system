@@ -7,14 +7,12 @@ import com.project.reservation.common.exception.CustomException;
 import com.project.reservation.common.exception.ErrorCode;
 import com.project.reservation.reservation.dto.ReservationDto;
 import com.project.reservation.reservation.entity.ReservationApproveStatus;
-import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
