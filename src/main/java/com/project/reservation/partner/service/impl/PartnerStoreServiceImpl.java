@@ -60,7 +60,7 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
         findUser.getStoreList().add(savedStore);
 
         // 키오스크 등록
-
+        kioskService.addKiosk(savedStore);
 
         // dto로 변환해서 반환
         return StoreDto.fromEntity(savedStore);
