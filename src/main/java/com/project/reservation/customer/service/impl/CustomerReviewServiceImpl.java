@@ -88,6 +88,23 @@ public class CustomerReviewServiceImpl implements CustomerReviewService {
         return ReviewDto.fromEntity(findReview);
     }
 
+    @Override
+    public void deleteReview(Long id, Long reviewId) {
+        Review findReview = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
+
+        // 리뷰 작성자인지 확인
+        if(!Objects.equals(id, findReview.getCustomer().getId())) {
+            throw new CustomException(REVIEW_CUSTOMER_NOT_MATCH);
+        }
+
+        // 상점 별점 업데이트
+        Store findStore = findReview.getStore();
+        updateStar(findStore, 0);
+
+        reviewRepository.delete(findReview);
+    }
+
 
     // 상점 별점 업데이트
     private void updateStar(Store store, int star) {

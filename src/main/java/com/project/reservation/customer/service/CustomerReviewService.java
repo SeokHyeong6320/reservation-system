@@ -9,4 +9,6 @@ public interface CustomerReviewService {
     ReviewDto createReview(Long id, CreateReviewForm form);
 
     ReviewDto updateReview(Long id, Long reviewId, UpdateReviewForm form);
+
+    void deleteReview(Long id, Long reviewId);
 }
