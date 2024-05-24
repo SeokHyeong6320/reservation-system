@@ -13,6 +13,9 @@ public interface StoreService {
     Page<StoreDto> sortByStar(Pageable pageable);
     Page<StoreDto> sortByDistance(Double lat, Double lon, Pageable pageable);
 
-    StoreDto updateStore(Long storeId, StoreForm form);
-    void validateStoreOwner(Long ownerId, Long storeId);
+    StoreDto updateStore(Long id, Long storeId, StoreForm form);
+//    void validateStoreOwner(Long ownerId, Long storeId);
+
+    void deleteStore(Long id, Long storeId);
+
 }

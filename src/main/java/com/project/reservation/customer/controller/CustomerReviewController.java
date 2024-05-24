@@ -28,6 +28,9 @@ public class CustomerReviewController {
     private final TokenValidator tokenValidator;
 
 
+    /**
+     * 리뷰 작성 엔드포인트
+     */
     @PostMapping
     public ResponseEntity<?> postReview(
             @PathVariable Long id,
@@ -44,6 +47,10 @@ public class CustomerReviewController {
         );
     }
 
+
+    /**
+     * 리뷰 수정 엔드포인트
+     */
     @PatchMapping("/{reviewId}")
     public ResponseEntity<?> updateReview(
             @PathVariable Long id,
@@ -61,6 +68,9 @@ public class CustomerReviewController {
         );
     }
 
+    /**
+     * 리뷰 삭제 엔드포인트
+     */
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<?> deleteReview(
             @PathVariable Long id,
