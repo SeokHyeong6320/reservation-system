@@ -5,6 +5,7 @@ import com.project.reservation.auth.entity.UserType;
 import com.project.reservation.auth.repository.UserRepository;
 import com.project.reservation.common.exception.CustomException;
 import com.project.reservation.common.util.impl.GeoUtil;
+import com.project.reservation.kiosk.service.KioskService;
 import com.project.reservation.partner.service.PartnerStoreService;
 import com.project.reservation.reservation.entity.Reservation;
 import com.project.reservation.reservation.repository.ReservationRepository;
@@ -32,6 +33,8 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
     private final ReservationRepository reservationRepository;
     private final ReviewRepository reviewRepository;
 
+    private final KioskService kioskService;
+
 
     // 상점 추가 기능
     @Override
@@ -55,6 +58,9 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
 
         // 점주의 가게 리스트에 추가
         findUser.getStoreList().add(savedStore);
+
+        // 키오스크 등록
+
 
         // dto로 변환해서 반환
         return StoreDto.fromEntity(savedStore);

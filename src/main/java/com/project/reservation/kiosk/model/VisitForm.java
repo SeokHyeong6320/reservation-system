@@ -16,6 +16,9 @@ import lombok.NoArgsConstructor;
 public class VisitForm {
 
     @NotNull
+    private Long kioskId;
+
+    @NotNull
     private Long reservationId;
 
     @NotBlank
