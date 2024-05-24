@@ -2,20 +2,16 @@ package com.project.reservation.reservation.repository;
 
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.reservation.entity.Reservation;
-import org.springframework.data.jpa.repository.EntityGraph;
+import com.project.reservation.store.repository.StoreQueryRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-
-
+public interface ReservationRepository extends JpaRepository<Reservation, Long>{
 
 
     @Query("select r from Reservation r " +
@@ -26,7 +22,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "function('YEAR', r.reserveDt) = :year and " +
             "function('MONTH', r.reserveDt) = :month and " +
             "function('DAY', r.reserveDt) = :day")
-    @EntityGraph(attributePaths = {"store", "store.owner"})
+//    @EntityGraph(attributePaths = {"store", "store.owner"})
     List<Reservation> findAllByTime(
             User owner,
             @Param("year") int year,
@@ -40,7 +36,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             " join r.store s " +
             " join s.owner o" +
             " where r.id = :reservationId")
-    @EntityGraph(attributePaths = {"store", "store.owner"})
+//    @EntityGraph(attributePaths = {"store", "store.owner"})
     Long findStoreOwnerId(@Param("reservationId") Long reservationId);
 
 }

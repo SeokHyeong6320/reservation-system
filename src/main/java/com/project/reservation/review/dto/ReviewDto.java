@@ -1,8 +1,8 @@
-package com.project.reservation.customer.dto;
+package com.project.reservation.review.dto;
 
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.reservation.entity.Reservation;
-import com.project.reservation.customer.entity.Review;
+import com.project.reservation.review.entity.Review;
 import com.project.reservation.store.entity.Store;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,7 +41,6 @@ public class ReviewDto {
     public static ReviewDto fromEntity(Review review) {
         return ReviewDto.builder()
                 .id(review.getId())
-                .store(review.getStore())
                 .customer(review.getCustomer())
                 .reservation(review.getReservation())
                 .title(review.getTitle())

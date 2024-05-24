@@ -2,7 +2,7 @@ package com.project.reservation.store.dto;
 
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.reservation.entity.Reservation;
-import com.project.reservation.customer.entity.Review;
+import com.project.reservation.review.entity.Review;
 import com.project.reservation.store.entity.Store;
 import com.project.reservation.store.entity.StoreStatus;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,6 @@ public class StoreDto {
 
 
 
-
     public static StoreDto fromEntity(Store store) {
         return StoreDto.builder()
                 .id(store.getId())
@@ -51,7 +50,6 @@ public class StoreDto {
                 .name(store.getName())
                 .description(store.getDescription())
                 .star(store.getStar())
-                .reviews(store.getReviews())
                 .detailAddress(store.getAddress().getDetailAddress())
                 .zipcode(store.getAddress().getZipcode())
                 .latitude(store.getAddress().getLatitude())

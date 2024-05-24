@@ -3,7 +3,6 @@ package com.project.reservation.store.entity;
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.common.entity.BaseEntity;
 import com.project.reservation.reservation.entity.Reservation;
-import com.project.reservation.customer.entity.Review;
 import com.project.reservation.store.model.StoreForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,8 +40,8 @@ public class Store extends BaseEntity {
     @Column(name = "store_star")
     private Double star;
 
-    @OneToMany(mappedBy = "store")
-    private List<Review> reviews = new ArrayList<>();   // 별점 계산 위한 필드
+//    @OneToMany(mappedBy = "store")
+//    private List<Review> reviews = new ArrayList<>();   // 별점 계산 위한 필드
 
     @Embedded
     private Address address;        // 주소값은 임베디드 타입으로 정의
@@ -73,6 +72,12 @@ public class Store extends BaseEntity {
     // 현재 예약 가능한 상태인지 확인
     public boolean isAvail() {
         return status == StoreStatus.AVAILABLE;
+    }
+
+    public void calculateStar(int newStar, long count) {
+        double oldStar = this.star;
+
+        this.star = (oldStar * count + newStar) / (count + 1);
     }
 
 }

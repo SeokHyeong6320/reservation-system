@@ -33,6 +33,7 @@ public enum ErrorCode {
     RESERVATION_ALREADY_DECLINED(BAD_REQUEST, "this reservation is already declined"),
     RESERVATION_ALREADY_EXPIRED(BAD_REQUEST, "this reservation is already expired"),
     RESERVATION_ALREADY_VISIT(BAD_REQUEST, "this reservation is already visit"),
+    RESERVATION_NOT_VISIT(BAD_REQUEST, "this reservation is not visit"),
     RESERVATION_NOT_APPROVE(BAD_REQUEST, "this reservation is not approved"),
     RESERVATION_CODE_NOT_MATCH(BAD_REQUEST, "this is wrong code"),
 

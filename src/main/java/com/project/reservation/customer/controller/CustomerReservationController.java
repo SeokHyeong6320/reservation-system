@@ -18,7 +18,7 @@ import static com.project.reservation.security.constant.SecurityConst.*;
 @RequiredArgsConstructor
 public class CustomerReservationController {
 
-    private final CustomerReservationService customerReservationService;
+    private final CustomerReservationService reservationService;
     private final TokenValidator tokenValidator;
 
 
@@ -32,7 +32,7 @@ public class CustomerReservationController {
 
         tokenValidator.validateUser(id, header);
 
-        ReservationDto reservationDto = customerReservationService.reservation(id, form);
+        ReservationDto reservationDto = reservationService.reservation(id, form);
 
         return ResponseEntity.ok(
                 SuccessResponse.of(ReservationResponse.fromDto(reservationDto))
