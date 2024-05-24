@@ -1,10 +1,8 @@
 package com.project.reservation.kiosk.service.impl;
 
-import com.project.reservation.auth.repository.UserRepository;
 import com.project.reservation.common.exception.CustomException;
 import com.project.reservation.kiosk.model.VisitForm;
 import com.project.reservation.kiosk.service.KioskService;
-import com.project.reservation.reservation.dto.ReservationDto;
 import com.project.reservation.reservation.entity.Reservation;
 import com.project.reservation.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
@@ -62,7 +60,7 @@ public class KioskServiceImpl implements KioskService {
             throw new CustomException(RESERVATION_ALREADY_EXPIRED);
         }
         // 이미 체크인한 예약인지 확인
-        if (reservation.getVisitYn()) {
+        if (reservation.isVisitYn()) {
             throw new CustomException(RESERVATION_ALREADY_VISIT);
         }
 

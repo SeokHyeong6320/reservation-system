@@ -75,6 +75,7 @@ public class CustomerReservationServiceImpl implements CustomerReservationServic
                 .code(randomCode)
                 .approveStatus(PENDING)
                 .visitYn(false)
+                .reviewYn(false)
                 .build();
     }
 }

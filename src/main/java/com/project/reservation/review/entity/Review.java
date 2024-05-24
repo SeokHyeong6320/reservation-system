@@ -1,8 +1,9 @@
-package com.project.reservation.customer.entity;
+package com.project.reservation.review.entity;
 
 import com.project.reservation.auth.entity.User;
 import com.project.reservation.common.entity.BaseEntity;
 import com.project.reservation.reservation.entity.Reservation;
+import com.project.reservation.review.model.ReviewForm;
 import com.project.reservation.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+
+import static com.project.reservation.review.model.ReviewForm.*;
 
 @Entity
 @Getter
@@ -24,14 +27,14 @@ public class Review extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User customer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User customer;
-
-    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reserv_id")
     private Reservation reservation;
 
@@ -50,6 +53,18 @@ public class Review extends BaseEntity {
     @Column(name = "review_upd_dt")
     private LocalDateTime updateDt;
 
+    public static Review fromCreateForm(CreateReviewForm form, Reservation reservation) {
+        return Review.builder()
+                .customer(reservation.getCustomer())
+                .store(reservation.getStore())
+                .reservation(reservation)
+                .title(form.getTitle())
+                .content(form.getContent())
+                .star(form.getStar())
+                .regDt(LocalDateTime.now())
+                .build();
+
+    }
 
 
 }

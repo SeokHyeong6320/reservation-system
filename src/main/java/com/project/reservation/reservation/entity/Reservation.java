@@ -41,13 +41,16 @@ public class Reservation extends BaseEntity {
     private ReservationApproveStatus approveStatus;
 
     @Column(name = "reserv_visit_yn")
-    private Boolean visitYn;
+    private boolean visitYn;
 
     @Column(name = "reserv_visit_avail_dt")
     private LocalDateTime visitAvailDt;
 
     @Column(name = "reserv_code")
     private String code;
+
+    @Column(name = "reserv_review_yn")
+    private boolean reviewYn;
 
     public boolean availVisit() {
         return !visitAvailDt.isBefore(LocalDateTime.now());
@@ -63,5 +66,9 @@ public class Reservation extends BaseEntity {
 
     public void visit() {
         this.visitYn = true;
+    }
+
+    public void writeReview() {
+        reviewYn = true;
     }
 }

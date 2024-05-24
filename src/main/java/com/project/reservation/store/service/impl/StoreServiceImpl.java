@@ -8,6 +8,7 @@ import com.project.reservation.common.util.impl.GeoUtil;
 import com.project.reservation.store.dto.StoreDto;
 import com.project.reservation.store.entity.Store;
 import com.project.reservation.store.model.StoreForm;
+import com.project.reservation.store.repository.StoreQueryRepository;
 import com.project.reservation.store.repository.StoreRepository;
 import com.project.reservation.store.service.StoreService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import static com.project.reservation.common.exception.ErrorCode.*;
 public class StoreServiceImpl implements StoreService {
 
     private final StoreRepository storeRepository;
+    private final StoreQueryRepository storeQueryRepository;
     private final UserRepository userRepository;
 
     // 상점 추가 기능
@@ -97,7 +99,7 @@ public class StoreServiceImpl implements StoreService {
         GeoUtil.isValidLocation(lat, lon);
 
         // QueryDsl을 사용한 custom repository 구현
-        return storeRepository.findSortByDistance(pageable, lat, lon)
+        return storeQueryRepository.findSortByDistance(pageable, lat, lon)
                 .map(StoreDto::fromEntity);
     }
 

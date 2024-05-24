@@ -45,7 +45,7 @@ public class ReservationDto {
                 .contactNumber(reservation.getContactNumber())
                 .reserveDt(reservation.getReserveDt())
                 .approveStatus(reservation.getApproveStatus())
-                .visitYn(reservation.getVisitYn())
+                .visitYn(reservation.isVisitYn())
                 .visitAvailDt(reservation.getVisitAvailDt())
                 .code(reservation.getCode())
                 .build();

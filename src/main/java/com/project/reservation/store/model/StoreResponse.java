@@ -1,5 +1,6 @@
 package com.project.reservation.store.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.reservation.store.dto.StoreDto;
 import com.project.reservation.store.entity.StoreStatus;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,8 @@ public class StoreResponse {
         private final String storeName;
         private final String description;
 
-        private final Double star;
+        private final String star;
+
         private final StoreStatus status;
 
         private final Address address;
@@ -51,7 +53,8 @@ public class StoreResponse {
             return StoreInfoResponse.builder()
                     .storeName(storeDto.getName())
                     .description(storeDto.getDescription())
-                    .star(storeDto.getStar())
+                    // 별점은 소수점 첫째자리까지만 표시
+                    .star(String.format("%.1f", storeDto.getStar()))
                     .status(storeDto.getStatus())
                     .address(Address.fromDto(storeDto))
                     .build();
