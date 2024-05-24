@@ -61,6 +61,24 @@ public class CustomerReviewController {
         );
     }
 
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<?> deleteReview(
+            @PathVariable Long id,
+            @PathVariable Long reviewId,
+            @RequestHeader(TOKEN_HEADER) String header
+    ) {
+
+        tokenValidator.validateUser(id, header);
+
+        reviewService.deleteReview(id, reviewId);
+
+        return ResponseEntity.ok(
+                SuccessResponse.of("deleteComplete")
+        );
+    }
+
+
+
 
 
 
