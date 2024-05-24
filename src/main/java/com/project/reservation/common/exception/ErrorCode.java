@@ -38,6 +38,10 @@ public enum ErrorCode {
     RESERVATION_CODE_NOT_MATCH(BAD_REQUEST, "this is wrong code"),
 
     REVIEW_ALREADY_WRITTEN(BAD_REQUEST, "this reservation is already written review"),
+    REVIEW_NOT_FOUND(BAD_REQUEST, "couldn't find review"),
+    REVIEW_CUSTOMER_NOT_MATCH(BAD_REQUEST, "this review is not written by current user"),
+
+
 
 
     GPS_COORDINATE_INVALID(BAD_REQUEST, "this is invalid gps coordinate"),

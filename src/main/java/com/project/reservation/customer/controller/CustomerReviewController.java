@@ -42,7 +42,23 @@ public class CustomerReviewController {
         return ResponseEntity.ok(
                 SuccessResponse.of(ReviewResponse.fromDto(reviewDto))
         );
+    }
 
+    @PatchMapping("/{reviewId}")
+    public ResponseEntity<?> updateReview(
+            @PathVariable Long id,
+            @PathVariable Long reviewId,
+            @RequestHeader(TOKEN_HEADER) String header,
+            @RequestBody @Validated UpdateReviewForm form
+    ) {
+
+        tokenValidator.validateUser(id, header);
+
+        ReviewDto reviewDto = reviewService.updateReview(id, reviewId, form);
+
+        return ResponseEntity.ok(
+                SuccessResponse.of(ReviewResponse.fromDto(reviewDto))
+        );
     }
 
 

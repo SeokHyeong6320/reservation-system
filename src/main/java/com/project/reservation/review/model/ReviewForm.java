@@ -31,6 +31,24 @@ public class ReviewForm {
         @Size(max = 100)
         private String content;
 
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class UpdateReviewForm {
+        @NotBlank
+        @Size(max = 30)
+        private String title;
+
+        @NotNull
+        @Range(min = 0, max = 5)
+        private int star;
+
+        @NotNull
+        @Size(max = 100)
+        private String content;
 
     }
 

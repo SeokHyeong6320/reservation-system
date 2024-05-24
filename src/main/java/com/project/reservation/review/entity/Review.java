@@ -63,7 +63,13 @@ public class Review extends BaseEntity {
                 .star(form.getStar())
                 .regDt(LocalDateTime.now())
                 .build();
+    }
 
+    public void updateReview(UpdateReviewForm form) {
+        this.title = form.getTitle();
+        this.content = form.getContent();
+        this.star = form.getStar();
+        this.updateDt = LocalDateTime.now();
     }
 
 
