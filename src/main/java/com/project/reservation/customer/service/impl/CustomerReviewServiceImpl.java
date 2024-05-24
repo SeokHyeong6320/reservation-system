@@ -9,6 +9,7 @@ import com.project.reservation.review.entity.Review;
 import com.project.reservation.review.repository.ReviewRepository;
 import com.project.reservation.customer.service.CustomerReviewService;
 import com.project.reservation.store.entity.Store;
+import com.project.reservation.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ public class CustomerReviewServiceImpl implements CustomerReviewService {
 
     private final ReviewRepository reviewRepository;
     private final ReservationRepository reservationRepository;
+    private final StoreRepository storeRepository;
 
 
     @Override
@@ -65,10 +67,31 @@ public class CustomerReviewServiceImpl implements CustomerReviewService {
         return ReviewDto.fromEntity(savedReview);
     }
 
-    private void updateStar(Store store, int star) {
+    @Override
+    public ReviewDto updateReview(Long id, Long reviewId, UpdateReviewForm form) {
 
+        Review findReview = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
+
+        // 리뷰 작성자인지 확인
+        if(!Objects.equals(id, findReview.getCustomer().getId())) {
+            throw new CustomException(REVIEW_CUSTOMER_NOT_MATCH);
+        }
+
+        // 리뷰 업데이트
+        findReview.updateReview(form);
+
+        // 상점 별점 업데이트
+        Store findStore = findReview.getStore();
+        updateStar(findStore, findReview.getStar());
+
+        return ReviewDto.fromEntity(findReview);
+    }
+
+
+    // 상점 별점 업데이트
+    private void updateStar(Store store, int star) {
         Long count = reviewRepository.countByStore(store);
         store.calculateStar(star, count);
-
     }
 }

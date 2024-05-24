@@ -17,6 +17,7 @@ public class ReviewResponse {
     private final String content;
 
     private LocalDateTime regDt;
+    private LocalDateTime updateDt;
 
     public static ReviewResponse fromDto(ReviewDto reviewDto) {
         return ReviewResponse.builder()
@@ -24,6 +25,7 @@ public class ReviewResponse {
                 .star(reviewDto.getStar())
                 .content(reviewDto.getContent())
                 .regDt(reviewDto.getRegDt())
+                .updateDt(reviewDto.getUpdateDt())
                 .build();
     }
 
