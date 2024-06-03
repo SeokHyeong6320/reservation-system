@@ -1,0 +1,12 @@
+rootProject.name = 'reservation'
+
+include 'apigateway-service'
+include 'customer-service'
+include 'discovery-service'
+include 'kiosk-service'
+include 'partner-service'
+include 'reservation-service'
+include 'review-service'
+include 'security-service'
+include 'store-service'
+include 'user-service'
