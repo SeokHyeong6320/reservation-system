@@ -1,9 +1,39 @@
 # 개요
 ### 매장 테이블 예약 서비스
 
-사용 기술 : Spring, Spring Security, Jpa, MariaDB, QueryDsl
+사용 기술 : Spring, Spring Security, Jpa, MariaDB, QueryDsl, Netflix Eureka, Kafka
 
 목표 : 식당이나 점포를 이용하기 전에 미리 예약을 하여 편하게 식당/점포를 이용할 수 있는 서비스 구현
+
+---
+
+## 모듈 구성
+
+### discovery-service
+- Netflix Eureka를 사용한 Client-side Discovery
+
+### apigateway-service
+- spring cloud gateway를 사용한 api 라우팅 & 중계
+
+
+### user-service
+- 회원가입, 로그인
+
+### security-service
+- Spring Security & JWT를 사용한 인증, 인가
+
+### customer-service
+
+### partner-service
+
+### store-service
+- 상점 검색
+
+### reservation-service
+
+### review-service
+
+### kiosk
 
 ---
 
