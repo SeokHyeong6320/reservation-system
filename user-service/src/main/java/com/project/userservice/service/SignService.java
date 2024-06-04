@@ -9,6 +9,5 @@ public interface SignService {
 
     UserDto logIn(SignForm.SignInForm form);
 
-    UserDetails loadByEmail(String email);
 
 }

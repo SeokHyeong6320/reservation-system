@@ -52,9 +52,4 @@ public class SignServiceImpl implements SignService {
         return UserDto.fromEntity(findUser);
     }
 
-    @Override
-    public UserDetails loadByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
-    }
 }
