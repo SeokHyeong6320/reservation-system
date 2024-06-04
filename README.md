@@ -7,6 +7,33 @@
 
 ---
 
+## 모듈 구성
+
+### discovery-service
+
+### apigateway-service
+
+### security-service
+
+### user-service
+
+### customer-service
+
+### partner-service
+
+### store-service
+
+### reservation-service
+
+### review-service
+
+### kiosk-service
+
+### common
+
+---
+
+
 ## 패키지 구성
 
 ### auth

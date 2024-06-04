@@ -10,3 +10,5 @@ include 'review-service'
 include 'security-service'
 include 'store-service'
 include 'user-service'
+include 'common'
+
