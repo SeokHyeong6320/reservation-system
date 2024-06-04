@@ -1,11 +1,11 @@
 package com.project.userservice.controller;
 
-import com.project.reservation.auth.dto.UserDto;
-import com.project.reservation.auth.model.SignForm;
-import com.project.reservation.auth.model.SignResponse;
-import com.project.reservation.auth.service.SignService;
-import com.project.reservation.common.model.SuccessResponse;
-import com.project.reservation.security.util.TokenProvider;
+import com.project.common.model.SuccessResponse;
+import com.project.securityservice.util.TokenProvider;
+import com.project.domain.dto.UserDto;
+import com.project.userservice.model.SignForm;
+import com.project.userservice.model.SignResponse;
+import com.project.userservice.service.SignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

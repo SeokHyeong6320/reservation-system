@@ -1,18 +1,18 @@
 package com.project.userservice.service.impl;
 
-import com.project.reservation.auth.dto.UserDto;
-import com.project.reservation.auth.entity.User;
-import com.project.reservation.auth.model.SignForm;
-import com.project.reservation.auth.repository.UserRepository;
+import com.project.common.exception.CustomException;
+import com.project.domain.dto.UserDto;
+import com.project.domain.entity.User;
+import com.project.userservice.model.SignForm;
+import com.project.domain.repository.UserRepository;
 import com.project.userservice.service.SignService;
-import com.project.reservation.common.exception.CustomException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.project.reservation.common.exception.ErrorCode.*;
+import static com.project.common.exception.ErrorCode.*;
+
 
 @Service
 @Transactional

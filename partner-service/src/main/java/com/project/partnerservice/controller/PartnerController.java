@@ -1,16 +1,12 @@
 package com.project.partnerservice.controller;
 
-import com.project.reservation.auth.dto.UserDto;
-import com.project.reservation.partner.service.PartnerReservationService;
-import com.project.reservation.partner.service.PartnerService;
-import com.project.reservation.security.util.TokenValidator;
+import com.project.partnerservice.model.PartnerResponse;
+import com.project.partnerservice.service.PartnerReservationService;
+import com.project.partnerservice.service.PartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import static com.project.reservation.partner.model.PartnerResponse.PartnerEnrollResponse;
-import static com.project.reservation.security.constant.SecurityConst.TOKEN_HEADER;
 
 @RestController
 @RequestMapping("/partner/{id}")
@@ -38,7 +34,8 @@ public class PartnerController {
 
         UserDto userDto = partnerService.enrollPartner(id);
 
-        return ResponseEntity.ok(PartnerEnrollResponse.of(userDto));
+        return ResponseEntity.ok(PartnerResponse
+                .PartnerEnrollResponse.of(userDto));
     }
 
 

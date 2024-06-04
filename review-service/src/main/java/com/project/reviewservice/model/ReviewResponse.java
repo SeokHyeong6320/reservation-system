@@ -1,6 +1,6 @@
 package com.project.reviewservice.model;
 
-import com.project.reservation.review.dto.ReviewDto;
+import com.project.domain.dto.ReviewDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

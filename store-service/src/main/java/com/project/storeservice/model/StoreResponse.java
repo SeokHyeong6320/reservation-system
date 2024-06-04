@@ -1,7 +1,7 @@
 package com.project.storeservice.model;
 
-import com.project.reservation.store.dto.StoreDto;
-import com.project.reservation.store.entity.StoreStatus;
+import com.project.domain.dto.StoreDto;
+import com.project.domain.type.StoreStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,25 +1,17 @@
 package com.project.customerservice.service.impl;
 
-import com.project.reservation.auth.entity.User;
-import com.project.reservation.auth.repository.UserRepository;
-import com.project.reservation.common.exception.CustomException;
+import com.project.common.exception.CustomException;
 import com.project.customerservice.service.CustomerReservationService;
-import com.project.reservation.reservation.dto.ReservationDto;
-import com.project.reservation.reservation.entity.Reservation;
-import com.project.reservation.reservation.model.ReservationForm;
-import com.project.reservation.reservation.repository.ReservationRepository;
-import com.project.reservation.store.entity.Store;
-import com.project.reservation.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
 
-import static com.project.reservation.common.exception.ErrorCode.*;
-import static com.project.reservation.reservation.entity.ReservationApproveStatus.PENDING;
+import static com.project.common.exception.ErrorCode.*;
+
 
 @Service
 @Transactional

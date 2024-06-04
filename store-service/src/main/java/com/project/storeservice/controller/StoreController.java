@@ -1,9 +1,8 @@
 package com.project.storeservice.controller;
 
-import com.project.reservation.common.model.PageResponse;
-import com.project.reservation.common.model.SuccessResponse;
-import com.project.reservation.store.model.StoreResponse;
-import com.project.reservation.store.service.StoreService;
+import com.project.common.model.SuccessResponse;
+import com.project.storeservice.model.StoreResponse;
+import com.project.storeservice.service.StoreService;
 import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

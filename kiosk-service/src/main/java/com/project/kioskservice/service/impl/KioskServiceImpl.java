@@ -1,21 +1,22 @@
 package com.project.kioskservice.service.impl;
 
-import com.project.reservation.common.exception.CustomException;
-import com.project.reservation.kiosk.entity.Kiosk;
-import com.project.reservation.kiosk.model.VisitForm;
-import com.project.reservation.kiosk.repository.KioskRepository;
+import com.project.common.exception.CustomException;
+import com.project.kioskservice.entity.Kiosk;
+import com.project.kioskservice.model.VisitForm;
+import com.project.kioskservice.repository.KioskRepository;
 import com.project.kioskservice.service.KioskService;
-import com.project.reservation.reservation.entity.Reservation;
-import com.project.reservation.reservation.repository.ReservationRepository;
-import com.project.reservation.store.entity.Store;
+import com.project.domain.entity.Reservation;
+import com.project.domain.repository.ReservationRepository;
+import com.project.domain.entity.Store;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
-import static com.project.reservation.common.exception.ErrorCode.*;
-import static com.project.reservation.reservation.entity.ReservationApproveStatus.APPROVE;
+import static com.project.common.exception.ErrorCode.*;
+import static com.project.domain.type.ReservationApproveStatus.APPROVE;
+
 
 @Service
 @Transactional
@@ -48,6 +49,8 @@ public class KioskServiceImpl implements KioskService {
         Reservation findReservation =
                 reservationRepository.findById(form.getReservationId())
                 .orElseThrow(() -> new CustomException(RESERVATION_NOT_FOUND));
+
+
 
         validateVisitAvail(findKiosk, findReservation, form);
 

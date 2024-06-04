@@ -1,7 +1,8 @@
 package com.project.kioskservice.service;
 
-import com.project.reservation.kiosk.model.VisitForm;
-import com.project.reservation.store.entity.Store;
+
+import com.project.kioskservice.model.VisitForm;
+import com.project.domain.entity.Store;
 
 public interface KioskService {
 

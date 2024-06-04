@@ -1,5 +1,6 @@
 package com.project.reviewservice.model;
 
+import com.project.domain.model.ReviewDomainForm;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -31,6 +32,17 @@ public class ReviewForm {
         @Size(max = 100)
         private String content;
 
+
+        public ReviewDomainForm.CreateReviewForm toDomainForm() {
+            return ReviewDomainForm.CreateReviewForm
+                    .builder()
+                    .reservationId(this.reservationId)
+                    .star(this.star)
+                    .title(this.title)
+                    .content(this.content)
+                    .build();
+        }
+
     }
 
     @Getter
@@ -50,6 +62,16 @@ public class ReviewForm {
         @Size(max = 100)
         private String content;
 
+        public ReviewDomainForm.UpdateReviewForm toDomainForm() {
+            return ReviewDomainForm.UpdateReviewForm
+                    .builder()
+                    .title(this.title)
+                    .star(this.star)
+                    .content(this.content)
+                    .build();
+        }
     }
+
+
 
 }

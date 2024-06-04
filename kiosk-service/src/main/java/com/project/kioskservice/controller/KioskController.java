@@ -1,9 +1,9 @@
 package com.project.kioskservice.controller;
 
-import com.project.reservation.common.model.SuccessResponse;
-import com.project.reservation.kiosk.model.VisitForm;
-import com.project.reservation.kiosk.model.VisitResponse;
-import com.project.reservation.kiosk.service.KioskService;
+import com.project.common.model.SuccessResponse;
+import com.project.kioskservice.model.VisitForm;
+import com.project.kioskservice.model.VisitResponse;
+import com.project.kioskservice.service.KioskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

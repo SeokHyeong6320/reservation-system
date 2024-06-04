@@ -1,20 +1,8 @@
 package com.project.partnerservice.service.impl;
 
-import com.project.reservation.auth.entity.User;
-import com.project.reservation.auth.entity.UserType;
-import com.project.reservation.auth.repository.UserRepository;
-import com.project.reservation.common.exception.CustomException;
-import com.project.reservation.common.util.impl.GeoUtil;
-import com.project.reservation.kiosk.service.KioskService;
+import com.project.common.exception.CustomException;
+import com.project.common.util.impl.GeoUtil;
 import com.project.partnerservice.service.PartnerStoreService;
-import com.project.reservation.reservation.entity.Reservation;
-import com.project.reservation.reservation.repository.ReservationRepository;
-import com.project.reservation.review.entity.Review;
-import com.project.reservation.review.repository.ReviewRepository;
-import com.project.reservation.store.dto.StoreDto;
-import com.project.reservation.store.entity.Store;
-import com.project.reservation.store.model.StoreForm;
-import com.project.reservation.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.project.reservation.common.exception.ErrorCode.*;
+import static com.project.common.exception.ErrorCode.*;
+
 
 @Service
 @RequiredArgsConstructor
