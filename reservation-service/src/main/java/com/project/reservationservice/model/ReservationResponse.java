@@ -1,7 +1,7 @@
 package com.project.reservationservice.model;
 
-import com.project.reservation.reservation.dto.ReservationDto;
-import com.project.reservation.reservation.entity.ReservationApproveStatus;
+import com.project.domain.dto.ReservationDto;
+import com.project.domain.type.ReservationApproveStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

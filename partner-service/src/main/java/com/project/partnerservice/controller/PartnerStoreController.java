@@ -1,18 +1,12 @@
 package com.project.partnerservice.controller;
 
-import com.project.reservation.common.model.SuccessResponse;
-import com.project.reservation.partner.service.PartnerStoreService;
-import com.project.reservation.security.util.TokenValidator;
-import com.project.reservation.store.dto.StoreDto;
-import com.project.reservation.store.model.StoreForm;
-import com.project.reservation.store.model.StoreResponse;
+import com.project.common.model.SuccessResponse;
+import com.project.partnerservice.service.PartnerStoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static com.project.reservation.security.constant.SecurityConst.TOKEN_HEADER;
 
 @RestController
 @RequestMapping("/partner/{id}")

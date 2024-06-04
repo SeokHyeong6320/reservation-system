@@ -1,7 +1,7 @@
 package com.project.common.util.impl;
 
-import com.project.reservation.common.exception.CustomException;
-import com.project.reservation.common.util.EncryptComponent;
+import com.project.common.exception.CustomException;
+import com.project.common.util.EncryptComponent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Base64;
 
-import static com.project.reservation.common.exception.ErrorCode.*;
+import static com.project.common.exception.ErrorCode.*;
+
 
 @Component
 public class EncryptComponentImpl implements EncryptComponent {

@@ -1,7 +1,8 @@
 package com.project.common.util.impl;
 
-import com.project.reservation.common.exception.CustomException;
-import com.project.reservation.common.exception.ErrorCode;
+
+import com.project.common.exception.CustomException;
+import com.project.common.exception.ErrorCode;
 
 public class GeoUtil {
 

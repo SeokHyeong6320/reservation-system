@@ -1,12 +1,7 @@
 package com.project.partnerservice.service.impl;
 
-import com.project.reservation.auth.entity.User;
-import com.project.reservation.auth.repository.UserRepository;
-import com.project.reservation.common.exception.CustomException;
+import com.project.common.exception.CustomException;
 import com.project.partnerservice.service.PartnerReservationService;
-import com.project.reservation.reservation.dto.ReservationDto;
-import com.project.reservation.reservation.entity.Reservation;
-import com.project.reservation.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.project.reservation.common.exception.ErrorCode.*;
-import static com.project.reservation.reservation.entity.ReservationApproveStatus.APPROVE;
+import static com.project.common.exception.ErrorCode.*;
+
 
 @Service
 @Transactional

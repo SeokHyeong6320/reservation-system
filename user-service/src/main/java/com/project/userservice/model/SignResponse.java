@@ -1,6 +1,6 @@
 package com.project.userservice.model;
 
-import com.project.reservation.auth.dto.UserDto;
+import com.project.domain.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,8 +1,8 @@
 package com.project.userservice.service;
 
-import com.project.reservation.auth.dto.UserDto;
-import com.project.reservation.auth.model.SignForm;
-import org.springframework.security.core.userdetails.UserDetails;
+
+import com.project.domain.dto.UserDto;
+import com.project.userservice.model.SignForm;
 
 public interface SignService {
     UserDto register(SignForm.SignUpForm form);

@@ -1,6 +1,6 @@
 package com.project.storeservice.service;
 
-import com.project.reservation.store.dto.StoreDto;
+import com.project.domain.dto.StoreDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

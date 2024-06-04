@@ -1,6 +1,6 @@
 package com.project.common.model;
 
-import com.project.reservation.common.exception.CustomException;
+import com.project.common.exception.CustomException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

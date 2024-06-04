@@ -1,17 +1,13 @@
 package com.project.partnerservice.service.impl;
 
-import com.project.reservation.auth.dto.UserDto;
-import com.project.reservation.auth.entity.User;
-import com.project.reservation.auth.entity.UserType;
-import com.project.reservation.auth.repository.UserRepository;
-import com.project.reservation.common.exception.CustomException;
+import com.project.common.exception.CustomException;
 import com.project.partnerservice.service.PartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.project.reservation.common.exception.ErrorCode.PARTNER_ALREADY_ENROLLED;
-import static com.project.reservation.common.exception.ErrorCode.USER_NOT_FOUND;
+import static com.project.common.exception.ErrorCode.*;
+
 
 @Service
 @Transactional

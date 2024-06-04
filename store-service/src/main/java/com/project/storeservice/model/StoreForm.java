@@ -1,7 +1,8 @@
 package com.project.storeservice.model;
 
 
-import com.project.reservation.store.entity.StoreStatus;
+import com.project.domain.model.StoreDomainForm;
+import com.project.domain.type.StoreStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -23,6 +24,22 @@ public class StoreForm {
     @NotNull
     private StoreStatus status;
 
+    public StoreDomainForm toDomainForm() {
+        return StoreDomainForm.builder()
+                .name(this.name)
+                .description(this.description)
+                .address(
+                        StoreDomainForm.Address.builder()
+                                .detailAddress(address.detailAddress)
+                                .zipcode(address.zipcode)
+                                .latitude(address.latitude)
+                                .longitude(address.longitude)
+                                .build()
+                )
+                .status(this.status)
+                .build();
+    }
+
 
     @Data
     @AllArgsConstructor
@@ -40,4 +57,5 @@ public class StoreForm {
         @NotBlank
         private Double longitude;
     }
+
 }

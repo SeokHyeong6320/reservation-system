@@ -1,6 +1,6 @@
 package com.project.common.exception;
 
-import com.project.reservation.common.model.ErrorResponse;
+import com.project.common.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

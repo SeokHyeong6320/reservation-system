@@ -1,11 +1,8 @@
 package com.project.partnerservice.controller;
 
-import com.project.reservation.common.model.SuccessResponse;
-import com.project.reservation.partner.model.ReservationTimeTable;
-import com.project.reservation.partner.service.PartnerReservationService;
-import com.project.reservation.reservation.dto.ReservationDto;
-import com.project.reservation.reservation.model.ReservationResponse;
-import com.project.reservation.security.util.TokenValidator;
+import com.project.common.model.SuccessResponse;
+import com.project.partnerservice.model.ReservationTimeTable;
+import com.project.partnerservice.service.PartnerReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;

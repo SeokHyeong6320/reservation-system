@@ -1,6 +1,5 @@
 package com.project.partnerservice.model;
 
-import com.project.reservation.auth.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

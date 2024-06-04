@@ -1,7 +1,7 @@
 package com.project.customerservice.service.impl;
 
-import com.project.reservation.common.exception.CustomException;
 import com.project.customerservice.service.CustomerReviewService;
+import com.project.reservation.common.exception.CustomException;
 import com.project.reservation.reservation.entity.Reservation;
 import com.project.reservation.reservation.repository.ReservationRepository;
 import com.project.reservation.review.dto.ReviewDto;

@@ -13,9 +13,14 @@ repositories {
 }
 
 dependencies {
+    implementation project(":common")
+    implementation project(":domain")
+
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 test {
