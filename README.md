@@ -13,6 +13,10 @@
 
 ### apigateway-service
 
+### common
+
+### domain
+
 ### security-service
 
 ### user-service
@@ -29,7 +33,6 @@
 
 ### kiosk-service
 
-### common
 
 ---
 
