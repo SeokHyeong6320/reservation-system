@@ -1,6 +1,6 @@
 package com.project.securityservice.filter;
 
-import com.project.reservation.security.util.TokenProvider;
+import com.project.securityservice.util.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,8 +15,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static com.project.reservation.security.constant.SecurityConst.TOKEN_HEADER;
-import static com.project.reservation.security.constant.SecurityConst.TOKEN_PREFIX;
+import static com.project.securityservice.constant.SecurityConst.TOKEN_HEADER;
+import static com.project.securityservice.constant.SecurityConst.TOKEN_PREFIX;
+
 
 @Component
 @RequiredArgsConstructor

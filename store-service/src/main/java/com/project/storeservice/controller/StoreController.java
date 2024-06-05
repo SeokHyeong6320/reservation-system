@@ -1,5 +1,6 @@
 package com.project.storeservice.controller;
 
+import com.project.common.model.PageResponse;
 import com.project.common.model.SuccessResponse;
 import com.project.storeservice.model.StoreResponse;
 import com.project.storeservice.service.StoreService;

@@ -1,5 +1,6 @@
 package com.project.securityservice.model;
 
+import com.project.domain.entity.User;
 import com.project.domain.type.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,16 @@ public class UserLoginModel implements UserDetails {
     private String username;
 
     private UserType userType;
+
+    public static UserLoginModel fromEntity(User user) {
+        return UserLoginModel.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .username(user.getUsername())
+                .userType(user.getUserType())
+                .build();
+    }
 
 
 

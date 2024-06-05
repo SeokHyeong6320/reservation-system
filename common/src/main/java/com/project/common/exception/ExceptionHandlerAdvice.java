@@ -1,6 +1,9 @@
 package com.project.common.exception;
 
 import com.project.common.model.ErrorResponse;
+import com.project.common.util.impl.ErrorCodeUtil;
+import feign.FeignException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -8,7 +11,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class ExceptionHandlerAdvice {
+
+    private final ErrorCodeUtil errorCodeUtil;
 
 
     // 커스텀 exception 핸들러
@@ -18,6 +24,8 @@ public class ExceptionHandlerAdvice {
                 .status(e.getErrorCode().getStatus())
                 .body(ErrorResponse.of(e));
     }
+
+
 
     // Validator 관련 exception 핸들러
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -29,6 +37,20 @@ public class ExceptionHandlerAdvice {
 
     }
 
+    //openFeign 관련 exception 핸들러
+    @ExceptionHandler(feign.FeignException.class)
+    public ResponseEntity<?> handleFeignException(FeignException e) {
+
+        ErrorCode errorCode = errorCodeUtil.findFromFeignException(e);
+        CustomException customException = new CustomException(errorCode);
+        e.printStackTrace();
+        return ResponseEntity
+                .status(customException.getErrorCode().getStatus())
+                .body(ErrorResponse.of(customException));
+    }
+
+
+    // 그 외 exception 핸들러
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception e) {
         return ResponseEntity

@@ -1,7 +1,5 @@
 package com.project.domain.entity;
 
-import com.project.common.entity.BaseEntity;
-import com.project.domain.model.ReviewDomainForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import static com.project.domain.model.ReviewDomainForm.*;
+import static com.project.domain.model.ReviewDomainForm.CreateReviewForm;
+import static com.project.domain.model.ReviewDomainForm.UpdateReviewForm;
 
 
 @Entity

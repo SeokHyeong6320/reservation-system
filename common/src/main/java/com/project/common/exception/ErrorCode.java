@@ -45,14 +45,14 @@ public enum ErrorCode {
     REVIEW_NOT_FOUND(BAD_REQUEST, "couldn't find review"),
     REVIEW_CUSTOMER_NOT_MATCH(BAD_REQUEST, "this review is not written by current user"),
 
-
-
-
     GPS_COORDINATE_INVALID(BAD_REQUEST, "this is invalid gps coordinate"),
 
     ENCRYPT_FAIL(INTERNAL_SERVER_ERROR, "couldn't encrypt"),
     DECRYPT_FAIL(INTERNAL_SERVER_ERROR, "couldn't decrypt"),
-    CIPHER_GENERATING_FAIL(INTERNAL_SERVER_ERROR, "couldn't generate cipher");;
+    CIPHER_GENERATING_FAIL(INTERNAL_SERVER_ERROR, "couldn't generate cipher"),
+
+
+    FEIGN_SERVER_EXCEPTION(INTERNAL_SERVER_ERROR, "other exception from openfeign");
 
 
     private final HttpStatus status;
@@ -62,4 +62,9 @@ public enum ErrorCode {
         this.status = status;
         this.message = message;
     }
+
+    public static ErrorCode findByString(String str) {
+        return ErrorCode.valueOf(str);
+    }
+
 }

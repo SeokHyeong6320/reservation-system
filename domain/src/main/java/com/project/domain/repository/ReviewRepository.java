@@ -1,7 +1,7 @@
 package com.project.domain.repository;
 
 import com.project.domain.entity.Review;
-import com.project.storeservice.entity.Store;
+import com.project.domain.entity.Store;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

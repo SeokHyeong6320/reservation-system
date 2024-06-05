@@ -1,6 +1,6 @@
 package com.project.domain.repository.impl;
 
-import com.project.storeservice.entity.QStore;
+import com.project.domain.entity.QStore;
 import com.project.domain.entity.Store;
 import com.project.domain.repository.StoreQueryRepository;
 import com.querydsl.core.types.Order;

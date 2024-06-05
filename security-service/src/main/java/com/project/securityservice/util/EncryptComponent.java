@@ -1,4 +1,4 @@
-package com.project.common.util;
+package com.project.securityservice.util;
 
 public interface EncryptComponent {
 

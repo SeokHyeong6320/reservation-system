@@ -1,9 +1,9 @@
 package com.project.domain.dto;
 
 import com.project.domain.entity.Reservation;
-import com.project.domain.type.ReservationApproveStatus;
 import com.project.domain.entity.Store;
 import com.project.domain.entity.User;
+import com.project.domain.type.ReservationApproveStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
