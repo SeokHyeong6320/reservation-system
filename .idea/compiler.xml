@@ -14,7 +14,6 @@
         <module name="reservation.reservation-service.main" />
         <module name="reservation.review-service.main" />
         <module name="reservation.security-service.main" />
-        <module name="reservation.domain.main" />
         <module name="reservation.customer-service.main" />
         <module name="reservation.partner-service.main" />
         <module name="reservation.user-service.main" />
@@ -35,6 +34,7 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jdt/ecj/3.26.0/4837be609a3368a0f7e7cf0dc1bdbc7fe94993de/ecj-3.26.0.jar" />
         </processorPath>
         <module name="reservation.store-service.main" />
+        <module name="reservation.domain.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="21" />

@@ -1,6 +1,7 @@
 package com.project.userservice.model;
 
 import com.project.domain.dto.UserDto;
+import com.project.domain.dto.UserLoginDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,15 +36,15 @@ public class SignResponse {
     @AllArgsConstructor
     @Builder
     public static class SignIn {
-        private final String email;
+        private final String username;
         private final String userType;
         private final String jwt;
 
-        public static SignResponse.SignIn fromDto(UserDto userDto, String jwt) {
+        public static SignResponse.SignIn fromDto(UserLoginDto userLoginDto) {
             return SignIn.builder()
-                    .email(userDto.getEmail())
-                    .userType(userDto.getUserType().name())
-                    .jwt(jwt)
+                    .username(userLoginDto.getUsername())
+                    .userType(userLoginDto.getUserType().name())
+                    .jwt(userLoginDto.getJwt())
                     .build();
         }
     }

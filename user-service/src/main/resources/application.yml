@@ -5,6 +5,7 @@ spring:
   application:
     name: user-service
 
+
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3307/USERS
@@ -33,3 +34,9 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
+
+
+
+
+security_service:
+  exception: login error

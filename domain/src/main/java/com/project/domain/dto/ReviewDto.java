@@ -1,6 +1,6 @@
 package com.project.domain.dto;
 
-import com.project.reservationservice.entity.Reservation;
+import com.project.domain.entity.Reservation;
 import com.project.domain.entity.Review;
 import com.project.domain.entity.Store;
 import com.project.domain.entity.User;

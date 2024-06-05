@@ -1,11 +1,11 @@
 package com.project.userservice.controller;
 
 import com.project.common.model.SuccessResponse;
-import com.project.securityservice.util.TokenProvider;
+import com.project.domain.dto.UserLoginDto;
 import com.project.domain.dto.UserDto;
 import com.project.userservice.model.SignForm;
 import com.project.userservice.model.SignResponse;
-import com.project.userservice.service.SignService;
+import com.project.userservice.service.UserSignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,15 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
-public class SignController {
+public class UserSignController {
 
-    private final SignService signService;
-    private final TokenProvider tokenProvider;
+    private final UserSignService userSignService;
 
 
     /**
@@ -34,7 +30,7 @@ public class SignController {
             @RequestBody @Validated SignForm.SignUpForm form
     ) {
 
-        UserDto userDto = signService.register(form);
+        UserDto userDto = userSignService.register(form);
 
         return ResponseEntity.ok(
                 SuccessResponse.of(
@@ -53,7 +49,7 @@ public class SignController {
     public ResponseEntity<?> userSignIn(
             @RequestBody @Validated SignForm.SignInForm form
     ) {
-        UserDto userDto = signService.logIn(form);
+        /*UserDto userDto = userSignService.logIn(form);
 
         // JWT 반환
         String jwt = tokenProvider.generateToken(
@@ -61,11 +57,13 @@ public class SignController {
                 userDto.getEmail(),
                 // JWT 발행을 위해 userType을 List<String>으로 변환
                 new ArrayList<>(List.of(userDto.getUserType().name()))
-        );
+        );*/
+
+        UserLoginDto userLoginDto = userSignService.logIn(form);
 
         return ResponseEntity.ok(
                 SuccessResponse.of(
-                        SignResponse.SignIn.fromDto(userDto, jwt)
+                        SignResponse.SignIn.fromDto(userLoginDto)
                 )
         );
     }

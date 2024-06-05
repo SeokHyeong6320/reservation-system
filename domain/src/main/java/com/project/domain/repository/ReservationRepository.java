@@ -1,7 +1,7 @@
 package com.project.domain.repository;
 
 import com.project.domain.entity.Reservation;
-import com.project.userservice.entity.User;
+import com.project.domain.entity.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

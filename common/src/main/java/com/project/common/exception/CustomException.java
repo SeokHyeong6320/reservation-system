@@ -1,6 +1,8 @@
 package com.project.common.exception;
 
+import feign.FeignException;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
 public class CustomException extends RuntimeException{
@@ -11,4 +13,5 @@ public class CustomException extends RuntimeException{
         super(errorCode.getMessage());
         this.errorCode = errorCode;
     }
+
 }

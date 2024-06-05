@@ -1,7 +1,7 @@
 package com.project.securityservice.util.impl;
 
 import com.project.common.util.EncryptComponent;
-import com.project.securityservice.service.UserLoginService;
+import com.project.securityservice.service.SecurityLoginService;
 import com.project.securityservice.util.TokenProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -28,7 +28,7 @@ public class JwtTokenProvider implements TokenProvider {
 
 
     private final SecretKey secretKey;          // SecretKey는 JwtConfig에 Bean으로 등록
-    private final UserLoginService userLoginService;
+    private final SecurityLoginService securityLoginService;
     private final EncryptComponent encryptComponent;
 
 
@@ -65,7 +65,7 @@ public class JwtTokenProvider implements TokenProvider {
     @Override
     public Authentication getAuthentication(String token) {
 
-        UserDetails userDetails = userLoginService.loadByEmail(getEmail(token));
+        UserDetails userDetails = securityLoginService.loadByEmail(getEmail(token));
 
         return new UsernamePasswordAuthenticationToken
                 (userDetails, "", userDetails.getAuthorities());

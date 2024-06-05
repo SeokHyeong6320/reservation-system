@@ -5,11 +5,15 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/apigateway-service.iml" filepath="$PROJECT_DIR$/.idea/modules/apigateway-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/apigateway-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/apigateway-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/apigateway-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/apigateway-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/apigateway-service/reservation.apigateway-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/apigateway-service/reservation.apigateway-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/reservation.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/reservation.common.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/discovery-service/reservation.discovery-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/discovery-service/reservation.discovery-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/reservation.domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/reservation.domain.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reservation.reservation-service.main~1.iml" filepath="$PROJECT_DIR$/.idea/modules/reservation.reservation-service.main~1.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/reservation.reservation-service.test~1.iml" filepath="$PROJECT_DIR$/.idea/modules/reservation.reservation-service.test~1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-service/reservation.security-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security-service/reservation.security-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/store-service/reservation.store-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/store-service/reservation.store-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/reservation.user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/reservation.user-service.main.iml" />
     </modules>
   </component>
 </project>

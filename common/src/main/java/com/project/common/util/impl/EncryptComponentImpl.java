@@ -2,7 +2,9 @@ package com.project.common.util.impl;
 
 import com.project.common.exception.CustomException;
 import com.project.common.util.EncryptComponent;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
@@ -16,10 +18,13 @@ import static com.project.common.exception.ErrorCode.*;
 
 
 @Component
+@RequiredArgsConstructor
 public class EncryptComponentImpl implements EncryptComponent {
 
-    @Value("${encrypt.secretKey}")
-    private String secretKey;
+//    @Value("${encrypt.secretKey}")
+//    private String secretKey;
+
+    private final Environment env;
 
     private final Base64.Encoder encoder = Base64.getEncoder();
     private final Base64.Decoder decoder = Base64.getDecoder();
@@ -27,6 +32,8 @@ public class EncryptComponentImpl implements EncryptComponent {
 
     @Override
     public String encryptString(String originalString) {
+
+        String secretKey = env.getProperty("encrypt.secretKey");
 
         try {
             byte[] encryptedString =
@@ -43,6 +50,8 @@ public class EncryptComponentImpl implements EncryptComponent {
 
     @Override
     public String decryptString(String encryptedString) {
+
+        String secretKey = env.getProperty("encrypt.secretKey");
 
         try {
             byte[] byteString =

@@ -1,4 +1,4 @@
-package com.project.storeservice.config;
+package com.project.domain.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

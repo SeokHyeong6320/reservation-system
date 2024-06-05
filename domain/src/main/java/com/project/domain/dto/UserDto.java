@@ -1,6 +1,6 @@
 package com.project.domain.dto;
 
-import com.project.storeservice.entity.Store;
+import com.project.domain.entity.Store;
 import com.project.domain.entity.User;
 import com.project.domain.type.UserType;
 import lombok.AllArgsConstructor;
@@ -34,7 +34,9 @@ public class UserDto {
 
     List<Store> storeList = new ArrayList<>();
 
-
+    public UserDto(String username) {
+        this.username = username;
+    }
 
     public static UserDto fromEntity(User user) {
         return UserDto.builder()

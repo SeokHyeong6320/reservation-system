@@ -1,7 +1,5 @@
 package com.project.domain.entity;
 
-import com.project.common.entity.BaseEntity;
-import com.project.domain.model.ReviewDomainForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

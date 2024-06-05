@@ -1,6 +1,5 @@
 package com.project.domain.entity;
 
-import com.project.common.entity.BaseEntity;
 import com.project.domain.model.StoreDomainForm;
 import com.project.domain.type.StoreStatus;
 import jakarta.persistence.*;

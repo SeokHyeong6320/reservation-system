@@ -1,6 +1,5 @@
 package com.project.domain.entity;
 
-import com.project.common.entity.BaseEntity;
 import com.project.domain.model.SignDomainForm;
 import com.project.domain.type.UserType;
 import jakarta.persistence.*;
@@ -11,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity(name = "USER_INFO")
@@ -65,6 +63,10 @@ public class User extends BaseEntity /*implements UserDetails*/ {
                 .userType(UserType.CUSTOMER)
                 .registeredDt(LocalDateTime.now())
                 .build();
+    }
+
+    public void encryptPassword(String encryptedPwd) {
+        this.password = encryptedPwd;
     }
 
     public void enrollPartner() {
