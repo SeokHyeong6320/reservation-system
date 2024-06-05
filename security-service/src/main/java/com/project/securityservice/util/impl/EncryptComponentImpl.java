@@ -20,9 +20,6 @@ import static com.project.common.exception.ErrorCode.*;
 @RequiredArgsConstructor
 public class EncryptComponentImpl implements EncryptComponent {
 
-//    @Value("${encrypt.secretKey}")
-//    private String secretKey;
-
     private final Environment env;
 
     private final Base64.Encoder encoder = Base64.getEncoder();

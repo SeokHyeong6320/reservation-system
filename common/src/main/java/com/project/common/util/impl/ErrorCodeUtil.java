@@ -1,9 +1,7 @@
 package com.project.common.util.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.common.exception.ErrorCode;
 import feign.FeignException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component

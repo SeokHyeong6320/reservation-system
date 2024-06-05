@@ -1,13 +1,13 @@
 package com.project.storeservice.service.impl;
 
 import com.project.common.util.impl.GeoUtil;
-import com.project.reservationservice.repository.ReservationRepository;
-import com.project.reviewservice.repository.ReviewRepository;
 import com.project.domain.dto.StoreDto;
 import com.project.domain.repository.StoreQueryRepository;
 import com.project.domain.repository.StoreRepository;
-import com.project.storeservice.service.StoreService;
 import com.project.domain.repository.UserRepository;
+import com.project.reservationservice.repository.ReservationRepository;
+import com.project.reviewservice.repository.ReviewRepository;
+import com.project.storeservice.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

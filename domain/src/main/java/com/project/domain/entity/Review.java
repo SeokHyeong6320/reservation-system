@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import static com.project.domain.model.ReviewDomainForm.*;
+import static com.project.domain.model.ReviewDomainForm.CreateReviewForm;
+import static com.project.domain.model.ReviewDomainForm.UpdateReviewForm;
 
 
 @Entity

@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.project.domain.model.SignDomainForm.*;
+import static com.project.domain.model.SignDomainForm.SignInForm;
+import static com.project.domain.model.SignDomainForm.SignUpForm;
 
 @RestController
 @RequestMapping("/security-service")

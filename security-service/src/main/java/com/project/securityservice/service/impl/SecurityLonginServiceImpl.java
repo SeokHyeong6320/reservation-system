@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static com.project.common.exception.ErrorCode.*;
-import static com.project.domain.model.SignDomainForm.*;
+import static com.project.domain.model.SignDomainForm.SignInForm;
 
 @Service
 @RequiredArgsConstructor

@@ -5,7 +5,6 @@ import com.project.partnerservice.service.PartnerReservationService;
 import com.project.partnerservice.service.PartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 
 @RestController

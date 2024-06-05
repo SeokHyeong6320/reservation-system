@@ -7,8 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import static com.project.common.exception.ErrorCode.*;
-import static com.project.securityservice.constant.SecurityConst.*;
+import static com.project.common.exception.ErrorCode.AUTHENTICATION_NOT_MATCH;
+import static com.project.common.exception.ErrorCode.TOKEN_INVALID;
+import static com.project.securityservice.constant.SecurityConst.TOKEN_PREFIX;
 
 
 
