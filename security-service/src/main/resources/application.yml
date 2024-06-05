@@ -29,3 +29,7 @@ jwt:
       secret: ZGF5b25lLXNwcmluZy1ib290LWRpdmlkZW5kLXByb2plY3QtdHV0b3JpYWwtand0LXNlY3JldC1rZXkK
 
     expired_time: 3600000
+
+
+encrypt:
+  secretKey: "fhkljbewouin423adklj32nt38490b43"

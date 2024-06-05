@@ -37,16 +37,20 @@ public class ExceptionHandlerAdvice {
 
     }
 
+    //openFeign 관련 exception 핸들러
     @ExceptionHandler(feign.FeignException.class)
     public ResponseEntity<?> handleFeignException(FeignException e) {
 
         ErrorCode errorCode = errorCodeUtil.findFromFeignException(e);
         CustomException customException = new CustomException(errorCode);
+        e.printStackTrace();
         return ResponseEntity
                 .status(customException.getErrorCode().getStatus())
                 .body(ErrorResponse.of(customException));
     }
 
+
+    // 그 외 exception 핸들러
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception e) {
         return ResponseEntity

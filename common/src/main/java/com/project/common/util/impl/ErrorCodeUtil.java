@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class ErrorCodeUtil {
-
-    private final ObjectMapper objectMapper;
 
     /**
      * FeignException errorMessage에서 errorCode 추출
@@ -20,10 +17,11 @@ public class ErrorCodeUtil {
         try {
 
             String errorMessage = feignException.getMessage();
+
             int targetIdx = errorMessage.lastIndexOf("\"errorCode\"");
             int lastIdx = errorMessage.indexOf("\"", targetIdx + 14);
-            String errorCode = errorMessage.substring(targetIdx + 13, lastIdx);
 
+            String errorCode = errorMessage.substring(targetIdx + 13, lastIdx);
 
             return ErrorCode.findByString(errorCode);
 

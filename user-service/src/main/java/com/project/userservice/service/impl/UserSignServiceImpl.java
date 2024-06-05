@@ -27,7 +27,6 @@ public class UserSignServiceImpl implements UserSignService {
 
     private final CircuitBreakerFactory circuitBreakerFactory;
     private final SecurityServiceClient securityServiceClient;
-    private final ErrorCodeUtil errorCodeUtil;
 
     /**
      * 회원가입 서비스
@@ -43,17 +42,17 @@ public class UserSignServiceImpl implements UserSignService {
     public UserLoginDto logIn(SignForm.SignInForm form) {
 
 
-        CircuitBreaker circuitBreaker =
-                circuitBreakerFactory.create("circuitbreaker");
+//        CircuitBreaker circuitBreaker =
+//                        circuitBreakerFactory.create("circuitbreaker");
+//
+//
+//        UserLoginDto userLoginDto = circuitBreaker.run(
+//                () -> securityServiceClient.login(form.toDomainForm()).getBody(),
+//                throwable -> new UserLoginDto
+//                        ("Error", null, null)
+//        );
 
-
-        UserLoginDto userLoginDto = circuitBreaker.run(
-                () -> securityServiceClient.login(form.toDomainForm()).getBody(),
-                throwable -> new UserLoginDto
-                        ("Error", null, null)
-        );
-
-        return userLoginDto;
+        return securityServiceClient.login(form.toDomainForm()).getBody();
     }
 
 }

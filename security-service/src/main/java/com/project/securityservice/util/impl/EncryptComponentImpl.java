@@ -1,9 +1,8 @@
-package com.project.common.util.impl;
+package com.project.securityservice.util.impl;
 
 import com.project.common.exception.CustomException;
-import com.project.common.util.EncryptComponent;
+import com.project.securityservice.util.EncryptComponent;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
