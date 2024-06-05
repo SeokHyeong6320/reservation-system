@@ -1,9 +1,9 @@
 package com.project.customerservice.service;
 
-import com.project.reservation.review.dto.ReviewDto;
 
-import static com.project.reservation.review.model.ReviewForm.CreateReviewForm;
-import static com.project.reservation.review.model.ReviewForm.UpdateReviewForm;
+import com.project.domain.dto.ReviewDto;
+
+import static com.project.domain.model.ReviewDomainForm.*;
 
 public interface CustomerReviewService {
     ReviewDto createReview(Long id, CreateReviewForm form);
