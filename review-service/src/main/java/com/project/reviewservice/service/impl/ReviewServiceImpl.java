@@ -25,10 +25,11 @@ import static com.project.domain.model.ReviewDomainForm.*;
 public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final ReservationRepository reservationRepository;
-    private final StoreRepository storeRepository;
 
 
+    /**
+     * 리뷰 작성
+     */
     @Override
     public ReviewDto createReview(Long userId, Reservation reservation, CreateReviewForm form) {
 
@@ -46,6 +47,9 @@ public class ReviewServiceImpl implements ReviewService {
         return ReviewDto.fromEntity(savedReview);
     }
 
+    /**
+     * 리뷰 수정
+     */
     @Override
     public ReviewDto updateReview(Long id, Long reviewId, UpdateReviewForm form) {
 
@@ -65,6 +69,9 @@ public class ReviewServiceImpl implements ReviewService {
         return ReviewDto.fromEntity(findReview);
     }
 
+    /**
+     * 리뷰 삭제
+     */
     @Override
     public void deleteReview(Long id, Long reviewId) {
 
@@ -82,7 +89,9 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
 
-    // 상점 별점 업데이트
+    /**
+     * 상점 별점 업데이트
+     */
     private void updateStar(Store store, int star) {
         Long count = reviewRepository.countByStore(store);
         store.calculateStar(star, count);

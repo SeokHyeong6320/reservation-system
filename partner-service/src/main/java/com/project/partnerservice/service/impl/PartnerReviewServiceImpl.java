@@ -16,6 +16,9 @@ public class PartnerReviewServiceImpl implements PartnerReviewService {
     private final ReviewService reviewService;
 
 
+    /**
+     * review-service 모듈로 넘겨 리뷰 삭제 처리
+     */
     @Override
     public void deleteReview(Long userId, Long reviewId) {
         reviewService.deleteReview(userId, reviewId);
