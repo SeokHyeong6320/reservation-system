@@ -1,12 +1,12 @@
 package com.project.kioskservice.service.impl;
 
 import com.project.common.exception.CustomException;
+import com.project.domain.entity.Kiosk;
 import com.project.domain.entity.Reservation;
 import com.project.domain.entity.Store;
+import com.project.domain.repository.KioskRepository;
 import com.project.domain.repository.ReservationRepository;
-import com.project.kioskservice.entity.Kiosk;
 import com.project.kioskservice.model.VisitForm;
-import com.project.kioskservice.repository.KioskRepository;
 import com.project.kioskservice.service.KioskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class KioskServiceImpl implements KioskService {
      */
     @Override
     public void addKiosk(Store store) {
-        Kiosk newKiosk = Kiosk.builder().store(store).build();
+        Kiosk newKiosk = Kiosk.builder().build();
         kioskRepository.save(newKiosk);
     }
 

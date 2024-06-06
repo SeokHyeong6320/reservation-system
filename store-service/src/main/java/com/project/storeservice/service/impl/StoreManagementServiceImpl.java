@@ -23,7 +23,7 @@ public class StoreManagementServiceImpl implements StoreManagementService {
     private final ReservationRepository reservationRepository;
     private final ReviewRepository reviewRepository;
 
-    private final KioskService kioskService;
+//    private final KioskService kioskService;
 
 
     // 상점 추가 기능
