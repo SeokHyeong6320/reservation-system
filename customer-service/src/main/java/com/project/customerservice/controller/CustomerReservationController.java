@@ -20,7 +20,7 @@ public class CustomerReservationController {
 
 
 //    @PreAuthorize("hasAnyAuthority('CUSTOMER', 'PARTNER')")
-    @PostMapping("/customer/{id}/reservation")
+    @PostMapping("/{id}/reservation")
     public ResponseEntity<?> doReservation(
             @PathVariable Long id,
 //            @RequestHeader(TOKEN_HEADER) String header,

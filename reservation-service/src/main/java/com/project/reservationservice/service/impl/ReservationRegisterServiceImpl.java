@@ -8,7 +8,7 @@ import com.project.domain.entity.User;
 import com.project.domain.model.ReservationDomainForm;
 import com.project.domain.repository.ReservationRepository;
 import com.project.domain.repository.StoreRepository;
-import com.project.reservationservice.service.ReservationService;
+import com.project.reservationservice.service.ReservationRegisterService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.stereotype.Service;
@@ -19,20 +19,19 @@ import java.util.Locale;
 import java.util.Objects;
 
 import static com.project.common.exception.ErrorCode.*;
-import static com.project.domain.type.ReservationApproveStatus.*;
 
 
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ReservationServiceImpl implements ReservationService {
+public class ReservationRegisterServiceImpl implements ReservationRegisterService {
 
     private final ReservationRepository reservationRepository;
 //    private final UserRepository userRepository;
     private final StoreRepository storeRepository;
 
     @Override
-    public ReservationDto reservation
+    public ReservationDto makeReservation
             (User customer, Store store, ReservationDomainForm form) {
 
 //        User findUser = userRepository
@@ -53,7 +52,10 @@ public class ReservationServiceImpl implements ReservationService {
             throw new CustomException(RESERVATION_DATE_INVALID);
         }
 
-        Reservation reservation = makeReservation(customer, store, form);
+        Reservation reservation =
+                Reservation.makeReservation(customer, store, form);
+
+        setReservationCode(reservation);
 
         Reservation savedReservation = reservationRepository.save(reservation);
 
@@ -90,23 +92,12 @@ public class ReservationServiceImpl implements ReservationService {
     /**
      * 추후 키오스크에서 예약 확인 시 사용될 8자리 코드 생성
      */
-    private Reservation makeReservation
-            (User customer, Store store, ReservationDomainForm form) {
+    private void setReservationCode(Reservation reservation) {
 
         String randomCode = RandomStringUtils
                 .random(8, true, true)
                 .toUpperCase(Locale.ROOT);
 
-        return Reservation.builder()
-                .customer(customer)
-                .store(store)
-                .contactNumber(form.getContact())
-                .reserveDt(form.getReserveDt())
-                .visitAvailDt(form.getReserveDt().minusMinutes(10))
-                .code(randomCode)
-                .approveStatus(PENDING)
-                .visitYn(false)
-                .reviewYn(false)
-                .build();
+        reservation.setReservationCode(randomCode);
     }
 }

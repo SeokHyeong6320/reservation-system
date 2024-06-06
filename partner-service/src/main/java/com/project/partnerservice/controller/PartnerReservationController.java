@@ -1,24 +1,25 @@
 package com.project.partnerservice.controller;
 
 import com.project.common.model.SuccessResponse;
+import com.project.domain.dto.ReservationDto;
+import com.project.domain.response.ReservationResponse;
 import com.project.partnerservice.model.ReservationTimeTable;
 import com.project.partnerservice.service.PartnerReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.project.reservation.security.constant.SecurityConst.TOKEN_HEADER;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/partner/{id}")
+@RequestMapping("/{id}/reservation")
 public class PartnerReservationController {
 
-    private final TokenValidator tokenValidator;
+//    private final TokenValidator tokenValidator;
     private final PartnerReservationService partnerReservationService;
 
 
@@ -26,15 +27,15 @@ public class PartnerReservationController {
     /**
      * 예약 시간별 타임테이블 조회하는 엔드포인트
      */
-    @PreAuthorize("hasAuthority('PARTNER')")
-    @GetMapping("/reservation")
+//    @PreAuthorize("hasAuthority('PARTNER')")
+    @GetMapping
     public ResponseEntity<?> getReservationTimeTable(
             @PathVariable Long id,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestHeader(name = TOKEN_HEADER) String header
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
+//            @RequestHeader(name = TOKEN_HEADER) String header
     ) {
 
-        tokenValidator.validateUser(id, header);
+//        tokenValidator.validateUser(id, header);
 
         List<ReservationDto> list =
                 partnerReservationService.getReservationTimeTable(id, date);
@@ -48,15 +49,14 @@ public class PartnerReservationController {
     /**
      * 예약 승인하는 엔드포인트
      */
-    @PreAuthorize("hasAuthority('PARTNER')")
-    @PostMapping("/reservation/{reservationId}/confirm")
+//    @PreAuthorize("hasAuthority('PARTNER')")
+    @PostMapping("/{reservationId}/confirm")
     public ResponseEntity<?> confirmReservation(
-            @PathVariable Long id,
-            @PathVariable Long reservationId,
-            @RequestHeader(TOKEN_HEADER) String header
+            @PathVariable Long id, @PathVariable Long reservationId
+//            @RequestHeader(TOKEN_HEADER) String header
     ) {
 
-        tokenValidator.validateUser(id, header);
+//        tokenValidator.validateUser(id, header);
 
         ReservationDto reservationDto =
                 partnerReservationService.confirmReservation(id, reservationId);
@@ -70,15 +70,14 @@ public class PartnerReservationController {
     /**
      * 예약 거절하는 엔드포인트
      */
-    @PreAuthorize("hasAuthority('PARTNER')")
-    @PostMapping("/reservation/{reservationId}/decline")
+//    @PreAuthorize("hasAuthority('PARTNER')")
+    @PostMapping("/{reservationId}/decline")
     public ResponseEntity<?> declineReservation(
-            @PathVariable Long id,
-            @PathVariable Long reservationId,
-            @RequestHeader(TOKEN_HEADER) String header
+            @PathVariable Long id, @PathVariable Long reservationId
+//            @RequestHeader(TOKEN_HEADER) String header
     ) {
 
-        tokenValidator.validateUser(id, header);
+//        tokenValidator.validateUser(id, header);
 
         ReservationDto reservationDto =
                 partnerReservationService.declineReservation(id, reservationId);

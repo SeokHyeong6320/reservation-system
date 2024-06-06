@@ -1,18 +1,22 @@
 package com.project.partnerservice.controller;
 
 import com.project.common.model.SuccessResponse;
+import com.project.domain.dto.StoreDto;
+import com.project.domain.response.StoreResponse;
+import com.project.partnerservice.model.StoreInfoForm;
 import com.project.partnerservice.service.PartnerStoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/partner/{id}")
+@RequestMapping("/{id}/store")
 @RequiredArgsConstructor
 public class PartnerStoreController {
 
-    private final TokenValidator tokenValidator;
+//    private final TokenValidator tokenValidator;
     private final PartnerStoreService partnerStoreService;
 
 
@@ -24,14 +28,14 @@ public class PartnerStoreController {
      * @param form : 상점 등록 폼
      * @return : 등록한 상점 정보 반환
      */
-    @PreAuthorize("hasAuthority('PARTNER')")
-    @PostMapping("/store")
+//    @PreAuthorize("hasAuthority('PARTNER')")
+    @PostMapping
     public ResponseEntity<?> addStore(
-            @PathVariable Long id, @RequestBody StoreForm form,
-            @RequestHeader(name = TOKEN_HEADER) String header
+            @PathVariable Long id, @RequestBody StoreInfoForm form
+//            @RequestHeader(name = TOKEN_HEADER) String header
     ) {
 
-        tokenValidator.validateUser(id, header);
+//        tokenValidator.validateUser(id, header);
 
         StoreDto storeDto = partnerStoreService.addStore(id, form);
 
@@ -43,15 +47,15 @@ public class PartnerStoreController {
     /**
      * 상점 정보 업데이트하는 엔드포인트
      */
-    @PreAuthorize("hasAuthority('PARTNER')")
-    @PatchMapping("/store/{storeId}")
+//    @PreAuthorize("hasAuthority('PARTNER')")
+    @PatchMapping("/{storeId}")
     public ResponseEntity<?> updateStore(
             @PathVariable Long id, @PathVariable Long storeId,
-            @RequestHeader(name = TOKEN_HEADER) String header,
-            @RequestBody @Validated StoreForm form
+//            @RequestHeader(name = TOKEN_HEADER) String header,
+            @RequestBody @Validated StoreInfoForm form
     ) {
 
-        tokenValidator.validateUser(id, header);
+//        tokenValidator.validateUser(id, header);
 
         StoreDto storeDto = partnerStoreService.updateStore(id, storeId, form);
 
@@ -64,14 +68,14 @@ public class PartnerStoreController {
     /**
      * 상점 삭제 엔드포인트
      */
-    @PreAuthorize("hasAuthority('PARTNER')")
-    @DeleteMapping("/store/{storeId}")
+//    @PreAuthorize("hasAuthority('PARTNER')")
+    @DeleteMapping("/{storeId}")
     public ResponseEntity<?> deleteStore(
-            @PathVariable Long id, @PathVariable Long storeId,
-            @RequestHeader(TOKEN_HEADER) String header
+            @PathVariable Long id, @PathVariable Long storeId
+//            @RequestHeader(TOKEN_HEADER) String header
     ) {
 
-        tokenValidator.validateUser(id, header);
+//        tokenValidator.validateUser(id, header);
 
         partnerStoreService.deleteStore(id, storeId);
 

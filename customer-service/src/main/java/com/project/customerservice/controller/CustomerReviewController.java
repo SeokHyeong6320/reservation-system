@@ -14,7 +14,7 @@ import static com.project.customerservice.model.CustomerReviewForm.*;
 
 
 @RestController
-@RequestMapping("/customer/{id}/review")
+@RequestMapping("/{id}/review")
 @RequiredArgsConstructor
 public class CustomerReviewController {
 

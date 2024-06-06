@@ -1,6 +1,10 @@
 package com.project.partnerservice.service.impl;
 
 import com.project.common.exception.CustomException;
+import com.project.domain.dto.UserDto;
+import com.project.domain.entity.User;
+import com.project.domain.repository.UserRepository;
+import com.project.domain.type.UserType;
 import com.project.partnerservice.service.PartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +20,6 @@ public class PartnerServiceImpl implements PartnerService {
 
     private final UserRepository userRepository;
 
-
     // 파트너 가입 서비스
     @Override
     public UserDto enrollPartner(Long id) {
@@ -25,15 +28,19 @@ public class PartnerServiceImpl implements PartnerService {
                 .findById(id).orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         // 이미 파트너인 경우 에러 발생
-        if (findUser.getUserType() == UserType.PARTNER) {
-            throw new CustomException(PARTNER_ALREADY_ENROLLED);
-        }
+        checkUserType(findUser);
 
         // userType을 PARTNER로 변경
         findUser.enrollPartner();
 
         // dto로 변환해서 반환
         return UserDto.fromEntity(findUser);
+    }
+
+    private void checkUserType(User findUser) {
+        if (findUser.getUserType() == UserType.PARTNER) {
+            throw new CustomException(PARTNER_ALREADY_ENROLLED);
+        }
     }
 
 

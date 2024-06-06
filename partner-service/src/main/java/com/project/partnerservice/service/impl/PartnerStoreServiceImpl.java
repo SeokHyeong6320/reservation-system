@@ -1,99 +1,73 @@
 package com.project.partnerservice.service.impl;
 
 import com.project.common.exception.CustomException;
-import com.project.common.util.impl.GeoUtil;
+import com.project.domain.dto.StoreDto;
+import com.project.domain.entity.Store;
+import com.project.domain.entity.User;
+import com.project.domain.repository.StoreRepository;
+import com.project.domain.repository.UserRepository;
+import com.project.domain.type.UserType;
+import com.project.partnerservice.model.StoreInfoForm;
 import com.project.partnerservice.service.PartnerStoreService;
+import com.project.storeservice.service.StoreManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Objects;
 
 import static com.project.common.exception.ErrorCode.*;
 
-
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PartnerStoreServiceImpl implements PartnerStoreService {
 
+    private final StoreManagementService storeManagementService;
     private final UserRepository userRepository;
     private final StoreRepository storeRepository;
-    private final ReservationRepository reservationRepository;
-    private final ReviewRepository reviewRepository;
-
-    private final KioskService kioskService;
 
 
-    // 상점 추가 기능
     @Override
-    @Transactional
-    public StoreDto addStore(Long id, StoreForm form) {
+    public StoreDto addStore(Long userId, StoreInfoForm form) {
 
         // 해당 유저가 없으면 에러 발생
-        User findUser = userRepository.findById(id)
+        User findUser = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         // 파트너가 아닌 경우 에러 발생
         validateIsPartner(findUser);
 
-        // 위도, 경도 값 정상값인지 확인 (정상 값 아닐 경우 에러 발생)
-        GeoUtil.isValidLocation(
-                form.getAddress().getLatitude(), form.getAddress().getLongitude()
-        );
-
-        Store newStore = Store.fromForm(form, findUser);
-        Store savedStore = storeRepository.save(newStore);
-
-        // 점주의 가게 리스트에 추가
-        findUser.getStoreList().add(savedStore);
-
-        // 키오스크 등록
-        kioskService.addKiosk(savedStore);
-
-        // dto로 변환해서 반환
-        return StoreDto.fromEntity(savedStore);
+        // store-service로 넘겨서 상점 등록
+        return storeManagementService.addStore(findUser, form.toDomainForm());
     }
 
-    // 상점 정보 수정
+    @Override
+    public StoreDto updateStore(Long userId, Long storeId, StoreInfoForm form) {
+
+        // 해당 상점이 없으면 에러 발생
+        Store findStore = storeRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
+        // 올바른 소유자의 상점인지 확인
+        validateStoreOwner(userId, findStore);
+
+        return storeManagementService.updateStore(findStore, form.toDomainForm());
+    }
 
     @Override
-    @Transactional
-    public StoreDto updateStore(Long id, Long storeId, StoreForm form) {
+    public void deleteStore(Long userId, Long storeId) {
 
         Store findStore = storeRepository.findById(storeId)
                 .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
 
         // 올바른 소유자의 상점인지 확인
-        validateStoreOwner(id, findStore);
+        validateStoreOwner(userId, findStore);
 
-        findStore.updateStore(form);
+        storeManagementService.deleteStore(findStore);
 
-        return StoreDto.fromEntity(findStore);
     }
 
-
-    // 상점 삭제
-
-    @Override
-    public void deleteStore(Long id, Long storeId) {
-
-        Store findStore = storeRepository.findById(storeId)
-                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
-
-        // 올바른 소유자의 상점인지 확인
-        validateStoreOwner(id, findStore);
-
-        // 관련된 예약 모두 삭제
-        List<Reservation> reservations = findStore.getReservations();
-        reservationRepository.deleteAll(reservations);
-
-        // 관련된 리뷰 모두 삭제
-        List<Review> reviews = reviewRepository.findByStore(findStore);
-        reviewRepository.deleteAll(reviews);
-
-        storeRepository.delete(findStore);
-    }
 
     // 파트너인지 확인
     private void validateIsPartner(User findUser) {
@@ -108,5 +82,4 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
             throw new CustomException(STORE_OWNER_NOT_MATCH);
         }
     }
-
 }

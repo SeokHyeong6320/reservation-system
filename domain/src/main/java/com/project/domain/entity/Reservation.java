@@ -1,5 +1,6 @@
 package com.project.domain.entity;
 
+import com.project.domain.model.ReservationDomainForm;
 import com.project.domain.type.ReservationApproveStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+
+import static com.project.domain.type.ReservationApproveStatus.PENDING;
 
 @Entity
 @Getter
@@ -49,6 +52,25 @@ public class Reservation extends BaseEntity {
 
     @Column(name = "reserv_review_yn")
     private boolean reviewYn;
+
+    public static Reservation makeReservation
+            (User customer, Store store, ReservationDomainForm form) {
+
+        return Reservation.builder()
+                .customer(customer)
+                .store(store)
+                .contactNumber(form.getContact())
+                .reserveDt(form.getReserveDt())
+                .visitAvailDt(form.getReserveDt().minusMinutes(10))
+                .approveStatus(PENDING)
+                .visitYn(false)
+                .reviewYn(false)
+                .build();
+    }
+
+    public void setReservationCode(String code) {
+        this.code = code;
+    }
 
     public boolean availVisit() {
         return !visitAvailDt.isBefore(LocalDateTime.now());
