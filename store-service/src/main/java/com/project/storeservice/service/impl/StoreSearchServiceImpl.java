@@ -1,6 +1,6 @@
 package com.project.storeservice.service.impl;
 
-import com.project.common.util.impl.GeoUtil;
+import com.project.common.util.GeoUtil;
 import com.project.domain.dto.StoreDto;
 import com.project.domain.model.UserLocation;
 import com.project.domain.repository.*;
