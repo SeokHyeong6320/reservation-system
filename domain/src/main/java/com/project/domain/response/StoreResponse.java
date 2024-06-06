@@ -1,4 +1,4 @@
-package com.project.storeservice.model;
+package com.project.domain.response;
 
 import com.project.domain.dto.StoreDto;
 import com.project.domain.type.StoreStatus;
