@@ -1,8 +1,19 @@
 package com.project.partnerservice.service.impl;
 
 import com.project.common.exception.CustomException;
-import com.project.common.util.impl.GeoUtil;
+import com.project.common.util.GeoUtil;
+import com.project.domain.dto.StoreDto;
+import com.project.domain.entity.Reservation;
+import com.project.domain.entity.Review;
+import com.project.domain.entity.Store;
+import com.project.domain.entity.User;
+import com.project.domain.repository.ReservationRepository;
+import com.project.domain.repository.ReviewRepository;
+import com.project.domain.repository.StoreRepository;
+import com.project.domain.repository.UserRepository;
+import com.project.domain.type.UserType;
 import com.project.partnerservice.service.PartnerStoreService;
+import com.project.storeservice.model.StoreForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

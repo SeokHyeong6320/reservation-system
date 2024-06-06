@@ -1,6 +1,11 @@
 package com.project.partnerservice.service.impl;
 
 import com.project.common.exception.CustomException;
+import com.project.domain.dto.ReservationDto;
+import com.project.domain.entity.Reservation;
+import com.project.domain.entity.User;
+import com.project.domain.repository.ReservationRepository;
+import com.project.domain.repository.UserRepository;
 import com.project.partnerservice.service.PartnerReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,6 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.project.common.exception.ErrorCode.*;
+import static com.project.domain.type.ReservationApproveStatus.APPROVE;
 
 
 @Service

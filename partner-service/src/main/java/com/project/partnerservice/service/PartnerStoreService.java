@@ -1,7 +1,8 @@
 package com.project.partnerservice.service;
 
-import com.project.reservation.store.dto.StoreDto;
-import com.project.reservation.store.model.StoreForm;
+
+import com.project.domain.dto.StoreDto;
+import com.project.storeservice.model.StoreForm;
 
 public interface PartnerStoreService {
 

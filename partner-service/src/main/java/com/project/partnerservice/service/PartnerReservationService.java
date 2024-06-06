@@ -1,6 +1,7 @@
 package com.project.partnerservice.service;
 
-import com.project.reservation.reservation.dto.ReservationDto;
+
+import com.project.domain.dto.ReservationDto;
 
 import java.time.LocalDate;
 import java.util.List;
