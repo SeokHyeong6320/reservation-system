@@ -1,7 +1,7 @@
 package com.project.common.exception;
 
 import com.project.common.model.ErrorResponse;
-import com.project.common.util.impl.ErrorCodeUtil;
+import com.project.common.util.ErrorCodeUtil;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

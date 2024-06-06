@@ -1,4 +1,4 @@
-package com.project.reservationservice.model;
+package com.project.domain.response;
 
 import com.project.domain.dto.ReservationDto;
 import com.project.domain.type.ReservationApproveStatus;

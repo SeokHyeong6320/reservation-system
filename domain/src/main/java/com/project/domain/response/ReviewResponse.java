@@ -1,4 +1,4 @@
-package com.project.reviewservice.model;
+package com.project.domain.response;
 
 import com.project.domain.dto.ReviewDto;
 import lombok.AllArgsConstructor;

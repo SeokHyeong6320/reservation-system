@@ -1,9 +1,10 @@
 package com.project.customerservice.service;
 
-import com.project.reservation.reservation.dto.ReservationDto;
-import com.project.reservation.reservation.model.ReservationForm;
+import com.project.customerservice.model.CustomerReservationForm;
+import com.project.domain.dto.ReservationDto;
 
 public interface CustomerReservationService {
-    ReservationDto reservation(Long id, ReservationForm form);
+
+    ReservationDto makeReservation(Long userId, CustomerReservationForm form);
 
 }

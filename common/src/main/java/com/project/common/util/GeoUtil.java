@@ -1,4 +1,4 @@
-package com.project.common.util.impl;
+package com.project.common.util;
 
 
 import com.project.common.exception.CustomException;

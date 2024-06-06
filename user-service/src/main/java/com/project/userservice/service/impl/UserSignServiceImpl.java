@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserSignServiceImpl implements UserSignService {
 
-    private final CircuitBreakerFactory circuitBreakerFactory;
     private final SecurityServiceClient securityServiceClient;
 
     /**
@@ -32,17 +31,7 @@ public class UserSignServiceImpl implements UserSignService {
     @Override
     public UserLoginDto logIn(SignForm.SignInForm form) {
 
-
-//        CircuitBreaker circuitBreaker =
-//                        circuitBreakerFactory.create("circuitbreaker");
-//
-//
-//        UserLoginDto userLoginDto = circuitBreaker.run(
-//                () -> securityServiceClient.login(form.toDomainForm()).getBody(),
-//                throwable -> new UserLoginDto
-//                        ("Error", null, null)
-//        );
-
+        // FeignClient 사용해서 security-service에서 로그인 처리
         return securityServiceClient.login(form.toDomainForm()).getBody();
     }
 

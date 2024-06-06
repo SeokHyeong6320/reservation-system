@@ -55,11 +55,6 @@ public class SecurityLonginServiceImpl implements SecurityLoginService {
             throw new CustomException(PASSWORD_NOT_MATCH);
         }
 
-//        String jwtToken = jwtTokenProvider.generateToken(
-//                findUser.getId(), findUser.getEmail(),
-//                new ArrayList<>(List.of(findUser.getUserType().name()))
-//        );
-
         return UserDto.fromEntity(findUser);
     }
 
