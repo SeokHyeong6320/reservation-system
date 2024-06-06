@@ -7,8 +7,9 @@ import com.project.domain.entity.Store;
 import com.project.domain.entity.User;
 import com.project.domain.model.ReservationDomainForm;
 
-public interface ReservationService {
-    ReservationDto reservation(User customer, Store store, ReservationDomainForm form);
+public interface ReservationRegisterService {
+
+    ReservationDto makeReservation(User customer, Store store, ReservationDomainForm form);
 
     void checkAvailWriteReview(Long userId, Reservation reservation);
 }

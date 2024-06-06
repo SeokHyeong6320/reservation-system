@@ -9,7 +9,7 @@ import com.project.domain.repository.UserRepository;
 import com.project.domain.type.UserType;
 import com.project.partnerservice.model.StoreInfoForm;
 import com.project.partnerservice.service.PartnerStoreService;
-import com.project.storeservice.service.StoreInfoService;
+import com.project.storeservice.service.StoreManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +23,7 @@ import static com.project.common.exception.ErrorCode.*;
 @Transactional
 public class PartnerStoreServiceImpl implements PartnerStoreService {
 
-    private final StoreInfoService storeInfoService;
+    private final StoreManagementService storeManagementService;
     private final UserRepository userRepository;
     private final StoreRepository storeRepository;
 
@@ -39,7 +39,7 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
         validateIsPartner(findUser);
 
         // store-service로 넘겨서 상점 등록
-        return storeInfoService.addStore(findUser, form.toDomainForm());
+        return storeManagementService.addStore(findUser, form.toDomainForm());
     }
 
     @Override
@@ -52,7 +52,7 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
         // 올바른 소유자의 상점인지 확인
         validateStoreOwner(userId, findStore);
 
-        return storeInfoService.updateStore(findStore, form.toDomainForm());
+        return storeManagementService.updateStore(findStore, form.toDomainForm());
     }
 
     @Override
@@ -64,7 +64,7 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
         // 올바른 소유자의 상점인지 확인
         validateStoreOwner(userId, findStore);
 
-        storeInfoService.deleteStore(findStore);
+        storeManagementService.deleteStore(findStore);
 
     }
 

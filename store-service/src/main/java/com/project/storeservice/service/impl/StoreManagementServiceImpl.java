@@ -1,17 +1,14 @@
 package com.project.storeservice.service.impl;
 
-import com.project.common.exception.CustomException;
 import com.project.common.util.GeoUtil;
 import com.project.domain.dto.StoreDto;
-import com.project.domain.entity.Reservation;
-import com.project.domain.entity.Review;
 import com.project.domain.entity.Store;
 import com.project.domain.entity.User;
 import com.project.domain.model.StoreDomainForm;
 import com.project.domain.repository.ReservationRepository;
 import com.project.domain.repository.ReviewRepository;
 import com.project.domain.repository.StoreRepository;
-import com.project.storeservice.service.StoreInfoService;
+import com.project.storeservice.service.StoreManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class StoreInfoServiceImpl implements StoreInfoService {
+public class StoreManagementServiceImpl implements StoreManagementService {
 
     private final StoreRepository storeRepository;
     private final ReservationRepository reservationRepository;

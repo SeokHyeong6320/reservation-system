@@ -8,7 +8,7 @@ import com.project.domain.entity.Store;
 import com.project.domain.entity.User;
 import com.project.domain.repository.StoreRepository;
 import com.project.domain.repository.UserRepository;
-import com.project.reservationservice.service.ReservationService;
+import com.project.reservationservice.service.ReservationRegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import static com.project.common.exception.ErrorCode.*;
 public class CustomerReservationServiceImpl implements CustomerReservationService {
 
 
-    private final ReservationService reservationService;
+    private final ReservationRegisterService reservationRegisterService;
     private final UserRepository userRepository;
     private final StoreRepository storeRepository;
 
@@ -42,8 +42,8 @@ public class CustomerReservationServiceImpl implements CustomerReservationServic
             throw new CustomException(STORE_UNAVAILABLE);
         }
 
-        return reservationService
-                .reservation(findUser, findStore, form.toDomainForm());
+        return reservationRegisterService
+                .makeReservation(findUser, findStore, form.toDomainForm());
 
     }
 }

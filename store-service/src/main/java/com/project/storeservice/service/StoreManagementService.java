@@ -6,7 +6,7 @@ import com.project.domain.entity.Store;
 import com.project.domain.entity.User;
 import com.project.domain.model.StoreDomainForm;
 
-public interface StoreInfoService {
+public interface StoreManagementService {
 
     StoreDto addStore(User partner, StoreDomainForm form);
 
