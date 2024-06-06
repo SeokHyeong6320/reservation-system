@@ -21,4 +21,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Long countByStore(Store store);
 
+    void deleteAllByStore(Store store);
+
 }

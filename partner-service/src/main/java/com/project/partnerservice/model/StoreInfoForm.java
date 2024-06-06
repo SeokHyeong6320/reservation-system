@@ -1,4 +1,4 @@
-package com.project.storeservice.model;
+package com.project.partnerservice.model;
 
 
 import com.project.domain.model.StoreDomainForm;
@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StoreForm {
+public class StoreInfoForm {
 
     @Size(max = 20)
     private String name;

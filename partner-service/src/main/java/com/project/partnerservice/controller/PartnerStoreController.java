@@ -3,8 +3,8 @@ package com.project.partnerservice.controller;
 import com.project.common.model.SuccessResponse;
 import com.project.domain.dto.StoreDto;
 import com.project.domain.response.StoreResponse;
+import com.project.partnerservice.model.StoreInfoForm;
 import com.project.partnerservice.service.PartnerStoreService;
-import com.project.storeservice.model.StoreForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class PartnerStoreController {
 
 //    private final TokenValidator tokenValidator;
-//    private final PartnerStoreService partnerStoreService;
+    private final PartnerStoreService partnerStoreService;
 
 
 
@@ -31,7 +31,7 @@ public class PartnerStoreController {
 //    @PreAuthorize("hasAuthority('PARTNER')")
     @PostMapping
     public ResponseEntity<?> addStore(
-            @PathVariable Long id, @RequestBody StoreForm form
+            @PathVariable Long id, @RequestBody StoreInfoForm form
 //            @RequestHeader(name = TOKEN_HEADER) String header
     ) {
 
@@ -52,7 +52,7 @@ public class PartnerStoreController {
     public ResponseEntity<?> updateStore(
             @PathVariable Long id, @PathVariable Long storeId,
 //            @RequestHeader(name = TOKEN_HEADER) String header,
-            @RequestBody @Validated StoreForm form
+            @RequestBody @Validated StoreInfoForm form
     ) {
 
 //        tokenValidator.validateUser(id, header);

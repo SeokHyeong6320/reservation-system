@@ -1,15 +1,13 @@
 package com.project.partnerservice.service;
 
-
 import com.project.domain.dto.StoreDto;
-import com.project.storeservice.model.StoreForm;
+import com.project.partnerservice.model.StoreInfoForm;
 
 public interface PartnerStoreService {
 
-    StoreDto addStore(Long id, StoreForm form);
+    StoreDto addStore(Long userId, StoreInfoForm form);
 
-    StoreDto updateStore(Long id, Long storeId, StoreForm form);
+    StoreDto updateStore(Long userId, Long storeId, StoreInfoForm form);
 
-    void deleteStore(Long id, Long storeId);
-
+    void deleteStore(Long userId, Long storeId);
 }
