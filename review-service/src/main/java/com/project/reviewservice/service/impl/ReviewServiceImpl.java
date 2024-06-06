@@ -32,27 +32,6 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public ReviewDto createReview(Long userId, Reservation reservation, CreateReviewForm form) {
 
-//        Reservation findReservation =
-//                reservationRepository.findById(form.getReservationId())
-//                .orElseThrow(() -> new CustomException(RESERVATION_NOT_FOUND));
-//
-//
-//
-//        // 해당 예약이 유저의 것인지 확인
-//        if(!Objects.equals(userId, findReservation.getCustomer().getId())) {
-//            throw new CustomException(RESERVATION_CUSTOMER_NOT_MATCH);
-//        }
-//
-//        // 방문완료한 예약인지 확인
-//        if (!findReservation.isVisitYn()) {
-//            throw new CustomException(RESERVATION_NOT_VISIT);
-//        }
-//
-//        // 리뷰 이미 작성한 예약인지
-//        if (findReservation.isReviewYn()) {
-//            throw new CustomException(REVIEW_ALREADY_WRITTEN);
-//        }
-
         Review newReview = Review.fromCreateForm(form, reservation);
 
         // 상점 별점 업데이트
@@ -74,7 +53,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
 
         // 리뷰 작성자인지 확인
-        checkReviewWriter(id, findReview);
+        checkDeleteAuthority(id, findReview);
 
         // 리뷰 업데이트
         findReview.updateReview(form);
@@ -92,8 +71,8 @@ public class ReviewServiceImpl implements ReviewService {
         Review findReview = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
 
-        // 리뷰 작성자인지 확인
-        checkReviewWriter(id, findReview);
+        // 리뷰 삭제 가능한 유저인지 확인 (작성자, 상점 주인)
+        checkDeleteAuthority(id, findReview);
 
         // 상점 별점 업데이트
         Store findStore = findReview.getStore();
@@ -112,9 +91,12 @@ public class ReviewServiceImpl implements ReviewService {
     /**
      * 리뷰 작성자인지 확인
      */
-    private void checkReviewWriter(Long id, Review findReview) {
-        if(!Objects.equals(id, findReview.getCustomer().getId())) {
+    private void checkDeleteAuthority(Long id, Review findReview) {
+        if (!Objects.equals(id, findReview.getCustomer().getId())) {
             throw new CustomException(REVIEW_CUSTOMER_NOT_MATCH);
+        }
+        if (!Objects.equals(id, findReview.getStore().getOwner().getId())) {
+            throw new CustomException(STORE_OWNER_NOT_MATCH);
         }
     }
 }

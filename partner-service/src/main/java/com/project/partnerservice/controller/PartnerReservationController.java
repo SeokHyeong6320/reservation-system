@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/{id}")
+@RequestMapping("/{id}/reservation")
 public class PartnerReservationController {
 
 //    private final TokenValidator tokenValidator;
@@ -28,7 +28,7 @@ public class PartnerReservationController {
      * 예약 시간별 타임테이블 조회하는 엔드포인트
      */
 //    @PreAuthorize("hasAuthority('PARTNER')")
-    @GetMapping("/reservation")
+    @GetMapping
     public ResponseEntity<?> getReservationTimeTable(
             @PathVariable Long id,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
@@ -50,7 +50,7 @@ public class PartnerReservationController {
      * 예약 승인하는 엔드포인트
      */
 //    @PreAuthorize("hasAuthority('PARTNER')")
-    @PostMapping("/reservation/{reservationId}/confirm")
+    @PostMapping("/{reservationId}/confirm")
     public ResponseEntity<?> confirmReservation(
             @PathVariable Long id, @PathVariable Long reservationId
 //            @RequestHeader(TOKEN_HEADER) String header
@@ -71,7 +71,7 @@ public class PartnerReservationController {
      * 예약 거절하는 엔드포인트
      */
 //    @PreAuthorize("hasAuthority('PARTNER')")
-    @PostMapping("/reservation/{reservationId}/decline")
+    @PostMapping("/{reservationId}/decline")
     public ResponseEntity<?> declineReservation(
             @PathVariable Long id, @PathVariable Long reservationId
 //            @RequestHeader(TOKEN_HEADER) String header

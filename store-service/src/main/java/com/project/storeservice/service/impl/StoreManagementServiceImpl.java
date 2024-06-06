@@ -31,13 +31,6 @@ public class StoreManagementServiceImpl implements StoreManagementService {
     @Transactional
     public StoreDto addStore(User partner, StoreDomainForm form) {
 
-//        // 해당 유저가 없으면 에러 발생
-//        User findUser = userRepository.findById(id)
-//                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
-//
-//        // 파트너가 아닌 경우 에러 발생
-//        validateIsPartner(findUser);
-
         // 위도, 경도 값 정상값인지 확인 (정상 값 아닐 경우 에러 발생)
         GeoUtil.isValidLocation(
                 form.getAddress().getLatitude(), form.getAddress().getLongitude()
@@ -61,12 +54,6 @@ public class StoreManagementServiceImpl implements StoreManagementService {
     @Transactional
     public StoreDto updateStore(Store store, StoreDomainForm form) {
 
-//        Store findStore = storeRepository.findById(storeId)
-//                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
-//
-//        // 올바른 소유자의 상점인지 확인
-//        validateStoreOwner(id, findStore);
-
         store.updateStore(form);
 
         return StoreDto.fromEntity(store);
@@ -78,12 +65,6 @@ public class StoreManagementServiceImpl implements StoreManagementService {
     @Override
     public void deleteStore(Store store) {
 
-//        Store findStore = storeRepository.findById(storeId)
-//                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
-
-//        // 올바른 소유자의 상점인지 확인
-//        validateStoreOwner(id, findStore);
-
         // 관련된 예약 모두 삭제
         reservationRepository.deleteAllByStore(store);
 
@@ -94,18 +75,5 @@ public class StoreManagementServiceImpl implements StoreManagementService {
         storeRepository.delete(store);
     }
 
-//    // 파트너인지 확인
-//    private void validateIsPartner(User findUser) {
-//        if (findUser.getUserType() != UserType.PARTNER) {
-//            throw new CustomException(PARTNER_NOT_ENROLLED);
-//        }
-//    }
-
-//    // 상점 주인 아니면 에러 발생
-//    private void validateStoreOwner(Long ownerId, Store store) {
-//        if (!Objects.equals(ownerId, store.getOwner().getId())) {
-//            throw new CustomException(STORE_OWNER_NOT_MATCH);
-//        }
-//    }
 
 }

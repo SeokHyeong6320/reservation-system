@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.project.common.exception.ErrorCode.USER_NOT_FOUND;
+import static com.project.common.exception.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
