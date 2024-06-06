@@ -29,7 +29,8 @@ public class CustomerReservationController {
 
 //        tokenValidator.validateUser(id, header);
 
-        ReservationDto reservationDto = reservationService.makeReservation(id, form);
+        ReservationDto reservationDto =
+                reservationService.makeReservation(id, form);
 
         return ResponseEntity.ok(
                 SuccessResponse.of(ReservationResponse.fromDto(reservationDto))

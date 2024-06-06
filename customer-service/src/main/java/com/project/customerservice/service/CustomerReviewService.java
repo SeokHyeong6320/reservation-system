@@ -1,14 +1,18 @@
 package com.project.customerservice.service;
 
-
+import com.project.customerservice.model.CustomerReviewForm;
 import com.project.domain.dto.ReviewDto;
+import com.project.reviewservice.model.ReviewForm;
 
-import static com.project.domain.model.ReviewDomainForm.*;
+import static com.project.customerservice.model.CustomerReviewForm.*;
+
 
 public interface CustomerReviewService {
-    ReviewDto createReview(Long id, CreateReviewForm form);
 
-    ReviewDto updateReview(Long id, Long reviewId, UpdateReviewForm form);
+    ReviewDto createReview(Long userId, CreateReviewForm form);
 
-    void deleteReview(Long id, Long reviewId);
+    ReviewDto updateReview(Long userId, Long reviewId, UpdateReviewForm form);
+
+    void deleteReview(Long userId, Long reviewId);
+
 }

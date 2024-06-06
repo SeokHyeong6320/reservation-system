@@ -1,6 +1,7 @@
 package com.project.customerservice.controller;
 
 import com.project.common.model.SuccessResponse;
+import com.project.customerservice.model.CustomerReviewForm;
 import com.project.customerservice.service.CustomerReviewService;
 import com.project.domain.dto.ReviewDto;
 import com.project.domain.response.ReviewResponse;
@@ -9,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static com.project.domain.model.ReviewDomainForm.*;
+import static com.project.customerservice.model.CustomerReviewForm.*;
 
 
 @RestController

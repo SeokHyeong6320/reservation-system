@@ -1,10 +1,8 @@
 package com.project.storeservice.service;
 
 import com.project.domain.dto.StoreDto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
-public interface StoreService {
+public interface StoreSearchService {
 
     Page<StoreDto> sortByName(Pageable pageable);
 

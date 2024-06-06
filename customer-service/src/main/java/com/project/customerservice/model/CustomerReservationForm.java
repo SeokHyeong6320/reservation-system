@@ -1,6 +1,7 @@
 package com.project.customerservice.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.domain.model.ReservationDomainForm;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -27,5 +28,12 @@ public class CustomerReservationForm {
     @NotBlank
     @Pattern(regexp = "^01[0-9]-?\\d{3,4}-?\\d{4}$")
     private String contact;
+
+    public ReservationDomainForm toDomainForm() {
+        return ReservationDomainForm.builder()
+                .reserveDt(reserveDt)
+                .contact(contact)
+                .build();
+    }
 
 }
