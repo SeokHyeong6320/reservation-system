@@ -1,4 +1,4 @@
-rootProject.name = 'reservation'
+rootProject.name = 'reservation-system'
 
 include 'apigateway-service'
 include 'customer-service'
