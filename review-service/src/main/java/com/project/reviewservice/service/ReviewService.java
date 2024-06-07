@@ -4,7 +4,8 @@ package com.project.reviewservice.service;
 import com.project.domain.dto.ReviewDto;
 import com.project.domain.entity.Reservation;
 
-import static com.project.domain.model.ReviewDomainForm.*;
+import static com.project.domain.model.ReviewDomainForm.CreateReviewForm;
+import static com.project.domain.model.ReviewDomainForm.UpdateReviewForm;
 
 public interface ReviewService {
     ReviewDto createReview

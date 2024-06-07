@@ -3,7 +3,6 @@ package com.project.api.controller.customer;
 import com.project.common.model.SuccessResponse;
 import com.project.customerservice.model.CustomerReservationForm;
 import com.project.customerservice.service.CustomerReservationService;
-import com.project.domain.dto.InitReservationDto;
 import com.project.domain.response.ReservationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

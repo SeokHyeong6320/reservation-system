@@ -6,16 +6,15 @@ import com.project.domain.dto.ReservationDto;
 import com.project.domain.entity.Reservation;
 import com.project.domain.entity.Store;
 import com.project.domain.entity.User;
-import com.project.domain.model.ReservationDomainForm;
 import com.project.domain.repository.ReservationRepository;
 import com.project.domain.repository.StoreRepository;
+import com.project.domain.repository.UserRepository;
 import com.project.reservationservice.service.ReservationRegisterService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -29,6 +28,7 @@ public class ReservationRegisterServiceImpl implements ReservationRegisterServic
 
     private final ReservationRepository reservationRepository;
     private final StoreRepository storeRepository;
+    private final UserRepository userRepository;
 
     @Override
     public ReservationDto makeReservation(InitReservationDto initReservationDto) {
@@ -51,8 +51,14 @@ public class ReservationRegisterServiceImpl implements ReservationRegisterServic
 //            throw new CustomException(RESERVATION_DATE_INVALID);
 //        }
 
+        User findUser = userRepository.findById(initReservationDto.getCustomerId())
+                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+
+        Store findStore = storeRepository.findById(initReservationDto.getStoreId())
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
         Reservation reservation =
-                Reservation.makeReservation(initReservationDto);
+                Reservation.makeReservation(initReservationDto, findUser, findStore);
 
         setReservationCode(reservation);
 
@@ -73,7 +79,7 @@ public class ReservationRegisterServiceImpl implements ReservationRegisterServic
 
         // 해당 예약이 유저의 것인지 확인
 //        if(!Objects.equals(userId, reservation.getCustomer().getId())) {
-        if(!Objects.equals(userId, reservation.getCustomerId())) {
+        if(!Objects.equals(userId, reservation.getCustomer().getId())) {
             throw new CustomException(RESERVATION_CUSTOMER_NOT_MATCH);
         }
 

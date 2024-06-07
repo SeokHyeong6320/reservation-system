@@ -3,22 +3,16 @@ package com.project.kafkaservice.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.common.exception.CustomException;
-import com.project.common.exception.ErrorCode;
 import com.project.domain.dto.InitReservationDto;
 import com.project.domain.dto.ReservationDto;
-import com.project.domain.dto.VisitDto;
 import com.project.kafkaservice.topic.KafkaTopic;
-import com.project.reservationservice.service.ReservationManagementService;
 import com.project.reservationservice.service.ReservationRegisterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.project.common.exception.ErrorCode.*;
+import static com.project.common.exception.ErrorCode.KAFKA_CONSUMING_INVALID;
 
 @Slf4j
 @Service
@@ -42,7 +36,7 @@ public class KafkaConsumer {
 
             log.info(
                     "Init Reservation. id={}, customerId={}",
-                    reservationDto.getId(), reservationDto.getCustomerId()
+                    reservationDto.getId(), reservationDto.getCustomer().getId()
                     );
 
 

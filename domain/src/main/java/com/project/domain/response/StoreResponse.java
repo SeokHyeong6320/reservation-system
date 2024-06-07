@@ -24,7 +24,7 @@ public class StoreResponse {
 
         public static AddStoreResponse fromDto(StoreDto storeDto) {
             return AddStoreResponse.builder()
-                    .ownerId(storeDto.getOwnerId())
+                    .ownerId(storeDto.getOwner().getId())
                     .storeName(storeDto.getName())
                     .description(storeDto.getDescription())
                     .status(storeDto.getStatus())

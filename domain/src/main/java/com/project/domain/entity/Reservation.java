@@ -1,7 +1,6 @@
 package com.project.domain.entity;
 
 import com.project.domain.dto.InitReservationDto;
-import com.project.domain.model.ReservationDomainForm;
 import com.project.domain.type.ReservationApproveStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,20 +23,26 @@ public class Reservation extends BaseEntity {
     @Column(name = "reserv_id")
     private Long id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User customer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User customer;
+//
+//    @Column(name = "customer_id")
+//    private Long customerId;
+//
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Store store;
 
-    @Column(name = "customer_id")
-    private Long customerId;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "store_id")
-//    private Store store;
+//    @Column(name = "customer_email")
+//    private String customerEmail;
 
 
-    @Column(name = "store_id")
-    private Long storeId;
+//    @Column(name = "store_id")
+//    private Long storeId;
+
+//    @Column(name = "stoer_name")
+//    private String storeName;
 
     @Column(name = "reserv_contact")
     private String contactNumber;
@@ -62,13 +67,13 @@ public class Reservation extends BaseEntity {
     private boolean reviewYn;
 
     public static Reservation makeReservation
-            (InitReservationDto initReservationDto) {
+            (InitReservationDto initReservationDto, User customer, Store store) {
 
         return Reservation.builder()
-                .customerId(initReservationDto.getCustomerId())
+                .customer(customer)
 //                .customer(customer)
-                .storeId(initReservationDto.getStoreId())
-//                .store(store)
+//                .storeId(initReservationDto.getStoreId())
+                .store(store)
                 .contactNumber(initReservationDto.getContact())
                 .reserveDt(initReservationDto.getReserveDt())
                 .visitAvailDt(initReservationDto.getReserveDt().minusMinutes(10))

@@ -27,8 +27,8 @@ public class ReservationResponse {
 
     public static ReservationResponse fromDto(ReservationDto reservationDto) {
         return ReservationResponse.builder()
-//                .storeName(reservationDto.getStore.getName())
-//                .address(reservationDto.getStore().getAddress().getDetailAddress())
+                .storeName(reservationDto.getStore().getName())
+                .address(reservationDto.getStore().getAddress().getDetailAddress())
                 .customerContact(reservationDto.getContactNumber())
                 .reserveDt(reservationDto.getReserveDt())
                 .visitAvailDt(reservationDto.getVisitAvailDt())

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.common.exception.CustomException;
-import com.project.common.exception.ErrorCode;
 import com.project.domain.dto.ReservationDto;
 import com.project.domain.type.ReservationApproveStatus;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.project.common.exception.ErrorCode.*;
+import static com.project.common.exception.ErrorCode.RESERVATION_TIME_INVALID;
 
 public class ReservationTimeTable {
 

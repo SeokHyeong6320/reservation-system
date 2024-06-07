@@ -2,20 +2,15 @@ package com.project.securityservice.service.impl;
 
 import com.project.common.exception.CustomException;
 import com.project.domain.dto.UserDto;
-import com.project.domain.dto.UserLoginDto;
 import com.project.domain.entity.User;
 import com.project.domain.model.SignDomainForm;
 import com.project.domain.repository.UserRepository;
 import com.project.securityservice.model.UserLoginModel;
 import com.project.securityservice.service.SecurityLoginService;
-import com.project.securityservice.util.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.project.common.exception.ErrorCode.*;
 import static com.project.domain.model.SignDomainForm.SignInForm;
@@ -25,7 +20,6 @@ import static com.project.domain.model.SignDomainForm.SignInForm;
 public class SecurityLonginServiceImpl implements SecurityLoginService {
 
     private final UserRepository userRepository;
-    private final TokenProvider tokenProvider;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -50,7 +44,7 @@ public class SecurityLonginServiceImpl implements SecurityLoginService {
 
 
     @Override
-    public UserLoginDto logIn(SignInForm form) {
+    public UserDto logIn(SignInForm form) {
         User findUser = userRepository
                 .findByEmail(form.getEmail())
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
@@ -60,12 +54,9 @@ public class SecurityLonginServiceImpl implements SecurityLoginService {
             throw new CustomException(PASSWORD_NOT_MATCH);
         }
 
-        String jwtToken = tokenProvider.generateToken(
-                findUser.getId(), findUser.getEmail(),
-                new ArrayList<>(List.of(findUser.getUserType().name()))
-        );
 
-        return UserLoginDto.fromEntity(findUser, jwtToken);
+
+        return UserDto.fromEntity(findUser);
     }
 
     @Override

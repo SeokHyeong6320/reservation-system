@@ -40,10 +40,10 @@ public class StoreManagementServiceImpl implements StoreManagementService {
         Store savedStore = storeRepository.save(newStore);
 
         // 점주의 가게 리스트에 추가
-        partner.getStoreList().add(savedStore);
+//        partner.getStoreList().add(savedStore);
 
         // 키오스크 등록
-        kioskService.addKiosk(savedStore);
+//        kioskService.addKiosk(savedStore);
 
         // dto로 변환해서 반환
         return StoreDto.fromEntity(savedStore);

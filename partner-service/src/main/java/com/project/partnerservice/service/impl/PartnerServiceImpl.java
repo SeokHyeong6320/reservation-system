@@ -10,7 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.project.common.exception.ErrorCode.*;
+import static com.project.common.exception.ErrorCode.PARTNER_ALREADY_ENROLLED;
+import static com.project.common.exception.ErrorCode.USER_NOT_FOUND;
 
 
 @Service

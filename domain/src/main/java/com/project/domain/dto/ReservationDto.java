@@ -19,9 +19,17 @@ public class ReservationDto {
 
     private Long id;
 
-    private Long customerId;;
+//    private Long customerId;;
+//
+//    private String customerEmail;
 
-    private Long storeId;
+    private User customer;
+
+//    private Long storeId;
+//
+//    private String storeName;
+
+    private Store store;
 
     private String contactNumber;
 
@@ -40,8 +48,8 @@ public class ReservationDto {
     public static ReservationDto fromEntity(Reservation reservation) {
         return ReservationDto.builder()
                 .id(reservation.getId())
-                .customerId(reservation.getCustomerId())
-                .storeId(reservation.getStoreId())
+                .customer(reservation.getCustomer())
+                .store(reservation.getStore())
                 .contactNumber(reservation.getContactNumber())
                 .reserveDt(reservation.getReserveDt())
                 .approveStatus(reservation.getApproveStatus())

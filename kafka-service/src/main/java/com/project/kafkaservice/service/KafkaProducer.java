@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import static com.project.common.exception.ErrorCode.*;
+import static com.project.common.exception.ErrorCode.KAFKA_PRODUCING_INVALID;
 
 @Slf4j
 @Service

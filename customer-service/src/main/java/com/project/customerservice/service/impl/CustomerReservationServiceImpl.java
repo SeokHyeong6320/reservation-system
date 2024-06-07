@@ -4,7 +4,6 @@ import com.project.common.exception.CustomException;
 import com.project.customerservice.model.CustomerReservationForm;
 import com.project.customerservice.service.CustomerReservationService;
 import com.project.domain.dto.InitReservationDto;
-import com.project.domain.dto.ReservationDto;
 import com.project.domain.entity.Store;
 import com.project.domain.entity.User;
 import com.project.domain.repository.StoreRepository;
