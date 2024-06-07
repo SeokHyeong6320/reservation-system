@@ -4,6 +4,8 @@ spring:
     url: jdbc:mariadb://localhost:3307/Central
     username: root
     password:
+
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true

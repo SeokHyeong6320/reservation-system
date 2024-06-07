@@ -12,11 +12,13 @@ repositories {
     mavenCentral()
 }
 
+bootJar.enabled = false
+
 dependencies {
 
     implementation project(":common")
     implementation project(":domain")
-    implementation project(":reservation-service")
+    implementation project(":reservation")
     implementation project(":store-service")
     implementation project(":review-service")
 
