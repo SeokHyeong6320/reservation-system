@@ -18,8 +18,7 @@ dependencies {
     implementation project(":domain")
     implementation project(":kafka-service")
     implementation project(":store-service")
-    implementation project(":user-service")
-    implementation project(":reservation-service")
+    implementation project(":reservation")
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'

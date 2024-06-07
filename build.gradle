@@ -82,7 +82,7 @@ project(":review-service") {
     }
 }
 
-project(":reservation-service") {
+project(":reservation") {
     dependencies {
         implementation project(":common")
         implementation project(":domain")
