@@ -51,8 +51,10 @@ public enum ErrorCode {
     DECRYPT_FAIL(INTERNAL_SERVER_ERROR, "couldn't decrypt"),
     CIPHER_GENERATING_FAIL(INTERNAL_SERVER_ERROR, "couldn't generate cipher"),
 
+    FEIGN_SERVER_EXCEPTION(INTERNAL_SERVER_ERROR, "other exception from openfeign"),
 
-    FEIGN_SERVER_EXCEPTION(INTERNAL_SERVER_ERROR, "other exception from openfeign");
+    KAFKA_PRODUCING_INVALID(BAD_REQUEST, "invalid kafka producing"),
+    KAFKA_CONSUMING_INVALID(BAD_REQUEST, "invalid kafka consuming");
 
 
     private final HttpStatus status;
