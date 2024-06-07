@@ -1,7 +1,7 @@
 # 개요
 ### 매장 테이블 예약 서비스
 
-사용 기술 : Spring, Spring Security, Spring Cloud Eureka, Spring Cloud Gateway, Jpa, MariaDB, QueryDsl, Kafka,
+사용 기술 : Spring, Spring Security, Spring Cloud Eureka, Spring Cloud Gateway, Jpa, MariaDB, QueryDsl, Kafka
 
 목표 : 식당이나 점포를 이용하기 전에 미리 예약을 하여 편하게 식당/점포를 이용할 수 있는 서비스 구현
 
@@ -17,49 +17,22 @@
 
 ### domain
 
-### security-service
-
-### user-service
-
-### customer-service
-
-### partner-service
-
-### store-service
-
-### reservation-service
-
-### review-service
-
 ### kiosk-service
 
+### api
+- ### security-service
 
----
+- ### customer-service
+
+- ### partner-service
+
+- ### store-service
+
+- ### reservation-service
+
+- ### review-service
 
 
-## 패키지 구성
-
-### auth
-- 회원가입, 로그인
-
-### common
-
-### customer
-- 예약, 후기
-
-### kiosk
-- 방문 확인 기능
-
-### partner
-- 예약 승인, 상점 등록 수정 삭제
-
-### reservation
-
-### security
-- Spring Security & JWT를 사용한 인증, 인가
-
-### store
-- 상점검색
 
 
 ---
