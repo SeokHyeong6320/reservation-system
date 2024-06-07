@@ -3,6 +3,7 @@ package com.project.api.controller.partner;
 import com.project.domain.dto.UserDto;
 import com.project.domain.response.PartnerResponse;
 import com.project.partnerservice.service.PartnerService;
+import com.project.securityservice.util.impl.AuthVerifyUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,23 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class PartnerController {
 
     private final PartnerService partnerService;
-//    private final ReservationManagementService reservationService;
-//    private final TokenValidator tokenValidator;
-
+    private final AuthVerifyUtil authVerifyUtil;
 
     /**
      * 파트너 가입 엔드포인트
      * @param partnerEmail : 유저 이메일
      * @return : 유저 이메일과 유저타입 반환
      */
-//    @PreAuthorize("hasAuthority('CUSTOMER')")
     @PostMapping("/enroll")
     public ResponseEntity<?> enrollPartner(
             @PathVariable String partnerEmail
-//            @RequestHeader(name = TOKEN_HEADER) String header
     ) {
 
-//        tokenValidator.validateUser(id, header);
+        authVerifyUtil.verifyUser(partnerEmail);
 
         UserDto userDto = partnerService.enrollPartner(partnerEmail);
 

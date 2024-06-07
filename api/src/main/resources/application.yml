@@ -10,6 +10,10 @@ spring:
       ddl-auto: update
     show-sql: true
 
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 
 
 jwt:
@@ -19,6 +23,16 @@ jwt:
       secret: ZGF5b25lLXNwcmluZy1ib290LWRpdmlkZW5kLXByb2plY3QtdHV0b3JpYWwtand0LXNlY3JldC1rZXkK
 
     expired_time: 3600000
+
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          web:
+            access:
+              intercept:
+                AuthorizationFilter=DEBUG:
 
 
 encrypt:

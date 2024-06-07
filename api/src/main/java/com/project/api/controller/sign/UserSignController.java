@@ -54,15 +54,6 @@ public class UserSignController {
     public ResponseEntity<?> userSignIn(
             @RequestBody @Validated SignForm.SignInForm form
     ) {
-        /*UserDto userDto = userSignService.logIn(form);
-
-        // JWT 반환
-        String jwt = tokenProvider.generateToken(
-                userDto.getId(),
-                userDto.getEmail(),
-                // JWT 발행을 위해 userType을 List<String>으로 변환
-                new ArrayList<>(List.of(userDto.getUserType().name()))
-        );*/
 
         UserLoginDto userLoginDto = loginApplication.logIn(form.toDomainForm());
 

@@ -4,6 +4,7 @@ import com.project.common.model.SuccessResponse;
 import com.project.customerservice.service.CustomerReviewService;
 import com.project.domain.dto.ReviewDto;
 import com.project.domain.response.ReviewResponse;
+import com.project.securityservice.util.impl.AuthVerifyUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,7 @@ import static org.springframework.http.HttpStatus.*;
 public class CustomerReviewController {
 
     private final CustomerReviewService reviewService;
-//    private final TokenValidator tokenValidator;
-
+    private final AuthVerifyUtil authVerifyUtil;
 
     /**
      * 리뷰 작성 엔드포인트
@@ -30,11 +30,10 @@ public class CustomerReviewController {
     @PostMapping
     public ResponseEntity<?> postReview(
             @PathVariable String customerEmail,
-//            @RequestHeader(TOKEN_HEADER) String header,
             @RequestBody @Validated CreateReviewForm form
             ) {
 
-//        tokenValidator.validateUser(id, header);
+        authVerifyUtil.verifyUser(customerEmail);
 
         ReviewDto reviewDto = reviewService.createReview(customerEmail, form);
 
@@ -51,11 +50,10 @@ public class CustomerReviewController {
     public ResponseEntity<?> updateReview(
             @PathVariable String customerEmail,
             @PathVariable Long reviewId,
-//            @RequestHeader(TOKEN_HEADER) String header,
             @RequestBody @Validated UpdateReviewForm form
     ) {
 
-//        tokenValidator.validateUser(id, header);
+        authVerifyUtil.verifyUser(customerEmail);
 
         ReviewDto reviewDto = reviewService.updateReview(customerEmail, reviewId, form);
 
@@ -71,10 +69,9 @@ public class CustomerReviewController {
     public ResponseEntity<?> deleteReview(
             @PathVariable String customerEmail,
             @PathVariable Long reviewId
-//            @RequestHeader(TOKEN_HEADER) String header
     ) {
 
-//        tokenValidator.validateUser(id, header);
+        authVerifyUtil.verifyUser(customerEmail);
 
         reviewService.deleteReview(customerEmail, reviewId);
 
@@ -82,9 +79,6 @@ public class CustomerReviewController {
                 SuccessResponse.of("deleteComplete")
         );
     }
-
-
-
 
 
 

@@ -23,21 +23,14 @@ public class CustomerReservationController {
     private final AuthVerifyUtil authVerifyUtil;
 
     private final CustomerReservationService reservationService;
-//    private final TokenValidator tokenValidator;
 
-
-//    @PreAuthorize("hasAnyAuthority('CUSTOMER', 'PARTNER')")
     @PostMapping("/{customerEmail}/reservation")
     public ResponseEntity<?> doReservation(
             @PathVariable String customerEmail,
-//            @RequestHeader(TOKEN_HEADER) String header,
             @RequestBody @Validated CustomerReservationForm form
             ) {
 
-//        tokenValidator.validateUser(id, header);
-
         authVerifyUtil.verifyUser(customerEmail);
-
 
         ReservationResponse reservationResponse =
                 reservationService.makeReservation(customerEmail, form);
