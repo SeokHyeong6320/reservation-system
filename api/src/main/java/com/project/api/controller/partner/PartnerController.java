@@ -2,7 +2,6 @@ package com.project.api.controller.partner;
 
 import com.project.domain.dto.UserDto;
 import com.project.domain.response.PartnerResponse;
-import com.project.reservationservice.service.ReservationManagementService;
 import com.project.partnerservice.service.PartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class PartnerController {
 
     private final PartnerService partnerService;
-    private final ReservationManagementService reservationService;
+//    private final ReservationManagementService reservationService;
 //    private final TokenValidator tokenValidator;
 
 

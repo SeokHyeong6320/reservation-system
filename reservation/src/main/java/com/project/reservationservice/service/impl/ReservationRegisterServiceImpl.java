@@ -27,7 +27,6 @@ import static com.project.common.exception.ErrorCode.*;
 public class ReservationRegisterServiceImpl implements ReservationRegisterService {
 
     private final ReservationRepository reservationRepository;
-//    private final UserRepository userRepository;
     private final StoreRepository storeRepository;
 
     @Override
@@ -60,7 +59,7 @@ public class ReservationRegisterServiceImpl implements ReservationRegisterServic
         Reservation savedReservation = reservationRepository.save(reservation);
 
         // 고객의 예약 리스트에 추가
-        customer.getReservationList().add(reservation);
+//        customer.getReservationList().add(reservation);
 
         return ReservationDto.fromEntity(savedReservation);
     }
@@ -73,7 +72,8 @@ public class ReservationRegisterServiceImpl implements ReservationRegisterServic
     public void checkAvailWriteReview(Long userId, Reservation reservation) {
 
         // 해당 예약이 유저의 것인지 확인
-        if(!Objects.equals(userId, reservation.getCustomer().getId())) {
+//        if(!Objects.equals(userId, reservation.getCustomer().getId())) {
+        if(!Objects.equals(userId, reservation.getCustomerId())) {
             throw new CustomException(RESERVATION_CUSTOMER_NOT_MATCH);
         }
 
