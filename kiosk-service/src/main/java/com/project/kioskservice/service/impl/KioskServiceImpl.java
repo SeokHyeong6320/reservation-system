@@ -1,9 +1,9 @@
 package com.project.kioskservice.service.impl;
 
 import com.project.common.exception.CustomException;
+import com.project.domain.dto.KioskAddDto;
 import com.project.domain.entity.Kiosk;
 import com.project.domain.entity.Reservation;
-import com.project.domain.entity.Store;
 import com.project.domain.repository.KioskRepository;
 import com.project.domain.repository.ReservationRepository;
 import com.project.kioskservice.model.VisitForm;
@@ -26,14 +26,19 @@ public class KioskServiceImpl implements KioskService {
     private final ReservationRepository reservationRepository;
     private final KioskRepository kioskRepository;
 
-
     /**
      * 키오스크 등록
      */
     @Override
-    public void addKiosk(Store store) {
-        Kiosk newKiosk = Kiosk.builder().build();
+    public Long addKiosk(KioskAddDto kioskAddDto) {
+
+        Kiosk newKiosk = Kiosk.builder()
+                .storeId(kioskAddDto.getStoreId())
+                .build();
+
         kioskRepository.save(newKiosk);
+
+        return newKiosk.getStoreId();
     }
 
     /**

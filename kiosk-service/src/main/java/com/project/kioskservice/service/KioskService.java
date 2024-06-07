@@ -1,12 +1,12 @@
 package com.project.kioskservice.service;
 
 
-import com.project.domain.entity.Store;
+import com.project.domain.dto.KioskAddDto;
 import com.project.kioskservice.model.VisitForm;
 
 public interface KioskService {
 
-    void addKiosk(Store store);
+    Long addKiosk(KioskAddDto kioskAddDto);
 
     String visitStore(VisitForm form);
 
