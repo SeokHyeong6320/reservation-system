@@ -3,7 +3,7 @@ package com.project.api.controller.customer;
 import com.project.common.model.SuccessResponse;
 import com.project.customerservice.model.CustomerReservationForm;
 import com.project.customerservice.service.CustomerReservationService;
-import com.project.domain.dto.ReservationDto;
+import com.project.domain.dto.InitReservationDto;
 import com.project.domain.response.ReservationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping("/customer")
 @RequiredArgsConstructor
 public class CustomerReservationController {
 
@@ -29,12 +30,11 @@ public class CustomerReservationController {
 
 //        tokenValidator.validateUser(id, header);
 
-        ReservationDto reservationDto =
+
+        ReservationResponse reservationResponse =
                 reservationService.makeReservation(id, form);
 
-        return ResponseEntity.ok(
-                SuccessResponse.of(ReservationResponse.fromDto(reservationDto))
-        );
+        return ResponseEntity.ok(SuccessResponse.of(reservationResponse));
     }
 
 }

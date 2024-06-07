@@ -1,5 +1,6 @@
 package com.project.domain.entity;
 
+import com.project.domain.dto.InitReservationDto;
 import com.project.domain.model.ReservationDomainForm;
 import com.project.domain.type.ReservationApproveStatus;
 import jakarta.persistence.*;
@@ -34,6 +35,9 @@ public class Reservation extends BaseEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
+    @Column(name = "store_id")
+    private Long storeId;
+
     @Column(name = "reserv_contact")
     private String contactNumber;
 
@@ -57,15 +61,16 @@ public class Reservation extends BaseEntity {
     private boolean reviewYn;
 
     public static Reservation makeReservation
-            (User customer, Store store, ReservationDomainForm form) {
+            (InitReservationDto initReservationDto) {
 
         return Reservation.builder()
-                .customerId(customer.getId())
+                .customerId(initReservationDto.getCustomerId())
 //                .customer(customer)
-                .store(store)
-                .contactNumber(form.getContact())
-                .reserveDt(form.getReserveDt())
-                .visitAvailDt(form.getReserveDt().minusMinutes(10))
+                .storeId(initReservationDto.getStoreId())
+//                .store(store)
+                .contactNumber(initReservationDto.getContact())
+                .reserveDt(initReservationDto.getReserveDt())
+                .visitAvailDt(initReservationDto.getReserveDt().minusMinutes(10))
                 .approveStatus(PENDING)
                 .visitYn(false)
                 .reviewYn(false)

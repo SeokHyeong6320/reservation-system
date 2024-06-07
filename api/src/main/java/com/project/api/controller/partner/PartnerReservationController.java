@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/{id}/reservation")
+@RequestMapping("/partner/{id}/reservation")
 public class PartnerReservationController {
 
 //    private final TokenValidator tokenValidator;

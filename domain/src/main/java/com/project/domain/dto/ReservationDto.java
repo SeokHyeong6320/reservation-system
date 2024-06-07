@@ -19,7 +19,7 @@ public class ReservationDto {
 
     private Long id;
 
-    private User customer;
+    private Long customerId;;
 
     private Store store;
 
@@ -40,7 +40,7 @@ public class ReservationDto {
     public static ReservationDto fromEntity(Reservation reservation) {
         return ReservationDto.builder()
                 .id(reservation.getId())
-                .customer(reservation.getCustomer())
+                .customerId(reservation.getCustomerId())
                 .store(reservation.getStore())
                 .contactNumber(reservation.getContactNumber())
                 .reserveDt(reservation.getReserveDt())

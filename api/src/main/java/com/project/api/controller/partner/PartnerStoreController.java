@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/{id}/store")
+@RequestMapping("/partner/{id}/store")
 @RequiredArgsConstructor
 public class PartnerStoreController {
 
