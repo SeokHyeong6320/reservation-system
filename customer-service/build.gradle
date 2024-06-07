@@ -18,7 +18,7 @@ dependencies {
 
     implementation project(":common")
     implementation project(":domain")
-    implementation project(":reservation")
+    implementation project(":reservation-service")
     implementation project(":review-service")
     implementation project(":kafka-service")
     implementation project(":store-service")

@@ -25,6 +25,7 @@ public enum ErrorCode {
     PARTNER_NOT_ENROLLED(BAD_REQUEST, "this account is not a partner"),
 
     KIOSK_NOT_FOUND(BAD_REQUEST, "couldn't find kiosk"),
+    KIOSK_REGISTER_UNAVAILABLE(BAD_REQUEST, "couldn't register kiosk"),
 
     VISIT_INVALID(BAD_REQUEST, "this reservation is for another store"),
 

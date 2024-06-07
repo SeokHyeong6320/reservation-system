@@ -60,6 +60,17 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+project(":api") {
+    dependencies {
+        implementation project(":common")
+        implementation project(":domain")
+        implementation project(":customer-service")
+        implementation project(":reservation-service")
+        implementation project(":partner-service")
+        implementation project(":security-service")
+    }
+}
+
 project(":store-service") {
     dependencies {
         implementation project(":common")
@@ -82,7 +93,7 @@ project(":review-service") {
     }
 }
 
-project(":reservation") {
+project(":reservation-service") {
     dependencies {
         implementation project(":common")
         implementation project(":domain")
