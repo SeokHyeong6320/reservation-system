@@ -8,10 +8,10 @@ import static com.project.customerservice.model.CustomerReviewForm.UpdateReviewF
 
 public interface CustomerReviewService {
 
-    ReviewDto createReview(Long userId, CreateReviewForm form);
+    ReviewDto createReview(String customerEmail, CreateReviewForm form);
 
-    ReviewDto updateReview(Long userId, Long reviewId, UpdateReviewForm form);
+    ReviewDto updateReview(String customerEmail, Long reviewId, UpdateReviewForm form);
 
-    void deleteReview(Long userId, Long reviewId);
+    void deleteReview(String customerEmail, Long reviewId);
 
 }

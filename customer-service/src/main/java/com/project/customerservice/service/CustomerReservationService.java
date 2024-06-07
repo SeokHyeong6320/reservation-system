@@ -5,6 +5,6 @@ import com.project.domain.response.ReservationResponse;
 
 public interface CustomerReservationService {
 
-    ReservationResponse makeReservation(Long userId, CustomerReservationForm form);
+    ReservationResponse makeReservation(String customerEmail, CustomerReservationForm form);
 
 }

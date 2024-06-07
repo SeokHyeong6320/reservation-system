@@ -5,9 +5,9 @@ import com.project.partnerservice.model.StoreInfoForm;
 
 public interface PartnerStoreService {
 
-    StoreDto addStore(Long userId, StoreInfoForm form);
+    StoreDto addStore(String partnerEmail, StoreInfoForm form);
 
-    StoreDto updateStore(Long userId, Long storeId, StoreInfoForm form);
+    StoreDto updateStore(String partnerEmail, Long storeId, StoreInfoForm form);
 
-    void deleteStore(Long userId, Long storeId);
+    void deleteStore(String partnerEmail, Long storeId);
 }

@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.*;
 
 
 @RestController
-@RequestMapping("/partner/{id}/store")
+@RequestMapping("/partner/{partnerEmail}/store")
 @RequiredArgsConstructor
 public class PartnerStoreController {
 
@@ -27,20 +27,20 @@ public class PartnerStoreController {
     /**
      * 상점 추가하는 엔드포인트
      *
-     * @param id   : 파트너 아이디
+     * @param partnerEmail   : 파트너 이메일
      * @param form : 상점 등록 폼
      * @return : 등록한 상점 정보 반환
      */
 //    @PreAuthorize("hasAuthority('PARTNER')")
     @PostMapping
     public ResponseEntity<?> addStore(
-            @PathVariable Long id, @RequestBody StoreInfoForm form
+            @PathVariable String partnerEmail, @RequestBody StoreInfoForm form
 //            @RequestHeader(name = TOKEN_HEADER) String header
     ) {
 
 //        tokenValidator.validateUser(id, header);
 
-        StoreDto storeDto = partnerStoreService.addStore(id, form);
+        StoreDto storeDto = partnerStoreService.addStore(partnerEmail, form);
 
         return ResponseEntity.status(CREATED).body(
                 SuccessResponse.of(StoreResponse.AddStoreResponse.fromDto(storeDto))
@@ -53,14 +53,14 @@ public class PartnerStoreController {
 //    @PreAuthorize("hasAuthority('PARTNER')")
     @PatchMapping("/{storeId}")
     public ResponseEntity<?> updateStore(
-            @PathVariable Long id, @PathVariable Long storeId,
+            @PathVariable String partnerEmail, @PathVariable Long storeId,
 //            @RequestHeader(name = TOKEN_HEADER) String header,
             @RequestBody @Validated StoreInfoForm form
     ) {
 
 //        tokenValidator.validateUser(id, header);
 
-        StoreDto storeDto = partnerStoreService.updateStore(id, storeId, form);
+        StoreDto storeDto = partnerStoreService.updateStore(partnerEmail, storeId, form);
 
         return ResponseEntity.ok(
                 SuccessResponse.of(StoreResponse.StoreInfoResponse.fromDto(storeDto))
@@ -74,13 +74,13 @@ public class PartnerStoreController {
 //    @PreAuthorize("hasAuthority('PARTNER')")
     @DeleteMapping("/{storeId}")
     public ResponseEntity<?> deleteStore(
-            @PathVariable Long id, @PathVariable Long storeId
+            @PathVariable String partnerEmail, @PathVariable Long storeId
 //            @RequestHeader(TOKEN_HEADER) String header
     ) {
 
 //        tokenValidator.validateUser(id, header);
 
-        partnerStoreService.deleteStore(id, storeId);
+        partnerStoreService.deleteStore(partnerEmail, storeId);
 
         return ResponseEntity.ok(
                 SuccessResponse.of("delete complete")

@@ -32,11 +32,11 @@ public class CustomerReservationServiceImpl implements CustomerReservationServic
     private final KafkaProducer kafkaProducer;
 
     @Override
-    public ReservationResponse makeReservation(Long userId, CustomerReservationForm form) {
+    public ReservationResponse makeReservation(String customerEmail, CustomerReservationForm form) {
 
         // 고객정보, 상점정보 검증 후 예약서비스 모듈로 넘겨줌
         User findUser = userRepository
-                .findById(userId)
+                .findByEmail(customerEmail)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         Store findStore = storeRepository
@@ -54,7 +54,7 @@ public class CustomerReservationServiceImpl implements CustomerReservationServic
         }
 
         InitReservationDto initReservationDto = InitReservationDto.builder()
-                .customerId(userId)
+                .customerId(findUser.getId())
                 .storeId(findStore.getId())
                 .reserveDt(form.getReserveDt())
                 .contact(form.getContact())

@@ -23,8 +23,6 @@ import static com.project.securityservice.constant.SecurityConst.TOKEN_PREFIX;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-
-
     private final TokenProvider tokenProvider;
 
     @Override

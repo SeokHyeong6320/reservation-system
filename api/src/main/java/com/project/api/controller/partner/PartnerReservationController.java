@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/partner/{id}/reservation")
+@RequestMapping("/partner/{partnerEmail}/reservation")
 public class PartnerReservationController {
 
 //    private final TokenValidator tokenValidator;
@@ -30,7 +30,7 @@ public class PartnerReservationController {
 //    @PreAuthorize("hasAuthority('PARTNER')")
     @GetMapping
     public ResponseEntity<?> getReservationTimeTable(
-            @PathVariable Long id,
+            @PathVariable String partnerEmail,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
 //            @RequestHeader(name = TOKEN_HEADER) String header
     ) {
@@ -38,7 +38,7 @@ public class PartnerReservationController {
 //        tokenValidator.validateUser(id, header);
 
         List<ReservationDto> list =
-                partnerReservationService.getReservationTimeTable(id, date);
+                partnerReservationService.getReservationTimeTable(partnerEmail, date);
 
 
         return ResponseEntity.ok(
@@ -52,14 +52,14 @@ public class PartnerReservationController {
 //    @PreAuthorize("hasAuthority('PARTNER')")
     @PostMapping("/{reservationId}/confirm")
     public ResponseEntity<?> confirmReservation(
-            @PathVariable Long id, @PathVariable Long reservationId
+            @PathVariable String partnerEmail, @PathVariable Long reservationId
 //            @RequestHeader(TOKEN_HEADER) String header
     ) {
 
 //        tokenValidator.validateUser(id, header);
 
         ReservationDto reservationDto =
-                partnerReservationService.confirmReservation(id, reservationId);
+                partnerReservationService.confirmReservation(partnerEmail, reservationId);
 
         return ResponseEntity.ok(
                 SuccessResponse.of(ReservationResponse.fromDto(reservationDto))
@@ -73,14 +73,14 @@ public class PartnerReservationController {
 //    @PreAuthorize("hasAuthority('PARTNER')")
     @PostMapping("/{reservationId}/decline")
     public ResponseEntity<?> declineReservation(
-            @PathVariable Long id, @PathVariable Long reservationId
+            @PathVariable String partnerEmail, @PathVariable Long reservationId
 //            @RequestHeader(TOKEN_HEADER) String header
     ) {
 
 //        tokenValidator.validateUser(id, header);
 
         ReservationDto reservationDto =
-                partnerReservationService.declineReservation(id, reservationId);
+                partnerReservationService.declineReservation(partnerEmail, reservationId);
 
         return ResponseEntity.ok(
                 SuccessResponse.of(ReservationResponse.fromDto(reservationDto))

@@ -12,6 +12,6 @@ public interface TokenProvider {
 
     Authentication getAuthentication(String token);
 
-    String getPrimaryKey(String token);
+    String getEmail(String token);
 
 }

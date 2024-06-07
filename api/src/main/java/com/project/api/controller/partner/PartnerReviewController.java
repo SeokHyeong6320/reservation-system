@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/partner/{id}/review")
+@RequestMapping("/partner/{partnerEmail}/review")
 public class PartnerReviewController {
 
     private final PartnerReviewService partnerReviewService;
 
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<?> deleteReview(
-            @PathVariable Long id,
+            @PathVariable String partnerEmail,
             @PathVariable Long reviewId
 //            @RequestHeader(TOKEN_HEADER) String header
     ) {
 
 //        tokenValidator.validateUser(id, header);
 
-        partnerReviewService.deleteReview(id, reviewId);
+        partnerReviewService.deleteReview(partnerEmail, reviewId);
 
         return ResponseEntity.ok(
                 SuccessResponse.of("deleteComplete")

@@ -16,7 +16,7 @@ import static org.springframework.http.HttpStatus.*;
 
 
 @RestController
-@RequestMapping("customer/{id}/review")
+@RequestMapping("customer/{customerEmail}/review")
 @RequiredArgsConstructor
 public class CustomerReviewController {
 
@@ -29,14 +29,14 @@ public class CustomerReviewController {
      */
     @PostMapping
     public ResponseEntity<?> postReview(
-            @PathVariable Long id,
+            @PathVariable String customerEmail,
 //            @RequestHeader(TOKEN_HEADER) String header,
             @RequestBody @Validated CreateReviewForm form
             ) {
 
 //        tokenValidator.validateUser(id, header);
 
-        ReviewDto reviewDto = reviewService.createReview(id, form);
+        ReviewDto reviewDto = reviewService.createReview(customerEmail, form);
 
         return ResponseEntity.status(CREATED).body(
                 SuccessResponse.of(ReviewResponse.fromDto(reviewDto))
@@ -49,7 +49,7 @@ public class CustomerReviewController {
      */
     @PatchMapping("/{reviewId}")
     public ResponseEntity<?> updateReview(
-            @PathVariable Long id,
+            @PathVariable String customerEmail,
             @PathVariable Long reviewId,
 //            @RequestHeader(TOKEN_HEADER) String header,
             @RequestBody @Validated UpdateReviewForm form
@@ -57,7 +57,7 @@ public class CustomerReviewController {
 
 //        tokenValidator.validateUser(id, header);
 
-        ReviewDto reviewDto = reviewService.updateReview(id, reviewId, form);
+        ReviewDto reviewDto = reviewService.updateReview(customerEmail, reviewId, form);
 
         return ResponseEntity.ok(
                 SuccessResponse.of(ReviewResponse.fromDto(reviewDto))
@@ -69,14 +69,14 @@ public class CustomerReviewController {
      */
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<?> deleteReview(
-            @PathVariable Long id,
+            @PathVariable String customerEmail,
             @PathVariable Long reviewId
 //            @RequestHeader(TOKEN_HEADER) String header
     ) {
 
 //        tokenValidator.validateUser(id, header);
 
-        reviewService.deleteReview(id, reviewId);
+        reviewService.deleteReview(customerEmail, reviewId);
 
         return ResponseEntity.ok(
                 SuccessResponse.of("deleteComplete")

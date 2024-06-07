@@ -75,11 +75,11 @@ public class ReservationRegisterServiceImpl implements ReservationRegisterServic
      */
     @Override
     @Transactional(readOnly = true)
-    public void checkAvailWriteReview(Long userId, Reservation reservation) {
+    public void checkAvailWriteReview(User customer, Reservation reservation) {
 
         // 해당 예약이 유저의 것인지 확인
 //        if(!Objects.equals(userId, reservation.getCustomer().getId())) {
-        if(!Objects.equals(userId, reservation.getCustomer().getId())) {
+        if(!Objects.equals(customer.getId(), reservation.getCustomer().getId())) {
             throw new CustomException(RESERVATION_CUSTOMER_NOT_MATCH);
         }
 

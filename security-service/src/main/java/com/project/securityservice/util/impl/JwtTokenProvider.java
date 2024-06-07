@@ -43,7 +43,7 @@ public class JwtTokenProvider implements TokenProvider {
 
         return Jwts.builder()
                 .id(encryptComponent.encryptString(id.toString()))
-                .subject(email)
+                .subject(encryptComponent.encryptString(email))
                 .claim(keyRoles, roles)
                 .signWith(secretKey)
                 .issuedAt(now)
@@ -72,8 +72,8 @@ public class JwtTokenProvider implements TokenProvider {
     }
 
     @Override
-    public String getPrimaryKey(String token) {
-        return encryptComponent.decryptString(parseClaims(token).getId());
+    public String getEmail(String token) {
+        return encryptComponent.decryptString(parseClaims(token).getSubject());
     }
 
 
@@ -95,7 +95,7 @@ public class JwtTokenProvider implements TokenProvider {
     /**
      * JWT 받아서 email 반환
      */
-    private String getEmail(String token) {
-        return parseClaims(token).getSubject();
-    }
+//    private String getEmail(String token) {
+//        return parseClaims(token).getSubject();
+//    }
 }
