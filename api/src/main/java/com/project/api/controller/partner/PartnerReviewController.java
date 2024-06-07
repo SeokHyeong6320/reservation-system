@@ -2,6 +2,7 @@ package com.project.api.controller.partner;
 
 import com.project.common.model.SuccessResponse;
 import com.project.partnerservice.service.PartnerReviewService;
+import com.project.securityservice.util.impl.AuthVerifyUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,21 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/partner/{id}/review")
+@RequestMapping("/partner/{partnerEmail}/review")
 public class PartnerReviewController {
 
     private final PartnerReviewService partnerReviewService;
+    private final AuthVerifyUtil authVerifyUtil;
 
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<?> deleteReview(
-            @PathVariable Long id,
+            @PathVariable String partnerEmail,
             @PathVariable Long reviewId
-//            @RequestHeader(TOKEN_HEADER) String header
     ) {
 
-//        tokenValidator.validateUser(id, header);
+        authVerifyUtil.verifyUser(partnerEmail);
 
-        partnerReviewService.deleteReview(id, reviewId);
+        partnerReviewService.deleteReview(partnerEmail, reviewId);
 
         return ResponseEntity.ok(
                 SuccessResponse.of("deleteComplete")

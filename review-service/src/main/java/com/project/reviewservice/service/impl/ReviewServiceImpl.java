@@ -5,8 +5,10 @@ import com.project.domain.dto.ReviewDto;
 import com.project.domain.entity.Reservation;
 import com.project.domain.entity.Review;
 import com.project.domain.entity.Store;
+import com.project.domain.entity.User;
 import com.project.domain.repository.ReviewRepository;
 import com.project.domain.repository.StoreRepository;
+import com.project.domain.type.UserType;
 import com.project.reviewservice.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,7 +34,7 @@ public class ReviewServiceImpl implements ReviewService {
      * 리뷰 작성
      */
     @Override
-    public ReviewDto createReview(Long userId, Reservation reservation, CreateReviewForm form) {
+    public ReviewDto createReview(Reservation reservation, CreateReviewForm form) {
 
         Review newReview = Review.fromCreateForm(form, reservation);
         Store findStore = storeRepository.findById(reservation.getStore().getId())
@@ -54,7 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
      * 리뷰 수정
      */
     @Override
-    public ReviewDto updateReview(Long id, Long reviewId, UpdateReviewForm form) {
+    public ReviewDto updateReview(User customer, Long reviewId, UpdateReviewForm form) {
 
         Review findReview = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
@@ -63,7 +65,7 @@ public class ReviewServiceImpl implements ReviewService {
 //                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
 
         // 리뷰 작성자인지 확인
-        checkReviewWriter(id, findReview);
+        checkReviewWriter(customer.getId(), findReview);
 
         // 리뷰 업데이트
         findReview.updateReview(form);
@@ -78,7 +80,7 @@ public class ReviewServiceImpl implements ReviewService {
      * 리뷰 삭제
      */
     @Override
-    public void deleteReview(Long id, Long reviewId) {
+    public void deleteReview(User user, Long reviewId) {
 
         Review findReview = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
@@ -87,7 +89,7 @@ public class ReviewServiceImpl implements ReviewService {
 //                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
 
         // 리뷰 삭제 가능한 유저인지 확인 (작성자, 상점 주인)
-        checkDeleteAuthority(id, findReview);
+        checkDeleteAuthority(user, findReview);
 
         // 상점 별점 업데이트
         updateStar(findReview.getStore(), 0);
@@ -105,12 +107,16 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     /**
-     * 리뷰 삭제 가능한 권한인지 확
+     * 리뷰 삭제 가능한 권한인지 확인
      */
-    private void checkDeleteAuthority(Long id, Review findReview) {
-        checkReviewWriter(id, findReview);
+    private void checkDeleteAuthority(User user, Review findReview) {
 
-        checkStoreOwner(id, findReview.getStore());
+        if (user.getUserType() == UserType.CUSTOMER) {
+            checkReviewWriter(user.getId(), findReview);
+        } else {
+            checkStoreOwner(user.getId(), findReview.getStore());
+        }
+
     }
 
     /**

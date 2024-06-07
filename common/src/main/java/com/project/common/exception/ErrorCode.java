@@ -3,8 +3,7 @@ package com.project.common.exception;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.*;
 
 @Getter
 public enum ErrorCode {
@@ -12,9 +11,9 @@ public enum ErrorCode {
     EMAIL_ALREADY_EXIST(BAD_REQUEST, "already exist email"),
     USER_NOT_FOUND(BAD_REQUEST, "couldn't find user"),
 
-    PASSWORD_NOT_MATCH(BAD_REQUEST, "this is wrong password"),
-    AUTHENTICATION_NOT_MATCH(BAD_REQUEST, "this is wrong user access"),
-    TOKEN_INVALID(BAD_REQUEST, "this is invalid token"),
+    PASSWORD_NOT_MATCH(UNAUTHORIZED, "this is wrong password"),
+    AUTHENTICATION_NOT_MATCH(UNAUTHORIZED, "this is wrong user access"),
+    TOKEN_INVALID(UNAUTHORIZED, "this is invalid token"),
 
     STORE_NOT_FOUND(BAD_REQUEST, "couldn't find store"),
     STORE_STATUS_INVALID(BAD_REQUEST, "this is invalid store status type"),

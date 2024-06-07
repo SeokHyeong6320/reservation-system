@@ -25,10 +25,10 @@ public class PartnerReservationServiceImpl implements PartnerReservationService 
 
     @Override
     @Transactional(readOnly = true)
-    public List<ReservationDto> getReservationTimeTable(Long userId, LocalDate date) {
+    public List<ReservationDto> getReservationTimeTable(String partnerEmail, LocalDate date) {
 
         User findUser = userRepository
-                .findById(userId)
+                .findByEmail(partnerEmail)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         return reservationManagementService
@@ -37,14 +37,24 @@ public class PartnerReservationServiceImpl implements PartnerReservationService 
     }
 
     @Override
-    public ReservationDto confirmReservation(Long userId, Long reservationId) {
+    public ReservationDto confirmReservation(String partnerEmail, Long reservationId) {
+
+        User findUser = userRepository
+                .findByEmail(partnerEmail)
+                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+
         return reservationManagementService
-                .confirmReservation(userId, reservationId);
+                .confirmReservation(findUser.getId(), reservationId);
     }
 
     @Override
-    public ReservationDto declineReservation(Long userId, Long reservationId) {
+    public ReservationDto declineReservation(String partnerEmail, Long reservationId) {
+
+        User findUser = userRepository
+                .findByEmail(partnerEmail)
+                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+
         return reservationManagementService
-                .declineReservation(userId, reservationId);
+                .declineReservation(findUser.getId(), reservationId);
     }
 }

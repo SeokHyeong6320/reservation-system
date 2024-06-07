@@ -29,10 +29,10 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
 
 
     @Override
-    public StoreDto addStore(Long userId, StoreInfoForm form) {
+    public StoreDto addStore(String partnerEmail, StoreInfoForm form) {
 
         // 해당 유저가 없으면 에러 발생
-        User findUser = userRepository.findById(userId)
+        User findUser = userRepository.findByEmail(partnerEmail)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         // 파트너가 아닌 경우 에러 발생
@@ -43,26 +43,26 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
     }
 
     @Override
-    public StoreDto updateStore(Long userId, Long storeId, StoreInfoForm form) {
+    public StoreDto updateStore(String partnerEmail, Long storeId, StoreInfoForm form) {
 
         // 해당 상점이 없으면 에러 발생
         Store findStore = storeRepository.findById(storeId)
                 .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
 
         // 올바른 소유자의 상점인지 확인
-        validateStoreOwner(userId, findStore);
+        validateStoreOwner(partnerEmail, findStore);
 
         return storeManagementService.updateStore(findStore, form.toDomainForm());
     }
 
     @Override
-    public void deleteStore(Long userId, Long storeId) {
+    public void deleteStore(String partnerEmail, Long storeId) {
 
         Store findStore = storeRepository.findById(storeId)
                 .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
 
         // 올바른 소유자의 상점인지 확인
-        validateStoreOwner(userId, findStore);
+        validateStoreOwner(partnerEmail, findStore);
 
         storeManagementService.deleteStore(findStore);
 
@@ -77,8 +77,8 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
     }
 
     // 상점 주인 아니면 에러 발생
-    private void validateStoreOwner(Long ownerId, Store store) {
-        if (!Objects.equals(ownerId, store.getOwner().getId())) {
+    private void validateStoreOwner(String partnerEmail, Store store) {
+        if (!Objects.equals(partnerEmail, store.getOwner().getEmail())) {
             throw new CustomException(STORE_OWNER_NOT_MATCH);
         }
     }

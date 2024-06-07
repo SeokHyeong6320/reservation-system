@@ -23,10 +23,10 @@ public class PartnerServiceImpl implements PartnerService {
 
     // 파트너 가입 서비스
     @Override
-    public UserDto enrollPartner(Long id) {
+    public UserDto enrollPartner(String partnerEmail) {
 
         User findUser = userRepository
-                .findById(id).orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+                .findByEmail(partnerEmail).orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         // 이미 파트너인 경우 에러 발생
         checkUserType(findUser);

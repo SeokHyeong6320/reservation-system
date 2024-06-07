@@ -21,8 +21,6 @@ public class UserLoginModel implements UserDetails {
 
     private Long id;
 
-    private String email;
-
     private String password;
 
     private String username;
@@ -32,9 +30,8 @@ public class UserLoginModel implements UserDetails {
     public static UserLoginModel fromEntity(User user) {
         return UserLoginModel.builder()
                 .id(user.getId())
-                .email(user.getEmail())
                 .password(user.getPassword())
-                .username(user.getUsername())
+                .username(user.getEmail())
                 .userType(user.getUserType())
                 .build();
     }

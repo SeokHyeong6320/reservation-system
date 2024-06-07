@@ -23,7 +23,7 @@ public class JwtTokenValidator implements TokenValidator {
      * token과 id값 가져와서 현재 올바른 회원의 접근인지 체크
      */
     @Override
-    public void validateUser(Long id, String header) {
+    public void validateUser(String email, String header) {
 
         if (!StringUtils.hasText(header) || !header.startsWith(TOKEN_PREFIX)) {
             throw new CustomException(TOKEN_INVALID);
@@ -33,10 +33,10 @@ public class JwtTokenValidator implements TokenValidator {
         String jwt = header.substring(TOKEN_PREFIX.length());
 
         // token에 들어있는 유저의 id 값 얻어옴
-        String idByToken = tokenProvider.getPrimaryKey(jwt);
+        String emailByToken = tokenProvider.getEmail(jwt);
 
         // 엔드포인트의 id 값과 token의 id 값이 동일한지 확인
-        if (!id.toString().equals(idByToken)) {
+        if (!email.equals(emailByToken)) {
             throw new CustomException(AUTHENTICATION_NOT_MATCH);
         }
 
