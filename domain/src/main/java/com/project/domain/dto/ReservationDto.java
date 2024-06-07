@@ -19,7 +19,15 @@ public class ReservationDto {
 
     private Long id;
 
+//    private Long customerId;;
+//
+//    private String customerEmail;
+
     private User customer;
+
+//    private Long storeId;
+//
+//    private String storeName;
 
     private Store store;
 

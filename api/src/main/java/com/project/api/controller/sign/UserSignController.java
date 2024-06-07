@@ -3,7 +3,7 @@ package com.project.api.controller.sign;
 import com.project.common.model.SuccessResponse;
 import com.project.domain.dto.UserDto;
 import com.project.domain.dto.UserLoginDto;
-import com.project.securityservice.service.SecurityLoginService;
+import com.project.securityservice.application.LoginApplication;
 import com.project.securityservice.model.SignForm;
 import com.project.securityservice.model.SignResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserSignController {
 
-    private final SecurityLoginService securityLoginService;
+    private final LoginApplication loginApplication;
 
 
     /**
@@ -30,7 +30,7 @@ public class UserSignController {
             @RequestBody @Validated SignForm.SignUpForm form
     ) {
 
-        UserDto userDto = securityLoginService.register(form.toDomainForm());
+        UserDto userDto = loginApplication.register(form.toDomainForm());
 
         return ResponseEntity.ok(
                 SuccessResponse.of(
@@ -59,7 +59,7 @@ public class UserSignController {
                 new ArrayList<>(List.of(userDto.getUserType().name()))
         );*/
 
-        UserLoginDto userLoginDto = securityLoginService.logIn(form.toDomainForm());
+        UserLoginDto userLoginDto = loginApplication.logIn(form.toDomainForm());
 
         return ResponseEntity.ok(
                 SuccessResponse.of(

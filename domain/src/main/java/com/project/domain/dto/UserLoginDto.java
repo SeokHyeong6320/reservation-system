@@ -1,6 +1,5 @@
 package com.project.domain.dto;
 
-import com.project.domain.entity.User;
 import com.project.domain.type.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,10 +14,10 @@ public class UserLoginDto {
     private UserType userType;
     private String jwt;
 
-    public static UserLoginDto fromEntity(User user, String jwt) {
+    public static UserLoginDto fromEntity(UserDto userDto, String jwt) {
         return UserLoginDto.builder()
-                .username(user.getUsername())
-                .userType(user.getUserType())
+                .username(userDto.getUsername())
+                .userType(userDto.getUserType())
                 .jwt(jwt)
                 .build();
     }

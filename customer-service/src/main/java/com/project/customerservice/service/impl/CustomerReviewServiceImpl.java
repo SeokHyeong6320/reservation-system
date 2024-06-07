@@ -11,9 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import static com.project.common.exception.ErrorCode.*;
-import static com.project.customerservice.model.CustomerReviewForm.*;
+import static com.project.common.exception.ErrorCode.RESERVATION_NOT_FOUND;
+import static com.project.customerservice.model.CustomerReviewForm.CreateReviewForm;
+import static com.project.customerservice.model.CustomerReviewForm.UpdateReviewForm;
 
 @Service
 @Transactional

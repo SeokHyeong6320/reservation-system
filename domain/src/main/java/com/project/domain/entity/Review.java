@@ -26,11 +26,17 @@ public class Review extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User customer;
-
+//
+//    @Column(name = "customer_id")
+//    private Long customerId;
+//
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
-
+//
+//    @Column(name = "store_id")
+//    private Long storeId;
+//
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reserv_id")
     private Reservation reservation;

@@ -21,6 +21,7 @@ public class StoreDto {
 
     private Long id;
 
+//    private Long ownerId;
     private User owner;
 
     private List<Reservation> reservations = new ArrayList<>();

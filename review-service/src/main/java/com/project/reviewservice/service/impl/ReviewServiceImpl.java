@@ -5,7 +5,6 @@ import com.project.domain.dto.ReviewDto;
 import com.project.domain.entity.Reservation;
 import com.project.domain.entity.Review;
 import com.project.domain.entity.Store;
-import com.project.domain.repository.ReservationRepository;
 import com.project.domain.repository.ReviewRepository;
 import com.project.domain.repository.StoreRepository;
 import com.project.reviewservice.service.ReviewService;
@@ -16,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Objects;
 
 import static com.project.common.exception.ErrorCode.*;
-import static com.project.domain.model.ReviewDomainForm.*;
+import static com.project.domain.model.ReviewDomainForm.CreateReviewForm;
+import static com.project.domain.model.ReviewDomainForm.UpdateReviewForm;
 
 
 @Service
@@ -25,6 +25,7 @@ import static com.project.domain.model.ReviewDomainForm.*;
 public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final StoreRepository storeRepository;
 
 
     /**
@@ -34,9 +35,11 @@ public class ReviewServiceImpl implements ReviewService {
     public ReviewDto createReview(Long userId, Reservation reservation, CreateReviewForm form) {
 
         Review newReview = Review.fromCreateForm(form, reservation);
+        Store findStore = storeRepository.findById(reservation.getStore().getId())
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
 
         // 상점 별점 업데이트
-        updateStar(newReview.getStore(), newReview.getStar());
+        updateStar(findStore, newReview.getStar());
 
         Review savedReview = reviewRepository.save(newReview);
 
@@ -56,15 +59,17 @@ public class ReviewServiceImpl implements ReviewService {
         Review findReview = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
 
+//        Store findStore = storeRepository.findById(findReview.getStoreId())
+//                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
         // 리뷰 작성자인지 확인
-        checkDeleteAuthority(id, findReview);
+        checkReviewWriter(id, findReview);
 
         // 리뷰 업데이트
         findReview.updateReview(form);
 
         // 상점 별점 업데이트
-        Store findStore = findReview.getStore();
-        updateStar(findStore, findReview.getStar());
+        updateStar(findReview.getStore(), findReview.getStar());
 
         return ReviewDto.fromEntity(findReview);
     }
@@ -78,12 +83,14 @@ public class ReviewServiceImpl implements ReviewService {
         Review findReview = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
 
+//        Store findStore = storeRepository.findById(findReview.getStoreId())
+//                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
         // 리뷰 삭제 가능한 유저인지 확인 (작성자, 상점 주인)
         checkDeleteAuthority(id, findReview);
 
         // 상점 별점 업데이트
-        Store findStore = findReview.getStore();
-        updateStar(findStore, 0);
+        updateStar(findReview.getStore(), 0);
 
         reviewRepository.delete(findReview);
     }
@@ -98,14 +105,29 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     /**
-     * 리뷰 작성자인지 확인
+     * 리뷰 삭제 가능한 권한인지 확
      */
     private void checkDeleteAuthority(Long id, Review findReview) {
+        checkReviewWriter(id, findReview);
+
+        checkStoreOwner(id, findReview.getStore());
+    }
+
+    /**
+     * 상점 주인인지 확인
+     */
+    private void checkStoreOwner(Long id, Store store) {
+        if (!Objects.equals(id, store.getOwner().getId())) {
+            throw new CustomException(STORE_OWNER_NOT_MATCH);
+        }
+    }
+
+    /**
+     * 리뷰 작성자인지 확인
+     */
+    private void checkReviewWriter(Long id, Review findReview) {
         if (!Objects.equals(id, findReview.getCustomer().getId())) {
             throw new CustomException(REVIEW_CUSTOMER_NOT_MATCH);
-        }
-        if (!Objects.equals(id, findReview.getStore().getOwner().getId())) {
-            throw new CustomException(STORE_OWNER_NOT_MATCH);
         }
     }
 }

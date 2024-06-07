@@ -1,7 +1,5 @@
 package com.project.kafkaservice.topic;
 
-import lombok.Getter;
-
 public class KafkaTopic {
 
     public static final String DO_RESERVATION = "do_reservation";

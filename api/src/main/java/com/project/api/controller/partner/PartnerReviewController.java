@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/{id}/review")
+@RequestMapping("/partner/{id}/review")
 public class PartnerReviewController {
 
     private final PartnerReviewService partnerReviewService;

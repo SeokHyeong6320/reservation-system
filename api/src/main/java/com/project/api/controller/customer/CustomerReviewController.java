@@ -9,11 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static com.project.customerservice.model.CustomerReviewForm.*;
+import static com.project.customerservice.model.CustomerReviewForm.CreateReviewForm;
+import static com.project.customerservice.model.CustomerReviewForm.UpdateReviewForm;
 
 
 @RestController
-@RequestMapping("/{id}/review")
+@RequestMapping("customer/{id}/review")
 @RequiredArgsConstructor
 public class CustomerReviewController {
 

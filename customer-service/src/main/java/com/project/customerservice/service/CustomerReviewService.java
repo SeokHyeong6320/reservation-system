@@ -1,10 +1,9 @@
 package com.project.customerservice.service;
 
-import com.project.customerservice.model.CustomerReviewForm;
 import com.project.domain.dto.ReviewDto;
-import com.project.reviewservice.model.ReviewForm;
 
-import static com.project.customerservice.model.CustomerReviewForm.*;
+import static com.project.customerservice.model.CustomerReviewForm.CreateReviewForm;
+import static com.project.customerservice.model.CustomerReviewForm.UpdateReviewForm;
 
 
 public interface CustomerReviewService {
