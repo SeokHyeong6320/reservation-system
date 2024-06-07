@@ -21,7 +21,7 @@ public class ReservationDto {
 
     private Long customerId;;
 
-    private Store store;
+    private Long storeId;
 
     private String contactNumber;
 
@@ -41,7 +41,7 @@ public class ReservationDto {
         return ReservationDto.builder()
                 .id(reservation.getId())
                 .customerId(reservation.getCustomerId())
-                .store(reservation.getStore())
+                .storeId(reservation.getStoreId())
                 .contactNumber(reservation.getContactNumber())
                 .reserveDt(reservation.getReserveDt())
                 .approveStatus(reservation.getApproveStatus())

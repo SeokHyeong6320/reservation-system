@@ -21,7 +21,7 @@ public class ReviewDto {
 
     private Store store;
 
-    private User customer;
+    private Long customerId;
 
     private Reservation reservation;
 
@@ -41,7 +41,7 @@ public class ReviewDto {
     public static ReviewDto fromEntity(Review review) {
         return ReviewDto.builder()
                 .id(review.getId())
-                .customer(review.getCustomer())
+                .customerId(review.getCustomerId())
                 .reservation(review.getReservation())
                 .title(review.getTitle())
                 .content(review.getContent())

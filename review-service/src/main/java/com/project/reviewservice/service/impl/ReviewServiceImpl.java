@@ -25,6 +25,7 @@ import static com.project.domain.model.ReviewDomainForm.*;
 public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final StoreRepository storeRepository;
 
 
     /**
@@ -34,9 +35,11 @@ public class ReviewServiceImpl implements ReviewService {
     public ReviewDto createReview(Long userId, Reservation reservation, CreateReviewForm form) {
 
         Review newReview = Review.fromCreateForm(form, reservation);
+        Store findStore = storeRepository.findById(reservation.getStoreId())
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
 
         // 상점 별점 업데이트
-        updateStar(newReview.getStore(), newReview.getStar());
+        updateStar(findStore, newReview.getStar());
 
         Review savedReview = reviewRepository.save(newReview);
 
@@ -56,14 +59,16 @@ public class ReviewServiceImpl implements ReviewService {
         Review findReview = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
 
+        Store findStore = storeRepository.findById(findReview.getStoreId())
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
         // 리뷰 작성자인지 확인
-        checkDeleteAuthority(id, findReview);
+        checkReviewWriter(id, findReview);
 
         // 리뷰 업데이트
         findReview.updateReview(form);
 
         // 상점 별점 업데이트
-        Store findStore = findReview.getStore();
         updateStar(findStore, findReview.getStar());
 
         return ReviewDto.fromEntity(findReview);
@@ -78,11 +83,13 @@ public class ReviewServiceImpl implements ReviewService {
         Review findReview = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
 
+        Store findStore = storeRepository.findById(findReview.getStoreId())
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+
         // 리뷰 삭제 가능한 유저인지 확인 (작성자, 상점 주인)
-        checkDeleteAuthority(id, findReview);
+        checkDeleteAuthority(id, findReview, findStore);
 
         // 상점 별점 업데이트
-        Store findStore = findReview.getStore();
         updateStar(findStore, 0);
 
         reviewRepository.delete(findReview);
@@ -98,14 +105,29 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     /**
+     * 리뷰 삭제 가능한 권한인지 확
+     */
+    private void checkDeleteAuthority(Long id, Review findReview, Store store) {
+        checkReviewWriter(id, findReview);
+
+        checkStoreOwner(id, store);
+    }
+
+    /**
+     * 상점 주인인지 확인
+     */
+    private void checkStoreOwner(Long id, Store store) {
+        if (!Objects.equals(id, store.getOwnerId())) {
+            throw new CustomException(STORE_OWNER_NOT_MATCH);
+        }
+    }
+
+    /**
      * 리뷰 작성자인지 확인
      */
-    private void checkDeleteAuthority(Long id, Review findReview) {
-        if (!Objects.equals(id, findReview.getCustomer().getId())) {
+    private void checkReviewWriter(Long id, Review findReview) {
+        if (!Objects.equals(id, findReview.getCustomerId())) {
             throw new CustomException(REVIEW_CUSTOMER_NOT_MATCH);
-        }
-        if (!Objects.equals(id, findReview.getStore().getOwner().getId())) {
-            throw new CustomException(STORE_OWNER_NOT_MATCH);
         }
     }
 }

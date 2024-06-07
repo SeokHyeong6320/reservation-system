@@ -23,13 +23,19 @@ public class Review extends BaseEntity {
     @Column(name = "review_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User customer;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private User customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private Store store;
+    @Column(name = "customer_id")
+    private Long customerId;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "store_id")
+//    private Store store;
+
+    @Column(name = "store_id")
+    private Long storeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reserv_id")
@@ -52,8 +58,8 @@ public class Review extends BaseEntity {
 
     public static Review fromCreateForm(CreateReviewForm form, Reservation reservation) {
         return Review.builder()
-                .customer(reservation.getCustomer())
-                .store(reservation.getStore())
+                .customerId(reservation.getCustomerId())
+                .storeId(reservation.getStoreId())
                 .reservation(reservation)
                 .title(form.getTitle())
                 .content(form.getContent())

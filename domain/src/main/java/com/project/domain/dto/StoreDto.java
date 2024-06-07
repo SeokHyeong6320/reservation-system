@@ -21,7 +21,7 @@ public class StoreDto {
 
     private Long id;
 
-    private User owner;
+    private Long ownerId;
 
     private List<Reservation> reservations = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public class StoreDto {
     public static StoreDto fromEntity(Store store) {
         return StoreDto.builder()
                 .id(store.getId())
-                .owner(store.getOwner())
+                .ownerId(store.getOwnerId())
                 .reservations(store.getReservations())
                 .name(store.getName())
                 .description(store.getDescription())

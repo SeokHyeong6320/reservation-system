@@ -22,9 +22,12 @@ public class Store extends BaseEntity {
     @Column(name = "store_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User owner;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private User owner;
+
+    @Column(name = "owner_id")
+    private Long ownerId;
 
     @OneToMany(mappedBy = "store")
     private List<Reservation> reservations = new ArrayList<>();
@@ -51,7 +54,7 @@ public class Store extends BaseEntity {
 
     public static Store fromForm(StoreDomainForm form, User user) {
         return Store.builder()
-                .owner(user)
+                .ownerId(user.getId())
                 .name(form.getName())
                 .description(form.getDescription())
                 .star(0.0)
