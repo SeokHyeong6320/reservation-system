@@ -5,12 +5,14 @@ import com.project.customerservice.service.CustomerReviewService;
 import com.project.domain.dto.ReviewDto;
 import com.project.domain.response.ReviewResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import static com.project.customerservice.model.CustomerReviewForm.CreateReviewForm;
 import static com.project.customerservice.model.CustomerReviewForm.UpdateReviewForm;
+import static org.springframework.http.HttpStatus.*;
 
 
 @RestController
@@ -36,7 +38,7 @@ public class CustomerReviewController {
 
         ReviewDto reviewDto = reviewService.createReview(id, form);
 
-        return ResponseEntity.ok(
+        return ResponseEntity.status(CREATED).body(
                 SuccessResponse.of(ReviewResponse.fromDto(reviewDto))
         );
     }

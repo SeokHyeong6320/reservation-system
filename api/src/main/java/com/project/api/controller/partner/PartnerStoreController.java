@@ -6,9 +6,12 @@ import com.project.domain.response.StoreResponse;
 import com.project.partnerservice.model.StoreInfoForm;
 import com.project.partnerservice.service.PartnerStoreService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.*;
 
 
 @RestController
@@ -39,7 +42,7 @@ public class PartnerStoreController {
 
         StoreDto storeDto = partnerStoreService.addStore(id, form);
 
-        return ResponseEntity.ok(
+        return ResponseEntity.status(CREATED).body(
                 SuccessResponse.of(StoreResponse.AddStoreResponse.fromDto(storeDto))
         );
     }
