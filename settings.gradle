@@ -12,4 +12,5 @@ include 'store-service'
 include 'user-service'
 include 'common'
 include 'domain'
+include 'kafka-service'
 
