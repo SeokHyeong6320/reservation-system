@@ -1,7 +1,7 @@
 # 개요
 ### 매장 테이블 예약 서비스
 
-사용 기술 : Spring, Spring Security, Spring Cloud Eureka, Spring Cloud Gateway, Jpa, MariaDB, QueryDsl, Kafka
+사용 기술 : Spring, Spring Security, Jpa, MariaDB, QueryDsl, Kafka, REDIS
 
 목표 : 식당이나 점포를 이용하기 전에 미리 예약을 하여 편하게 식당/점포를 이용할 수 있는 서비스 구현
 
