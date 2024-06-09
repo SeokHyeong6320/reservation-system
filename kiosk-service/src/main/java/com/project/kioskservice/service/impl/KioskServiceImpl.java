@@ -25,7 +25,6 @@ import static com.project.common.exception.ErrorCode.*;
 @RequiredArgsConstructor
 public class KioskServiceImpl implements KioskService {
 
-    private final ReservationRepository reservationRepository;
     private final KioskRepository kioskRepository;
     private final CircuitBreakerFactory circuitBreakerFactory;
     private final VisitClient visitClient;

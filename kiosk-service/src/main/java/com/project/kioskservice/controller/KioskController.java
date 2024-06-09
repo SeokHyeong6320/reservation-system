@@ -38,10 +38,10 @@ public class KioskController {
             @RequestBody @Validated VisitForm form
             ) {
 
-        String customerName = kioskService.visitStore(form);
+        VisitResponse visitResponse = kioskService.visitStore(form);
 
         return ResponseEntity.ok(
-                SuccessResponse.of(VisitResponse.success(customerName))
+                SuccessResponse.of(visitResponse)
         );
     }
 }
