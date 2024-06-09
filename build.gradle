@@ -72,6 +72,14 @@ project(":api") {
     }
 }
 
+project(":kafka-service") {
+    dependencies {
+        implementation project(":common")
+        implementation project(":domain")
+        implementation project(":reservation-service")
+    }
+}
+
 project(":customer-service") {
     dependencies {
         implementation project(":common")
@@ -93,13 +101,6 @@ project(":partner-service") {
     }
 }
 
-project(":kafka-service") {
-    dependencies {
-        implementation project(":common")
-        implementation project(":domain")
-        implementation project(":reservation-service")
-    }
-}
 
 project(":security-service") {
     dependencies {

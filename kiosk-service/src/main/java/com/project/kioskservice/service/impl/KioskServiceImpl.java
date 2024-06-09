@@ -60,11 +60,14 @@ public class KioskServiceImpl implements KioskService {
 //                reservationRepository.findById(form.getReservationId())
 //                .orElseThrow(() -> new CustomException(RESERVATION_NOT_FOUND));
 //
+        // 올바른 요청인지 검증
         validateKioskAvail(findKiosk, form);
 //
 //        findReservation.visit();
 
 
+        // openFeign 통해 reservation-service로 방문 요청 보내 처리
+        // 올바르지 않은 방문일 경우 실패 response 반환
         return circuitbreaker.run(
                 () -> visitClient.visitReservation(form.toDomainForm()).getBody(),
                 throwable -> VisitResponse.fail(form.getContact())
