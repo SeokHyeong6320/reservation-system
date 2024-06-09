@@ -68,6 +68,43 @@ project(":api") {
         implementation project(":reservation-service")
         implementation project(":partner-service")
         implementation project(":security-service")
+        implementation project(":store-service")
+    }
+}
+
+project(":customer-service") {
+    dependencies {
+        implementation project(":common")
+        implementation project(":domain")
+        implementation project(":reservation-service")
+        implementation project(":review-service")
+        implementation project(":kafka-service")
+        implementation project(":store-service")
+    }
+}
+
+project(":partner-service") {
+    dependencies {
+        implementation project(":common")
+        implementation project(":domain")
+        implementation project(":reservation-service")
+        implementation project(":store-service")
+        implementation project(":review-service")
+    }
+}
+
+project(":kafka-service") {
+    dependencies {
+        implementation project(":common")
+        implementation project(":domain")
+        implementation project(":reservation-service")
+    }
+}
+
+project(":security-service") {
+    dependencies {
+        implementation project(":common")
+        implementation project(":domain")
     }
 }
 

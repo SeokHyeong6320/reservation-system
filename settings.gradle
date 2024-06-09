@@ -1,8 +1,6 @@
 rootProject.name = 'reservation-system'
 
-include 'apigateway-service'
 include 'customer-service'
-include 'discovery-service'
 include 'kiosk-service'
 include 'partner-service'
 include 'reservation-service'
