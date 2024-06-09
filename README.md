@@ -9,17 +9,13 @@
 
 ## 모듈 구성
 
-### discovery-service
-
-### apigateway-service
-
 ### common
 
 ### domain
 
-### kiosk-service
+### kiosk-service (port = 8081)
 
-### api
+### api (port = 8080)
 - ### security-service
 
 - ### customer-service
