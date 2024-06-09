@@ -1,5 +1,6 @@
 package com.project.kioskservice.model;
 
+import com.project.domain.model.VisitDomainForm;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -28,4 +29,13 @@ public class VisitForm {
     @NotBlank
     @Size(min = 8, max = 8)
     private String code;
+
+    public VisitDomainForm toDomainForm() {
+        return VisitDomainForm.builder()
+                .kioskId(this.kioskId)
+                .reservationId(this.reservationId)
+                .contact(this.contact)
+                .code(this.code)
+                .build();
+    }
 }

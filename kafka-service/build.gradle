@@ -19,8 +19,8 @@ dependencies {
     implementation project(":common")
     implementation project(":domain")
     implementation project(":reservation-service")
-    implementation 'org.springframework.kafka:spring-kafka'
 
+    implementation 'org.springframework.kafka:spring-kafka'
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'

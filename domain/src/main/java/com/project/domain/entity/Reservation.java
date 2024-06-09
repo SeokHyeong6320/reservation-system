@@ -60,6 +60,9 @@ public class Reservation extends BaseEntity {
     @Column(name = "reserv_visit_avail_dt")
     private LocalDateTime visitAvailDt;
 
+    @Column(name = "reserv_visit_dt")
+    private LocalDateTime visitDt;
+
     @Column(name = "reserv_code")
     private String code;
 
@@ -101,6 +104,7 @@ public class Reservation extends BaseEntity {
 
     public void visit() {
         this.visitYn = true;
+        this.visitDt = LocalDateTime.now();
     }
 
     public void writeReview() {
