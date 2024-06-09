@@ -16,11 +16,12 @@ public class ErrorCodeUtil {
 
             String errorMessage = feignException.getMessage();
 
+            // errorCode json 값 추출
             int targetIdx = errorMessage.lastIndexOf("\"errorCode\"");
             int lastIdx = errorMessage.indexOf("\"", targetIdx + 14);
-
             String errorCode = errorMessage.substring(targetIdx + 13, lastIdx);
 
+            // ErrorCode로 변환
             return ErrorCode.findByString(errorCode);
 
         } catch (Exception e) {

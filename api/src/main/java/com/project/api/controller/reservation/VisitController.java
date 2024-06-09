@@ -17,7 +17,7 @@ public class VisitController {
     private final ReservationVisitService reservationVisitService;
 
     @PostMapping("/reservation/visit")
-    public ResponseEntity<?> visitReservation(@RequestBody VisitDomainForm form) {
+    public ResponseEntity<VisitResponse> visitReservation(@RequestBody VisitDomainForm form) {
 
         VisitDto visitDto = reservationVisitService.visit(form);
 

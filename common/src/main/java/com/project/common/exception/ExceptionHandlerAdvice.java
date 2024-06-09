@@ -43,7 +43,6 @@ public class ExceptionHandlerAdvice {
 
         ErrorCode errorCode = errorCodeUtil.findFromFeignException(e);
         CustomException customException = new CustomException(errorCode);
-        e.printStackTrace();
         return ResponseEntity
                 .status(customException.getErrorCode().getStatus())
                 .body(ErrorResponse.of(customException));
