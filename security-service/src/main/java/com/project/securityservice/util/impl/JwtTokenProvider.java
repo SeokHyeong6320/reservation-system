@@ -26,8 +26,8 @@ public class JwtTokenProvider implements TokenProvider {
     @Value("${jwt.token.expired_time}")
     private Long tokenExpireTime;
 
-
-    private final SecretKey secretKey;          // SecretKey는 JwtConfig에 Bean으로 등록
+    // SecretKey는 JwtConfig에 Bean으로 등록
+    private final SecretKey secretKey;
     private final SecurityLoginService securityLoginService;
     private final EncryptComponent encryptComponent;
 
@@ -92,10 +92,4 @@ public class JwtTokenProvider implements TokenProvider {
         }
     }
 
-    /**
-     * JWT 받아서 email 반환
-     */
-//    private String getEmail(String token) {
-//        return parseClaims(token).getSubject();
-//    }
 }
