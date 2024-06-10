@@ -1,14 +1,14 @@
 rootProject.name = 'reservation-system'
 
+include 'common'
+include 'domain'
+include 'kiosk'
+include 'api'
 include 'customer-service'
-include 'kiosk-service'
 include 'partner-service'
 include 'reservation-service'
 include 'review-service'
 include 'security-service'
 include 'store-service'
-include 'common'
-include 'domain'
 include 'kafka-service'
-include 'api'
 

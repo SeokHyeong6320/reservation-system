@@ -5,7 +5,7 @@ import com.project.domain.dto.ReservationDto;
 import com.project.domain.response.ReservationResponse;
 import com.project.partnerservice.model.ReservationTimeTable;
 import com.project.partnerservice.service.PartnerReservationService;
-import com.project.securityservice.util.impl.AuthVerifyUtil;
+import com.project.securityservice.util.AuthVerityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import java.util.List;
 public class PartnerReservationController {
 
     private final PartnerReservationService partnerReservationService;
-    private final AuthVerifyUtil authVerifyUtil;
+    private final AuthVerityUtil authVerityUtil;
 
 
     /**
@@ -30,10 +30,12 @@ public class PartnerReservationController {
     @GetMapping
     public ResponseEntity<?> getReservationTimeTable(
             @PathVariable String partnerEmail,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate date
     ) {
 
-        authVerifyUtil.verifyUser(partnerEmail);
+        // 올바른 고객의 접근인지 검증
+        authVerityUtil.verifyUser(partnerEmail);
 
         List<ReservationDto> list =
                 partnerReservationService.getReservationTimeTable(partnerEmail, date);
@@ -51,7 +53,8 @@ public class PartnerReservationController {
             @PathVariable String partnerEmail, @PathVariable Long reservationId
     ) {
 
-        authVerifyUtil.verifyUser(partnerEmail);
+        // 올바른 고객의 접근인지 검증
+        authVerityUtil.verifyUser(partnerEmail);
 
         ReservationDto reservationDto =
                 partnerReservationService.confirmReservation(partnerEmail, reservationId);
@@ -70,7 +73,8 @@ public class PartnerReservationController {
             @PathVariable String partnerEmail, @PathVariable Long reservationId
     ) {
 
-        authVerifyUtil.verifyUser(partnerEmail);
+        // 올바른 고객의 접근인지 검증
+        authVerityUtil.verifyUser(partnerEmail);
 
         ReservationDto reservationDto =
                 partnerReservationService.declineReservation(partnerEmail, reservationId);

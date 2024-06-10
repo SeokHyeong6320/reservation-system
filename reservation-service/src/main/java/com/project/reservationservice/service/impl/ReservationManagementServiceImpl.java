@@ -15,6 +15,7 @@ import java.util.List;
 
 import static com.project.common.exception.ErrorCode.*;
 import static com.project.domain.type.ReservationApproveStatus.APPROVE;
+import static com.project.domain.type.ReservationApproveStatus.DECLINE;
 
 
 @Service
@@ -24,14 +25,19 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
 
     private final ReservationRepository reservationRepository;
 
+    /**
+     * 예약 타임테이블 조회
+     */
     @Transactional(readOnly = true)
     @Override
     public List<ReservationDto> getReservationTimeTable(User partner, LocalDate date) {
 
+        // date에서 년, 월, 일 가져옴
         int year = date.getYear();
         int month = date.getMonthValue();
         int day = date.getDayOfMonth();
 
+        // 해당 일자의 예약들 조회
         return reservationRepository.findAllByTime(partner, year, month, day)
                 .stream()
                 .map(ReservationDto::fromEntity)
@@ -44,9 +50,7 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
     @Override
     public ReservationDto confirmReservation(Long userId, Long reservationId) {
 
-        Reservation findReservation =
-                reservationRepository.findById(reservationId)
-                        .orElseThrow(() -> new CustomException(RESERVATION_NOT_FOUND));
+        Reservation findReservation = findReservationById(reservationId);
 
         // 예약한 식당의 소유자가 일치하는지 확인
         checkStoreOwner(userId, reservationId);
@@ -68,9 +72,7 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
      */
     @Override
     public ReservationDto declineReservation(Long userId, Long reservationId) {
-        Reservation findReservation =
-                reservationRepository.findById(reservationId)
-                        .orElseThrow(() -> new CustomException(RESERVATION_NOT_FOUND));
+        Reservation findReservation = findReservationById(reservationId);
 
         // 예약한 식당의 소유자가 일치하는지 확인
         checkStoreOwner(userId, reservationId);
@@ -92,6 +94,11 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
 
 
 
+    private Reservation findReservationById(Long reservationId) {
+        return reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new CustomException(RESERVATION_NOT_FOUND));
+    }
+
     private void checkAvailableEntryTime(Reservation findReservation) {
         if(!findReservation.availVisit()) {
             throw new CustomException(RESERVATION_ALREADY_EXPIRED);
@@ -105,7 +112,7 @@ public class ReservationManagementServiceImpl implements ReservationManagementSe
     }
 
     private void checkDeclineStatus(Reservation findReservation) {
-        if (findReservation.getApproveStatus() == APPROVE) {
+        if (findReservation.getApproveStatus() == DECLINE) {
             throw new CustomException(RESERVATION_ALREADY_DECLINED);
         }
     }

@@ -51,20 +51,14 @@ public class KioskServiceImpl implements KioskService {
     @Override
     public VisitResponse visitStore(VisitForm form) {
 
-        CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
+        CircuitBreaker circuitbreaker =
+                circuitBreakerFactory.create("circuitbreaker");
 
         Kiosk findKiosk = kioskRepository.findById(form.getKioskId())
                 .orElseThrow(() -> new CustomException(KIOSK_NOT_FOUND));
 
-//        Reservation findReservation =
-//                reservationRepository.findById(form.getReservationId())
-//                .orElseThrow(() -> new CustomException(RESERVATION_NOT_FOUND));
-//
         // 올바른 요청인지 검증
         validateKioskAvail(findKiosk, form);
-//
-//        findReservation.visit();
-
 
         // openFeign 통해 reservation-service로 방문 요청 보내 처리
         // 올바르지 않은 방문일 경우 실패 response 반환
@@ -83,25 +77,5 @@ public class KioskServiceImpl implements KioskService {
         if (!Objects.equals(kiosk.getId(), form.getKioskId())) {
             throw new CustomException(VISIT_INVALID);
         }
-//        // 해당 고객이 예약한 예약인지 확인
-//        if (!reservation.getContactNumber().equals(form.getContact())) {
-//            throw new CustomException(RESERVATION_CUSTOMER_NOT_MATCH);
-//        }
-//        // 예약 인증 코드가 일치한지 확인
-//        if (!reservation.getCode().equals(form.getCode())) {
-//            throw new CustomException(RESERVATION_CODE_NOT_MATCH);
-//        }
-//        // 승인된 예약인지 확인
-//        if (reservation.getApproveStatus() != APPROVE) {
-//            throw new CustomException(RESERVATION_NOT_APPROVE);
-//        }
-//        // 입장 가능 시간인지 확인
-//        if (!reservation.availVisit()) {
-//            throw new CustomException(RESERVATION_ALREADY_EXPIRED);
-//        }
-//        // 이미 체크인한 예약인지 확인
-//        if (reservation.isVisitYn()) {
-//            throw new CustomException(RESERVATION_ALREADY_VISIT);
-//        }
     }
 }

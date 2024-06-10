@@ -27,9 +27,13 @@ public class PartnerReviewServiceImpl implements PartnerReviewService {
     @Override
     public void deleteReview(String partnerEmail, Long reviewId) {
 
-        User findUser = userRepository.findByEmail(partnerEmail)
-                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+        User findUser = findUserById(partnerEmail);
 
         reviewService.deleteReview(findUser, reviewId);
+    }
+
+    private User findUserById(String partnerEmail) {
+        return userRepository.findByEmail(partnerEmail)
+                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
     }
 }

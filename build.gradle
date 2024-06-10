@@ -117,7 +117,7 @@ project(":store-service") {
     }
 }
 
-project(":kiosk-service") {
+project(":kiosk") {
     dependencies {
         implementation project(":common")
         implementation project(":domain")

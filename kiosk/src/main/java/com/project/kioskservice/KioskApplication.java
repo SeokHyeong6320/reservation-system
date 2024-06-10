@@ -12,10 +12,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.project")
 @EnableFeignClients("com.project")
 @SpringBootApplication(scanBasePackages = "com.project")
-public class KioskServiceApplication {
+public class KioskApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KioskServiceApplication.class, args);
+        SpringApplication.run(KioskApplication.class, args);
     }
 
 }

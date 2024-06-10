@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: kiosk-service
+    name: kiosk
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver

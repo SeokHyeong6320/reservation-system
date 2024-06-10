@@ -28,6 +28,9 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
     private final StoreRepository storeRepository;
 
 
+    /**
+     * 상점 등록
+     */
     @Override
     public StoreDto addStore(String partnerEmail, StoreInfoForm form) {
 
@@ -42,12 +45,14 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
         return storeManagementService.addStore(findUser, form.toDomainForm());
     }
 
+    /**
+     * 상점 정보 수정
+     */
     @Override
     public StoreDto updateStore(String partnerEmail, Long storeId, StoreInfoForm form) {
 
         // 해당 상점이 없으면 에러 발생
-        Store findStore = storeRepository.findById(storeId)
-                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+        Store findStore = findStoreById(storeId);
 
         // 올바른 소유자의 상점인지 확인
         validateStoreOwner(partnerEmail, findStore);
@@ -55,17 +60,25 @@ public class PartnerStoreServiceImpl implements PartnerStoreService {
         return storeManagementService.updateStore(findStore, form.toDomainForm());
     }
 
+    /**
+     * 상점 삭제
+     */
     @Override
     public void deleteStore(String partnerEmail, Long storeId) {
 
-        Store findStore = storeRepository.findById(storeId)
-                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+        // 해당 상점이 없으면 에러 발생
+        Store findStore = findStoreById(storeId);
 
         // 올바른 소유자의 상점인지 확인
         validateStoreOwner(partnerEmail, findStore);
 
         storeManagementService.deleteStore(findStore);
 
+    }
+
+    private Store findStoreById(Long storeId) {
+        return storeRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
     }
 
 

@@ -29,7 +29,7 @@ public class PartnerServiceImpl implements PartnerService {
                 .findByEmail(partnerEmail).orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         // 이미 파트너인 경우 에러 발생
-        checkUserType(findUser);
+        checkIsPartner(findUser);
 
         // userType을 PARTNER로 변경
         findUser.enrollPartner();
@@ -38,7 +38,7 @@ public class PartnerServiceImpl implements PartnerService {
         return UserDto.fromEntity(findUser);
     }
 
-    private void checkUserType(User findUser) {
+    private void checkIsPartner(User findUser) {
         if (findUser.getUserType() == UserType.PARTNER) {
             throw new CustomException(PARTNER_ALREADY_ENROLLED);
         }

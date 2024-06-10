@@ -60,8 +60,8 @@ public class CustomerSearchController {
 
     /**
      *
-     * @param lat,lon  위도,경도
-     * @param pageable
+     * @param userLocation  유저의 위도, 경도
+     * @param pageable 페이지 정보
      * @return PageResponse 형태로 반환
      */
     @PermitAll

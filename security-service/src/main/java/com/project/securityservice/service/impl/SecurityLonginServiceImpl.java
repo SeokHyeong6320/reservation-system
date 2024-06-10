@@ -11,11 +11,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.project.common.exception.ErrorCode.*;
 import static com.project.domain.model.SignDomainForm.SignInForm;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class SecurityLonginServiceImpl implements SecurityLoginService {
 
@@ -26,9 +28,7 @@ public class SecurityLonginServiceImpl implements SecurityLoginService {
     public UserDto register(SignDomainForm.SignUpForm form) {
 
         // 회원가입 시 중복 이메일 존재 확인
-        if (userRepository.existsByEmail(form.getEmail())) {
-            throw new CustomException(EMAIL_ALREADY_EXIST);
-        }
+        checkDuplicateEmail(form);
 
         User registeredUser = User.register(form);
         String encryptedPwd = passwordEncoder.encode(form.getPassword());
@@ -45,25 +45,37 @@ public class SecurityLonginServiceImpl implements SecurityLoginService {
 
     @Override
     public UserDto logIn(SignInForm form) {
-        User findUser = userRepository
-                .findByEmail(form.getEmail())
-                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+        User findUser = getUserByEmail(form.getEmail());
 
         // passwordEncoder 통해서 password 검증
-        if (!passwordEncoder.matches(form.getPassword(), findUser.getPassword())) {
-            throw new CustomException(PASSWORD_NOT_MATCH);
-        }
-
-
+        checkPassword(form, findUser);
 
         return UserDto.fromEntity(findUser);
     }
 
     @Override
     public UserDetails loadByEmail(String email) {
-        User findUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+        User findUser = getUserByEmail(email);
 
+        // UserLoginModel로 변환해서 반환
         return UserLoginModel.fromEntity(findUser);
+    }
+
+
+    private User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+    }
+
+    private void checkPassword(SignInForm form, User findUser) {
+        if (!passwordEncoder.matches(form.getPassword(), findUser.getPassword())) {
+            throw new CustomException(PASSWORD_NOT_MATCH);
+        }
+    }
+
+    private void checkDuplicateEmail(SignDomainForm.SignUpForm form) {
+        if (userRepository.existsByEmail(form.getEmail())) {
+            throw new CustomException(EMAIL_ALREADY_EXIST);
+        }
     }
 }

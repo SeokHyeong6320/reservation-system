@@ -13,7 +13,7 @@ import static com.project.securityservice.constant.SecurityConst.TOKEN_PREFIX;
 
 
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class JwtTokenValidator implements TokenValidator {
 

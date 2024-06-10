@@ -23,8 +23,7 @@ public class KioskController {
     private final KioskService kioskService;
 
     /**
-     * kiosk 등록 엔드포인트 (상점 등록하면 openFeign에 의해 호출
-     *
+     * kiosk 등록 엔드포인트 (상점 등록하면 openFeign에 의해 호출됨)
      */
     @PostMapping("/add")
     public ResponseEntity<?> addKiosk(@RequestBody KioskAddDto kioskAddDto) {
@@ -33,6 +32,9 @@ public class KioskController {
     }
 
 
+    /**
+     * 고객 방문 엔드포인트
+     */
     @PostMapping("/visit")
     public ResponseEntity<?> visitStore(
             @RequestBody @Validated VisitForm form
