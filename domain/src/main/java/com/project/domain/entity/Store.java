@@ -25,10 +25,7 @@ public class Store extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User owner;
-//
-//    @Column(name = "owner_id")
-//    private Long ownerId;
-//
+
     @OneToMany(mappedBy = "store")
     private List<Reservation> reservations = new ArrayList<>();
 
@@ -40,9 +37,6 @@ public class Store extends BaseEntity {
 
     @Column(name = "store_star")
     private Double star;
-
-//    @OneToMany(mappedBy = "store")
-//    private List<Review> reviews = new ArrayList<>();   // 별점 계산 위한 필드
 
     @Embedded
     private Address address;        // 주소값은 임베디드 타입으로 정의
