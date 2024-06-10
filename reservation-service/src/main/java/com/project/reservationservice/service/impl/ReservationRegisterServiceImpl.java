@@ -11,7 +11,7 @@ import com.project.domain.repository.StoreRepository;
 import com.project.domain.repository.UserRepository;
 import com.project.reservationservice.service.ReservationRegisterService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

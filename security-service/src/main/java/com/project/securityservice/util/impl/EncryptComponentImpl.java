@@ -16,6 +16,9 @@ import java.util.Base64;
 import static com.project.common.exception.ErrorCode.*;
 
 
+/**
+ * 암호화, 복호화 위한 class
+ */
 @Component
 @RequiredArgsConstructor
 public class EncryptComponentImpl implements EncryptComponent {

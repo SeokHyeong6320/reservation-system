@@ -38,7 +38,7 @@ public class UserSignController {
 
         return ResponseEntity.status(CREATED).body(
                 SuccessResponse.of(
-                        // 보안상 이슈로 비밀번호 등을 제외한 필요한 값만 반환하기 위해 SignResponse 생성
+                        // 비밀번호 등을 제외한 필요한 값만 반환하기 위해 SignResponse 생성
                         SignResponse.SignUp.fromDto(userDto)
                 )
         );

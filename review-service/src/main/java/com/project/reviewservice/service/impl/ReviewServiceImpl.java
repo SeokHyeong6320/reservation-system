@@ -48,7 +48,6 @@ public class ReviewServiceImpl implements ReviewService {
         // 해당 예약건 리뷰 작성 표시
         reservation.writeReview();
 
-
         return ReviewDto.fromEntity(savedReview);
     }
 
@@ -58,11 +57,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public ReviewDto updateReview(User customer, Long reviewId, UpdateReviewForm form) {
 
-        Review findReview = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
-
-//        Store findStore = storeRepository.findById(findReview.getStoreId())
-//                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+        Review findReview = findReviewById(reviewId);
 
         // 리뷰 작성자인지 확인
         checkReviewWriter(customer.getId(), findReview);
@@ -82,11 +77,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void deleteReview(User user, Long reviewId) {
 
-        Review findReview = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
-
-//        Store findStore = storeRepository.findById(findReview.getStoreId())
-//                .orElseThrow(() -> new CustomException(STORE_NOT_FOUND));
+        Review findReview = findReviewById(reviewId);
 
         // 리뷰 삭제 가능한 유저인지 확인 (작성자, 상점 주인)
         checkDeleteAuthority(user, findReview);
@@ -111,9 +102,12 @@ public class ReviewServiceImpl implements ReviewService {
      */
     private void checkDeleteAuthority(User user, Review findReview) {
 
+        // 고객일 경우 리뷰 작성자여야 함
         if (user.getUserType() == UserType.CUSTOMER) {
             checkReviewWriter(user.getId(), findReview);
+
         } else {
+            // 파트너일 경우 리뷰 작성된 상점 주인이여야 함
             checkStoreOwner(user.getId(), findReview.getStore());
         }
 
@@ -135,5 +129,10 @@ public class ReviewServiceImpl implements ReviewService {
         if (!Objects.equals(id, findReview.getCustomer().getId())) {
             throw new CustomException(REVIEW_CUSTOMER_NOT_MATCH);
         }
+    }
+
+    private Review findReviewById(Long reviewId) {
+        return reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new CustomException(REVIEW_NOT_FOUND));
     }
 }

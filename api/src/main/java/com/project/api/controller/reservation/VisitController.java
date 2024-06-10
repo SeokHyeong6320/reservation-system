@@ -16,8 +16,11 @@ public class VisitController {
 
     private final ReservationVisitService reservationVisitService;
 
+    /**
+     * 키오스크에서 고객 방문 요청 받아 처리하는 엔드포인트
+     */
     @PostMapping("/reservation/visit")
-    public ResponseEntity<?> visitReservation(@RequestBody VisitDomainForm form) {
+    public ResponseEntity<VisitResponse> visitReservation(@RequestBody VisitDomainForm form) {
 
         VisitDto visitDto = reservationVisitService.visit(form);
 

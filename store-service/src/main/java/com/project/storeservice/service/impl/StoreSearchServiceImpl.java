@@ -66,6 +66,7 @@ public class StoreSearchServiceImpl implements StoreSearchService {
     }
 
 
+    // 페이지 적용
     private PageRequest getPageRequest(Pageable pageable, Sort sort) {
         return PageRequest.of(
                 pageable.getPageNumber(), pageable.getPageSize(), sort

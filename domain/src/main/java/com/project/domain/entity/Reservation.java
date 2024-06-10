@@ -26,23 +26,10 @@ public class Reservation extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User customer;
-//
-//    @Column(name = "customer_id")
-//    private Long customerId;
-//
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
-
-//    @Column(name = "customer_email")
-//    private String customerEmail;
-
-
-//    @Column(name = "store_id")
-//    private Long storeId;
-
-//    @Column(name = "stoer_name")
-//    private String storeName;
 
     @Column(name = "reserv_contact")
     private String contactNumber;
@@ -74,8 +61,6 @@ public class Reservation extends BaseEntity {
 
         return Reservation.builder()
                 .customer(customer)
-//                .customer(customer)
-//                .storeId(initReservationDto.getStoreId())
                 .store(store)
                 .contactNumber(initReservationDto.getContact())
                 .reserveDt(initReservationDto.getReserveDt())

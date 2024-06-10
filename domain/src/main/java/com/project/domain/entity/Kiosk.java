@@ -17,8 +17,6 @@ public class Kiosk extends BaseEntity {
     @Column(name = "kiosk_id")
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "store_id")
     @Column(name = "store_id")
     private Long storeId;
 }

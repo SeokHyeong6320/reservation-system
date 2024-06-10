@@ -26,6 +26,7 @@ public class LoginApplication {
 
         UserDto userDto = securityLoginService.logIn(form);
 
+        // jwt token 생성
         String jwtToken = tokenProvider.generateToken(
                 userDto.getId(), userDto.getEmail(),
                 new ArrayList<>(List.of(userDto.getUserType().name()))

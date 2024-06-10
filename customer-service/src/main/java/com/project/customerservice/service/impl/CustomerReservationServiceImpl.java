@@ -53,6 +53,7 @@ public class CustomerReservationServiceImpl implements CustomerReservationServic
             throw new CustomException(RESERVATION_DATE_INVALID);
         }
 
+        // 예약 내역 정보 담은 DTO 생성
         InitReservationDto initReservationDto = InitReservationDto.builder()
                 .customerId(findUser.getId())
                 .storeId(findStore.getId())

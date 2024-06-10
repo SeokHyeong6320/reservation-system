@@ -3,7 +3,7 @@ package com.project.api.controller.partner;
 import com.project.domain.dto.UserDto;
 import com.project.domain.response.PartnerResponse;
 import com.project.partnerservice.service.PartnerService;
-import com.project.securityservice.util.impl.AuthVerifyUtil;
+import com.project.securityservice.util.AuthVerityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PartnerController {
 
     private final PartnerService partnerService;
-    private final AuthVerifyUtil authVerifyUtil;
+    private final AuthVerityUtil authVerityUtil;
 
     /**
      * 파트너 가입 엔드포인트
@@ -30,7 +30,8 @@ public class PartnerController {
             @PathVariable String partnerEmail
     ) {
 
-        authVerifyUtil.verifyUser(partnerEmail);
+        // 올바른 고객의 접근인지 검증
+        authVerityUtil.verifyUser(partnerEmail);
 
         UserDto userDto = partnerService.enrollPartner(partnerEmail);
 

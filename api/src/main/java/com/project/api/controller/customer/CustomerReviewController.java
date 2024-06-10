@@ -4,9 +4,8 @@ import com.project.common.model.SuccessResponse;
 import com.project.customerservice.service.CustomerReviewService;
 import com.project.domain.dto.ReviewDto;
 import com.project.domain.response.ReviewResponse;
-import com.project.securityservice.util.impl.AuthVerifyUtil;
+import com.project.securityservice.util.AuthVerityUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,7 @@ import static org.springframework.http.HttpStatus.*;
 public class CustomerReviewController {
 
     private final CustomerReviewService reviewService;
-    private final AuthVerifyUtil authVerifyUtil;
+    private final AuthVerityUtil authVerityUtil;
 
     /**
      * 리뷰 작성 엔드포인트
@@ -33,7 +32,8 @@ public class CustomerReviewController {
             @RequestBody @Validated CreateReviewForm form
             ) {
 
-        authVerifyUtil.verifyUser(customerEmail);
+        // 올바른 고객의 접근인지 검증
+        authVerityUtil.verifyUser(customerEmail);
 
         ReviewDto reviewDto = reviewService.createReview(customerEmail, form);
 
@@ -53,7 +53,8 @@ public class CustomerReviewController {
             @RequestBody @Validated UpdateReviewForm form
     ) {
 
-        authVerifyUtil.verifyUser(customerEmail);
+        // 올바른 고객의 접근인지 검증
+        authVerityUtil.verifyUser(customerEmail);
 
         ReviewDto reviewDto = reviewService.updateReview(customerEmail, reviewId, form);
 
@@ -71,7 +72,8 @@ public class CustomerReviewController {
             @PathVariable Long reviewId
     ) {
 
-        authVerifyUtil.verifyUser(customerEmail);
+        // 올바른 고객의 접근인지 검증
+        authVerityUtil.verifyUser(customerEmail);
 
         reviewService.deleteReview(customerEmail, reviewId);
 

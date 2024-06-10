@@ -4,6 +4,7 @@ import com.project.common.model.ErrorResponse;
 import com.project.common.util.ErrorCodeUtil;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.bind.BindException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,8 +26,6 @@ public class ExceptionHandlerAdvice {
                 .body(ErrorResponse.of(e));
     }
 
-
-
     // Validator 관련 exception 핸들러
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationException
@@ -43,12 +42,10 @@ public class ExceptionHandlerAdvice {
 
         ErrorCode errorCode = errorCodeUtil.findFromFeignException(e);
         CustomException customException = new CustomException(errorCode);
-        e.printStackTrace();
         return ResponseEntity
                 .status(customException.getErrorCode().getStatus())
                 .body(ErrorResponse.of(customException));
     }
-
 
     // 그 외 exception 핸들러
     @ExceptionHandler(Exception.class)

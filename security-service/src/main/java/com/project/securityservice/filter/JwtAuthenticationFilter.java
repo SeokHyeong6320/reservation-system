@@ -31,13 +31,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
+        // jwt token 생성
         String jwtToken = getToken(request);
 
         if(StringUtils.hasText(jwtToken) && tokenProvider.validateToken(jwtToken)) {
 
+            // jwt token에서 authentication 생성
             Authentication authentication =
                     tokenProvider.getAuthentication(jwtToken);
 
+            // security context에 저장
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
